@@ -1,0 +1,19 @@
+---
+name: CI
+
+"on": [push]
+
+jobs:
+  vint:
+    name: Vint
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-python@v2.2.2
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade vim-vint
+      - name: vint
+        run: |
+          vint -c -s -t --enable-neovim $(git ls-files -- '**/*.vim')
