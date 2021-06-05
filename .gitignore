@@ -1,7 +1,7 @@
-autoload/
-plugged/
-view/
-undodir/
+autoload/*
+plugged/*
+view/*
+undodir/*
 
 !plugged/.gitkeep
 !autoload/.gitkeep
