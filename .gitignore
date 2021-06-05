@@ -5,5 +5,5 @@ undodir/
 
 !plugged/.gitkeep
 !autoload/.gitkeep
+
 !autoload/plug.vim
-!autoload/vim-plug
