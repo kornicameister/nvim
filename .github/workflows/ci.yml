@@ -16,4 +16,4 @@ jobs:
           pip install --upgrade vim-vint
       - name: vint
         run: |
-          vint -c -s -t --enable-neovim $(git ls-files -- '**/*.vim')
+          vint -c -s -t --enable-neovim $(git ls-files -- '**/*.vim' | grep -v plug.vim)
