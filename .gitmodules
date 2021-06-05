@@ -1,0 +1,5 @@
+[submodule "autoload/vim-plug"]
+	path = autoload/vim-plug
+	url = https://github.com/junegunn/vim-plug.git
+    shallow = true
+    branch = master
