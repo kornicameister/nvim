@@ -1,0 +1,9 @@
+autoload/
+plugged/
+view/
+undodir/
+
+!plugged/.gitkeep
+!autoload/.gitkeep
+!autoload/plug.vim
+!autoload/vim-plug
