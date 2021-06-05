@@ -1,3 +1,9 @@
+scriptencoding utf-8
+
+if ! has('nvim')
+  echoerr 'only neovim can handle kornicameister dotfiles'
+endif
+
 if isdirectory($PYENV_ROOT.'/versions/neovim2')
   let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
 endif
@@ -5,9 +11,10 @@ if isdirectory($PYENV_ROOT.'/versions/neovim3')
   let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
 endif
 
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath= &runtimepath
-source ~/.vimrc
+source ~/.config/nvim/plugins.vim
+source ~/.config/nvim/editor.vim
+source ~/.config/nvim/filetype.vim
+source ~/.config/nvim/session.vim
 
 " workaround some broken plugins which set guicursor indiscriminately.
 set guicursor=
@@ -38,3 +45,16 @@ set completeopt-=longest   " Don't insert the longest common text
 set completeopt-=preview   " Hide the documentation preview window
 set completeopt+=noinsert  " Don't insert text automatically
 set completeopt-=noselect  " Highlight the first completion automatically
+
+" basic setup
+set fileencoding=utf-8     " utf-8 forever
+set fileencodings=utf-8
+
+set fileformats=unix       " only UNIX
+
+set shell=/bin/zsh         " ZSH
+
+let mapleader = ','        " early leader swap
+let g:mapleader = ','
+let b:mapleader = ','
+

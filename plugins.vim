@@ -1,15 +1,5 @@
-scriptencoding utf-8
-
-" Copyright 2018-2020 @ kornicameister
-
 " define the plugins
-call plug#begin('~/.vim/plugged')
-
-" vim compatibility
-if !has('nvim')
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
+call plug#begin('~/.config/nvim/plugged')
 
 " theme
 Plug 'dylanaraps/wal.vim'
@@ -31,12 +21,7 @@ Plug 'dense-analysis/ale'
 Plug 'da-x/depree', { 'do': './rebuild.sh' }
 
 " deoplete
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim', { 'do': '!pip install --user --upgrade neovim' }
-endif
-
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-vim', { 'for': ['vim', 'viminfo'] }
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
@@ -72,11 +57,7 @@ Plug 'tmhedberg/SimpylFold', {'for': ['python']}
 Plug 'lambdalisue/vim-pyenv', {'for': ['python']}
 Plug 'vim-scripts/indentpython.vim', {'for': ['python']}
 Plug 'raimon49/requirements.txt.vim', {'for': ['requirements']}
-if has('nvim')
-    Plug 'kalekseev/vim-coverage.py', { 'do': ':UpdateRemotePlugins', 'for': ['python'] }
-else
-    Plug 'kalekseev/vim-coverage.py', { 'do': '!pip install --user --upgrade neovim', 'for': ['python']}
-endif
+Plug 'kalekseev/vim-coverage.py', { 'do': ':UpdateRemotePlugins', 'for': ['python'] }
 
 " go
 Plug 'arp242/gopher.vim', { 'for': ['go'] }
@@ -373,17 +354,13 @@ if has_key(g:plugs, 'ale')
     nmap <F3> <Plug>(ale_hover)
     nmap <F4> <Plug>(ale_go_to_definition_in_vsplit)
 
-    if has('nvim')
-      autocmd VimEnter *
-        \ set updatetime=1000 |
-        \ let g:ale_lint_on_text_changed = 0
-      autocmd CursorHold * call ale#Queue(0)
-      autocmd CursorHoldI * call ale#Queue(0)
-      autocmd InsertEnter * call ale#Queue(0)
-      autocmd InsertLeave * call ale#Queue(0)
-    else
-      echoerr 'only neovim can handle kornicameister dotfiles'
-    endif
+    autocmd VimEnter *
+      \ set updatetime=1000 |
+      \ let g:ale_lint_on_text_changed = 0
+    autocmd CursorHold * call ale#Queue(0)
+    autocmd CursorHoldI * call ale#Queue(0)
+    autocmd InsertEnter * call ale#Queue(0)
+    autocmd InsertLeave * call ale#Queue(0)
   augroup END
 endif
 

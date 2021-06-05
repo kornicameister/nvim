@@ -212,5 +212,4 @@ augroup colorscheme_customization
     endif
   endif
 
-
 augroup END
