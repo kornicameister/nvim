@@ -11,6 +11,16 @@ if isdirectory($PYENV_ROOT.'/versions/neovim3')
   let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
 endif
 
+set fileencoding=utf-8     " utf-8 forever
+set fileencodings=utf-8
+set fileformats=unix       " only UNIX
+
+set shell=/bin/zsh         " ZSH
+
+let mapleader = ','
+let g:mapleader = ','
+let b:mapleader = ','
+
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/editor.vim
 source ~/.config/nvim/filetype.vim
@@ -45,16 +55,3 @@ set completeopt-=longest   " Don't insert the longest common text
 set completeopt-=preview   " Hide the documentation preview window
 set completeopt+=noinsert  " Don't insert text automatically
 set completeopt-=noselect  " Highlight the first completion automatically
-
-" basic setup
-set fileencoding=utf-8     " utf-8 forever
-set fileencodings=utf-8
-
-set fileformats=unix       " only UNIX
-
-set shell=/bin/zsh         " ZSH
-
-let mapleader = ','        " early leader swap
-let g:mapleader = ','
-let b:mapleader = ','
-
