@@ -7,3 +7,5 @@ undodir/*
 !autoload/.gitkeep
 
 !autoload/plug.vim
+
+!undodir/.gitkeep

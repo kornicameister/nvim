@@ -5,7 +5,7 @@ scriptencoding utf-8
 
 " persistent undo, for making more 'u' operations
 if has('persistent_undo')
-  set undodir=~/.vim/undodir
+  set undodir=~/.config/nvim/undodir
   set undofile
   set undolevels=1000
   set undoreload=10000
