@@ -15,10 +15,20 @@ return require('packer').startup(function(use)
   use {
     'lukas-reineke/indent-blankline.nvim',
     branch = 'lua',
-    setup = [[require('config.indentline')]],
-    requires = {'Yggdroot/indentLine'}
+    setup = [[require('config.indentline')]]
   }
 
   -- UI
-  use 'dylanaraps/wal.vim'
+  use {
+      'dylanaraps/wal.vim',
+      'ryanoasis/vim-devicons',
+      'psliwka/vim-smoothie'
+  }
+
+  -- other
+  use {
+    'svermeulen/vimpeccable',
+    'wakatime/vim-wakatime'
+  }
+
 end)
