@@ -16,7 +16,14 @@ return require('packer').startup(function(use)
 
     -- git
     use {
-        'tpope/vim-fugitive', {
+        'tpope/vim-fugitive',
+        'octref/rootignore',
+        'tpope/vim-git',
+        {
+            'rhysd/committia.vim',
+            setup = [[require('config.committia')]]
+        },
+        {
             'airblade/vim-gitgutter',
             setup = [[require('config.gitgutter')]]
         }
