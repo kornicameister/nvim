@@ -72,10 +72,10 @@ return require('packer').startup(function(use)
         'tpope/vim-repeat',
         'svermeulen/vimpeccable',
         'wakatime/vim-wakatime',
-	{
+        {
            'famiu/nvim-reload',
-	    requires = { 'nvim-lua/plenary.nvim' }
-	},
+            requires = { 'nvim-lua/plenary.nvim' }
+        },
         {
             'iamcco/markdown-preview.nvim',
             run = 'cd app && yarn install',
