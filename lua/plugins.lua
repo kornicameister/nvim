@@ -74,6 +74,16 @@ return require('packer').startup(function(use)
         'svermeulen/vimpeccable',
         'wakatime/vim-wakatime',
         {
+          "folke/which-key.nvim",
+          config = function()
+            require("which-key").setup {
+              presets = {
+                g = true
+              }
+            }
+          end
+        },
+        {
            'famiu/nvim-reload',
             requires = { 'nvim-lua/plenary.nvim' }
         },
