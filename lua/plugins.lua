@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
         },
         'octref/rootignore',
         'tpope/vim-git',
+        'rhysd/git-messenger.vim',
         {
             'rhysd/committia.vim',
             setup = [[require('config.committia')]],
