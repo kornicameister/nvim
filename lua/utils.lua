@@ -1,11 +1,6 @@
 local cmd = vim.cmd
 local o_s = vim.o
 
-local function opt(o, v, scopes)
-  scopes = scopes or {o_s}
-  for _, s in ipairs(scopes) do s[o] = v end
-end
-
 local function autocmd(group, cmds, clear)
   clear = clear == nil and false or clear
   if type(cmds) == 'string' then cmds = {cmds} end
@@ -15,4 +10,4 @@ local function autocmd(group, cmds, clear)
   cmd [[augroup END]]
 end
 
-return {opt = opt, autocmd = autocmd}
+return {autocmd = autocmd}
