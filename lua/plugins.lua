@@ -69,6 +69,7 @@ return require('packer').startup(function(use)
 
     -- other
     use {
+        'tpope/vim-repeat',
         'svermeulen/vimpeccable',
         'wakatime/vim-wakatime',
 	{
