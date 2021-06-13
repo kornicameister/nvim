@@ -58,6 +58,8 @@ opt.swapfile = false
 opt.backup = false
 opt.writebackup = false
 
+opt.spell = false
+
 cmd [[colorscheme wal]]
 opt.termguicolors = false
 opt.background = 'dark'
