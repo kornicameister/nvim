@@ -82,7 +82,7 @@ opt.spell = false
 vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
 
 opt.foldmethod = 'marker'
-opt.foldlevel = 0
+opt.foldlevel = 99
 vimp.nnoremap({'silent'}, '<Space>' , 'za')
 vimp.vnoremap({'silent'}, '<Space>' , 'za')
 
