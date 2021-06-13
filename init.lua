@@ -65,6 +65,7 @@ opt.modelines = 0       -- do not execute mode line
 opt.modeline = false    --
 opt.title = true        -- show title, why not
 
+opt.inccommand = 'split'
 opt.swapfile = false
 opt.backup = false
 opt.writebackup = false
