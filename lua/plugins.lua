@@ -45,6 +45,7 @@ return require('packer').startup(function(use)
             'ap/vim-css-color',
             ft = {'css', 'scss', 'sass', 'elm', 'typescript', 'vue'}
         },
+        'ConradIrwin/vim-bracketed-paste',
         'scrooloose/nerdcommenter',
         'tpope/vim-surround'
     }
@@ -61,7 +62,6 @@ return require('packer').startup(function(use)
                 g.rainbow_active = 1
             end
         },
-        'ConradIrwin/vim-bracketed-paste',
         {
             'vim-airline/vim-airline',
             setup = [[require('config.airline')]]
