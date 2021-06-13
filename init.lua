@@ -88,5 +88,11 @@ opt.termguicolors = false
 opt.background = 'dark'
 g.airline_theme = 'wal'
 
-vimp.nnoremap(';', ':')         --quicker access to command
+vimp.nnoremap(';', ':')                       -- quicker access to :cmd
 
+vimp.nnoremap({ 'silent' }, '<Tab>', [[ :bnext<CR> ]])       -- buffer navigations
+vimp.nnoremap({ 'silent' }, '<S-Tab>', [[ :bprevious<CR> ]])
+vimp.nnoremap({ 'silent' }, '<leader>q', [[ :bd<cr>gT ]])
+vimp.nnoremap({ 'silent' }, '<leader>Q', [[ :bufdo bd<CR> ]])
+vimp.nnoremap({ 'silent' }, '<leader>r', [[ :e<CR> ]])
+vimp.nnoremap({ 'silent' }, '<leader>R', [[ :e!<CR> ]])
