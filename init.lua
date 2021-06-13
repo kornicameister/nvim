@@ -58,7 +58,6 @@ opt.backup = false
 opt.writebackup = false
 
 opt.spell = false
-vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
 
 cmd [[colorscheme wal]]
 opt.termguicolors = false
@@ -80,3 +79,6 @@ vimp.nnoremap({'silent'}, '<c-left>', [[:vertical resize +2<cr>]])
 vimp.nnoremap({'silent'}, '<c-right>', [[:vertical resize -2<cr>]])
 vimp.nnoremap({'silent'}, '<c-up>', [[:resize +2<cr>]])
 vimp.nnoremap({'silent'}, '<c-down>', [[:resize -2<cr>]])
+
+-- toggle spelling
+vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
