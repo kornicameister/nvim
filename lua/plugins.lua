@@ -15,6 +15,26 @@ return require('packer').startup(function(use)
     -- self manage for packer
     use 'wbthomason/packer.nvim'
 
+    -- python
+    use {
+      {
+        'raimon49/requirements.txt.vim',
+        ft = {'requirements'}
+      },
+      {
+        'tmhedberg/SimpylFold',
+        ft = {'python'}
+      },
+      {
+        'vim-scripts/indentpython.vim',
+        ft = {'python'}
+      },
+      {
+        'lambdalisue/vim-pyenv',
+        ft = {'python'}
+      },
+    }
+
     -- git
     use {
         {
