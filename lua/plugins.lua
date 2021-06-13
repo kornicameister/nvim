@@ -66,6 +66,14 @@ return require('packer').startup(function(use)
             'vim-airline/vim-airline',
             setup = [[require('config.airline')]]
         },
+        {
+          'camspiers/lens.vim',
+          requires = { 'camspiers/animate.vim' },
+          setup = function()
+            local g = vim.g
+            g['lens#disabled_filetypes'] = {'fzf'}
+          end
+        }
     }
 
     -- other
