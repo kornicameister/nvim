@@ -106,6 +106,9 @@ opt.wildignore:append {
 opt.wildignore:append {'*/.aws-sam/*'}
 opt.wildignore:append {'*.pyc', '*.pyo', '*.egg'}
 
+opt.viewoptions:remove 'options'
+opt.viewoptions:append {'slash', 'unix'}
+
 cmd [[colorscheme wal]]
 opt.termguicolors = false
 opt.background = 'dark'

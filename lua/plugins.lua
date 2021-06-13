@@ -47,7 +47,8 @@ return require('packer').startup(function(use)
         },
         'ConradIrwin/vim-bracketed-paste',
         'scrooloose/nerdcommenter',
-        'tpope/vim-surround'
+        'tpope/vim-surround',
+        'zhimsel/vim-stay'
     }
 
     -- UI
