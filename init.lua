@@ -52,11 +52,10 @@ opt.ruler = true
 autocmd('numbertoogle', [[BufEnter,FocusGained,InsertLeave * set relativenumber]])
 autocmd('numbertoogle', [[BufLeave,FocusLost,InsertEnter   * set norelativenumber]])
 
-opt.errorbells = false
-opt.visualbell = false
-opt.modelines = 0
-opt.modeline = false
-opt.title = true
+opt.belloff = 'all'     -- turn the bell off!
+opt.modelines = 0       -- do not execute mode line
+opt.modeline = false    --
+opt.title = true        -- show title, why not
 
 opt.swapfile = false
 opt.backup = false
