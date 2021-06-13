@@ -95,6 +95,17 @@ vimp.nnoremap({ 'silent' }, '<leader>Q', [[ :bufdo bd<CR> ]])
 vimp.nnoremap({ 'silent' }, '<leader>r', [[ :e<CR> ]])
 vimp.nnoremap({ 'silent' }, '<leader>R', [[ :e!<CR> ]])
 
+opt.wildmode = {'longest:full', 'full'}
+opt.wildmenu = true
+opt.wildignore:append {'/tmp/**'}
+opt.wildignore:append {'*.ppt','*.pptx','*.doc','*.docx','*.xlt','*.xls','*.xlsx','*.odt','*.wps'}
+opt.wildignore:append {
+  '*/.git/**',
+  '*.BACKUP.*','*.BASE.*','*.LOCAL.*','*.REMOTE.*'
+}
+opt.wildignore:append {'*/.aws-sam/*'}
+opt.wildignore:append {'*.pyc', '*.pyo', '*.egg'}
+
 cmd [[colorscheme wal]]
 opt.termguicolors = false
 opt.background = 'dark'
