@@ -26,6 +26,14 @@ opt.hidden = true                             -- keep buffers around, hide them 
 
 opt.splitbelow = true
 opt.splitright = true
+vimp.nnoremap('<c-h>', '<c-w>h')
+vimp.nnoremap('<c-j>', '<c-w>j')
+vimp.nnoremap('<c-k>', '<c-w>k')
+vimp.nnoremap('<c-l>', '<c-w>l')
+vimp.nnoremap({'silent'}, '<c-left>', [[:vertical resize +2<cr>]])
+vimp.nnoremap({'silent'}, '<c-right>', [[:vertical resize -2<cr>]])
+vimp.nnoremap({'silent'}, '<c-up>', [[:resize +2<cr>]])
+vimp.nnoremap({'silent'}, '<c-down>', [[:resize -2<cr>]])
 
 opt.smartindent = true
 opt.autoindent = true
@@ -62,27 +70,17 @@ opt.backup = false
 opt.writebackup = false
 
 opt.spell = false
+vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
+
+opt.foldmethod = 'marker'
+opt.foldlevel = 0
+vimp.nnoremap({'silent'}, '<Space>' , 'za')
+vimp.vnoremap({'silent'}, '<Space>' , 'za')
 
 cmd [[colorscheme wal]]
 opt.termguicolors = false
 opt.background = 'dark'
 g.airline_theme = 'wal'
 
---- keybindings ---
-local silent = {silent = true}
+vimp.nnoremap(';', ':')         --quicker access to command
 
-vimp.nnoremap(';', ':') --quicker access to command
-
--- window movement
-vimp.nnoremap('<c-h>', '<c-w>h')
-vimp.nnoremap('<c-j>', '<c-w>j')
-vimp.nnoremap('<c-k>', '<c-w>k')
-vimp.nnoremap('<c-l>', '<c-w>l')
--- window resize
-vimp.nnoremap({'silent'}, '<c-left>', [[:vertical resize +2<cr>]])
-vimp.nnoremap({'silent'}, '<c-right>', [[:vertical resize -2<cr>]])
-vimp.nnoremap({'silent'}, '<c-up>', [[:resize +2<cr>]])
-vimp.nnoremap({'silent'}, '<c-down>', [[:resize -2<cr>]])
-
--- toggle spelling
-vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
