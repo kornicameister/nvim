@@ -69,6 +69,12 @@ opt.swapfile = false
 opt.backup = false
 opt.writebackup = false
 
+opt.history = 10000
+opt.undolevels = 10000
+opt.undoreload = 10000
+opt.undodir = fn.stdpath('config') .. '/undodir'
+opt.undofile = true
+
 opt.spell = false
 vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
 
