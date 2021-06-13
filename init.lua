@@ -75,6 +75,8 @@ opt.undoreload = 10000
 opt.undodir = fn.stdpath('config') .. '/undodir'
 opt.undofile = true
 
+opt.clipboard = 'unnamedplus'
+
 opt.spell = false
 vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
 
