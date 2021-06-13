@@ -14,7 +14,6 @@ local utils = require('utils')
 local vimp = require('vimp')
 
 local autocmd = utils.autocmd
-local nnoremap = vimp.nnoremap
 
 -- settings
 local buffer = {o, bo}
@@ -59,6 +58,7 @@ opt.backup = false
 opt.writebackup = false
 
 opt.spell = false
+vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
 
 cmd [[colorscheme wal]]
 opt.termguicolors = false
@@ -68,15 +68,15 @@ g.airline_theme = 'wal'
 --- keybindings ---
 local silent = {silent = true}
 
-nnoremap(';', ':') --quicker access to command
+vimp.nnoremap(';', ':') --quicker access to command
 
 -- window movement
-nnoremap('<c-h>', '<c-w>h')
-nnoremap('<c-j>', '<c-w>j')
-nnoremap('<c-k>', '<c-w>k')
-nnoremap('<c-l>', '<c-w>l')
+vimp.nnoremap('<c-h>', '<c-w>h')
+vimp.nnoremap('<c-j>', '<c-w>j')
+vimp.nnoremap('<c-k>', '<c-w>k')
+vimp.nnoremap('<c-l>', '<c-w>l')
 -- window resize
-nnoremap('<c-left>', [[:vertical resize +2<cr>]])
-nnoremap('<c-right>', [[:vertical resize -2<cr>]])
-nnoremap('<c-up>', [[:resize +2<cr>]])
-nnoremap('<c-down>', [[:resize -2<cr>]])
+vimp.nnoremap('<c-left>', [[:vertical resize +2<cr>]])
+vimp.nnoremap('<c-right>', [[:vertical resize -2<cr>]])
+vimp.nnoremap('<c-up>', [[:resize +2<cr>]])
+vimp.nnoremap('<c-down>', [[:resize -2<cr>]])
