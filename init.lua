@@ -22,6 +22,9 @@ local window = {o, wo}
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
 
+opt.splitbelow = true
+opt.splitright = true
+
 opt.smartindent = true
 opt.autoindent = true
 opt.copyindent = true
