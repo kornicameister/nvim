@@ -22,6 +22,8 @@ local window = {o, wo}
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
 
+opt.hidden = true                             -- keep buffers around, hide them but close them
+
 opt.splitbelow = true
 opt.splitright = true
 
