@@ -9,15 +9,6 @@ augroup git_ft_config
   au FileType gitcommit setlocal nospell
 augroup END
 
-augroup js_ft_settings
-  au!
-  au BufRead,BufNewFile *.js,*.jsx set et ai ts=4 sts=4 sw=4 tw=79
-  au BufRead,BufNewFile *.js,*.jsx match BadWhitespace /^\t\+/
-  au BufRead,BufNewFile *.js,*.jsx match BadWhitespace /\s\+$/
-  au         BufNewFile *.js,*.jsx set fileformat=unix
-  au BufRead,BufNewFile *.js,*.jsx let b:comment_leader = '//'
-augroup END
-
 augroup sh_ft_settings
   au!
   au BufNewFile,BufRead *.sh setlocal ai et ts=2 sw=2 sts=2
