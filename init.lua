@@ -95,19 +95,36 @@ vimp.nnoremap({ 'silent' }, '<leader>Q', [[ :bufdo bd<CR> ]])
 vimp.nnoremap({ 'silent' }, '<leader>r', [[ :e<CR> ]])
 vimp.nnoremap({ 'silent' }, '<leader>R', [[ :e!<CR> ]])
 
-opt.wildmode = {'longest:full', 'full'}
 opt.wildmenu = true
-opt.wildignore:append {'/tmp/**'}
-opt.wildignore:append {'*.ppt','*.pptx','*.doc','*.docx','*.xlt','*.xls','*.xlsx','*.odt','*.wps'}
-opt.wildignore:append {
-  '*/.git/**',
-  '*.BACKUP.*','*.BASE.*','*.LOCAL.*','*.REMOTE.*'
+opt.wildmode = { "longest:full", "full" }
+opt.wildoptions = "pum"
+opt.wildignore = {
+  -- general
+  "/tmp/**",
+  -- git
+  "*/.git/**",
+  -- windows
+  "*.ppt",
+  "*.pptx",
+  "*.doc",
+  "*.docx",
+  "*.xlt",
+  "*.xls",
+  "*.xlsx",
+  "*.odt",
+  "*.wps",
+  "*.dll",
+  "*.exe",
+  -- aws
+  "*/.aws-sam/*",
+  -- python
+  "*.pyc",
+  "*.pyo",
+  "*.egg",
+  -- web dev
+  "*/node_modules/*",
+  "*/elm-stuff/*",
 }
-opt.wildignore:append {'*/.aws-sam/*'}
-opt.wildignore:append {'*.pyc', '*.pyo', '*.egg'}
-
-opt.viewoptions:remove 'options'
-opt.viewoptions:append {'slash', 'unix'}
 
 cmd [[colorscheme wal]]
 opt.termguicolors = false
