@@ -26,7 +26,7 @@ g.python3_host_prog = env.PYENV_ROOT .. "/versions/neovim3/bin/python"
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
 
-opt.hidden = true                             -- keep buffers around, hide them but close them
+opt.shell = "/bin/zsh"
 
 opt.splitbelow = true
 opt.splitright = true
