@@ -82,31 +82,11 @@ return require("packer").startup(function(use)
         'zhimsel/vim-stay'
     }
 
-    -- UI
-    use {
-        'dylanaraps/wal.vim',
-        'ryanoasis/vim-devicons',
-        'psliwka/vim-smoothie',
-        {
-            'luochen1990/rainbow',
-            setup = function()
-                local g = vim.g
-                g.rainbow_active = 1
-            end
-        },
-        {
-            'vim-airline/vim-airline',
-            setup = [[require('config.airline')]]
-        },
-        {
-          'camspiers/lens.vim',
-          requires = { 'camspiers/animate.vim' },
-          setup = function()
-            local g = vim.g
-            g['lens#disabled_filetypes'] = {'fzf'}
-          end
-        }
-    }
+    {
+      "hoob3rt/lualine.nvim",
+      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      config = [[ require("config.lualine" ]],
+    },
 
     -- other
     use {
