@@ -61,8 +61,8 @@ vim.cmd [[ set whichwrap+=<,>,[,] ]]
 opt.number = true
 opt.relativenumber = true
 opt.ruler = true
-autocmd('numbertoogle', [[BufEnter,FocusGained,InsertLeave * set relativenumber]])
-autocmd('numbertoogle', [[BufLeave,FocusLost,InsertEnter   * set norelativenumber]])
+autocmd("numbertoogle", [[BufEnter,FocusGained,InsertLeave * set relativenumber]])
+autocmd("numbertoogle", [[BufLeave,FocusLost,InsertEnter   * set norelativenumber]])
 
 opt.belloff = 'all'     -- turn the bell off!
 opt.modelines = 0       -- do not execute mode line
