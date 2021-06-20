@@ -46,9 +46,10 @@ opt.autoindent = true
 opt.copyindent = true
 
 opt.list = true
-vim.cmd [[ set listchars-=nbsp:+ ]]
-vim.cmd [[ set listchars-=trail- ]]
-vim.cmd [[ set listchars+=trail:•,nbsp:~ ]]
+vim.cmd([[ set listchars-=nbsp:+ ]])
+vim.cmd([[ set listchars-=trail- ]])
+vim.cmd([[ set listchars+=trail:•,nbsp:~ ]])
+vim.cmd([[ highlight BadWhitespace ctermbg=red guibg=red ]])
 
 opt.tabstop = 2
 opt.softtabstop = 2
