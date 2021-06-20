@@ -28,6 +28,8 @@ g.maplocalleader = [[,]]
 
 opt.shell = "/bin/zsh"
 
+opt.hidden = true -- keep buffers around, hide them but close them
+
 opt.splitbelow = true
 opt.splitright = true
 vimp.nnoremap('<c-h>', '<c-w>h')
