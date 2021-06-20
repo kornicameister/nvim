@@ -47,7 +47,11 @@ return require("packer").startup(function(use)
     },
     "octref/rootignore",
     "tpope/vim-git",
-    "rhysd/git-messenger.vim",
+    {
+      "rhysd/git-messenger.vim",
+      cmd = "GitMessenger",
+      keys = "<leader>gm",
+    },
     {
       "rhysd/committia.vim",
       setup = [[require('config.committia')]],
