@@ -32,14 +32,14 @@ opt.hidden = true -- keep buffers around, hide them but close them
 
 opt.splitbelow = true
 opt.splitright = true
-vimp.nnoremap('<c-h>', '<c-w>h')
-vimp.nnoremap('<c-j>', '<c-w>j')
-vimp.nnoremap('<c-k>', '<c-w>k')
-vimp.nnoremap('<c-l>', '<c-w>l')
-vimp.nnoremap({'silent'}, '<c-left>', [[:vertical resize +2<cr>]])
-vimp.nnoremap({'silent'}, '<c-right>', [[:vertical resize -2<cr>]])
-vimp.nnoremap({'silent'}, '<c-up>', [[:resize +2<cr>]])
-vimp.nnoremap({'silent'}, '<c-down>', [[:resize -2<cr>]])
+vimp.nnoremap("<c-h>", "<c-w>h")
+vimp.nnoremap("<c-j>", "<c-w>j")
+vimp.nnoremap("<c-k>", "<c-w>k")
+vimp.nnoremap("<c-l>", "<c-w>l")
+vimp.nnoremap({ "silent" }, "<c-left>", [[:vertical resize +2<cr>]])
+vimp.nnoremap({ "silent" }, "<c-right>", [[:vertical resize -2<cr>]])
+vimp.nnoremap({ "silent" }, "<c-up>", [[:resize +2<cr>]])
+vimp.nnoremap({ "silent" }, "<c-down>", [[:resize -2<cr>]])
 
 opt.smartindent = true
 opt.autoindent = true
