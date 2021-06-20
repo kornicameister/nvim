@@ -39,24 +39,27 @@ return require("packer").startup(function(use)
       },
     }
 
-    -- git
-    use {
-        {
-            'tpope/vim-fugitive',
-            cmd = {'Git', 'Gcommit', 'Gstatus', 'Gblame', 'Gpush', 'Gpull'}
-        },
-        'octref/rootignore',
-        'tpope/vim-git',
-        'rhysd/git-messenger.vim',
-        {
-            'rhysd/committia.vim',
-            setup = [[require('config.committia')]],
-        },
-        {
-            'airblade/vim-gitgutter',
-            setup = [[require('config.gitgutter')]]
-        }
-    }
+  -- git
+  use({
+    {
+      "tpope/vim-fugitive",
+      cmd = { "Git", "Gcommit", "Gstatus", "Gblame", "Gpush", "Gpull" },
+    },
+    "octref/rootignore",
+    "tpope/vim-git",
+    "rhysd/git-messenger.vim",
+    {
+      "rhysd/committia.vim",
+      setup = [[require('config.committia')]],
+    },
+    {
+      "lewis6991/gitsigns.nvim",
+      config = [[require('config.gitsigns')]],
+      requires = {
+        "nvim-lua/plenary.nvim",
+      },
+    },
+  })
 
     -- editor enhanced
     use {
