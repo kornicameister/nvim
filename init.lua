@@ -10,9 +10,9 @@ local env = vim.env --access to env
 local opt = vim.opt -- to set options
 local o, wo, bo = vim.o, vim.wo, vim.bo
 
-local plugins = require('plugins')
-local utils = require('utils')
-local vimp = require('vimp')
+local plugins = require("plugins")
+local utils = require("utils")
+local vimp = require("vimp")
 
 local autocmd = utils.autocmd
 
