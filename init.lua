@@ -67,10 +67,10 @@ opt.ruler = true
 autocmd("numbertoogle", [[BufEnter,FocusGained,InsertLeave * set relativenumber]])
 autocmd("numbertoogle", [[BufLeave,FocusLost,InsertEnter   * set norelativenumber]])
 
-opt.belloff = 'all'     -- turn the bell off!
-opt.modelines = 0       -- do not execute mode line
-opt.modeline = false    --
-opt.title = true        -- show title, why not
+opt.belloff = "all" -- turn the bell off!
+opt.modelines = 0 -- do not execute mode line
+opt.modeline = false --
+opt.title = true -- show title, why not
 
 opt.inccommand = "split"
 opt.swapfile = false
@@ -82,6 +82,9 @@ opt.undolevels = 10000
 opt.undoreload = 10000
 opt.undodir = fn.stdpath("config") .. "/undodir"
 opt.undofile = true
+opt.autoread = true
+opt.autowrite = true
+autocmd("autosave", [[FocusLost * :wa]])
 
 opt.clipboard = "unnamedplus"
 
