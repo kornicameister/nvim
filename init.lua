@@ -6,6 +6,7 @@
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g -- a table to access global variables
+local env = vim.env --access to env
 local opt = vim.opt -- to set options
 local o, wo, bo = vim.o, vim.wo, vim.bo
 
@@ -16,8 +17,11 @@ local vimp = require('vimp')
 local autocmd = utils.autocmd
 
 -- settings
-local buffer = {o, bo}
-local window = {o, wo}
+local buffer = { o, bo }
+local window = { o, wo }
+
+g.python2_host_prog = env.PYENV_ROOT .. "/versions/neovim2/bin/python"
+g.python3_host_prog = env.PYENV_ROOT .. "/versions/neovim3/bin/python"
 
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
