@@ -121,6 +121,8 @@ opt.wildignore = {
   "*.pyc",
   "*.pyo",
   "*.egg",
+  "__pycache__",
+  "*/.venv/*",
   -- web dev
   "*/node_modules/*",
   "*/elm-stuff/*",
