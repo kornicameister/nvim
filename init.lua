@@ -72,7 +72,7 @@ opt.modelines = 0       -- do not execute mode line
 opt.modeline = false    --
 opt.title = true        -- show title, why not
 
-opt.inccommand = 'split'
+opt.inccommand = "split"
 opt.swapfile = false
 opt.backup = false
 opt.writebackup = false
@@ -80,18 +80,20 @@ opt.writebackup = false
 opt.history = 10000
 opt.undolevels = 10000
 opt.undoreload = 10000
-opt.undodir = fn.stdpath('config') .. '/undodir'
+opt.undodir = fn.stdpath("config") .. "/undodir"
 opt.undofile = true
 
-opt.clipboard = 'unnamedplus'
+opt.clipboard = "unnamedplus"
 
 opt.spell = false
-vimp.nmap({'silent', 'buffer'}, '<leader>ss', [[:setlocal spell!<cr>]])
+vimp.nmap({ "silent", "buffer" }, "<leader>ss", [[:setlocal spell!<cr>]])
 
-opt.foldmethod = 'marker'
+opt.foldmethod = "marker"
 opt.foldlevel = 99
-vimp.nnoremap({'silent'}, '<Space>' , 'za')
-vimp.vnoremap({'silent'}, '<Space>' , 'za')
+vimp.nnoremap({ "silent" }, "<Space>", "za")
+vimp.vnoremap({ "silent" }, "<Space>", "za")
+
+vimp.nnoremap(";", ":") -- quicker access to :cmd
 
 vimp.nnoremap(';', ':')                       -- quicker access to :cmd
 
