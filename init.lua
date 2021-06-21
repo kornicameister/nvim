@@ -59,7 +59,7 @@ opt.smarttab = true
 
 opt.wrap = false
 opt.wrapscan = true
-vim.cmd [[ set whichwrap+=<,>,[,] ]]
+vim.cmd([[ set whichwrap+=<,>,[,] ]])
 
 opt.number = true
 opt.relativenumber = true
