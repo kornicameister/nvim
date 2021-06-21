@@ -145,7 +145,5 @@ opt.wildignore = {
   "*/elm-stuff/*",
 }
 
-cmd [[colorscheme wal]]
-opt.termguicolors = false
-opt.background = 'dark'
-g.airline_theme = 'wal'
+opt.viewoptions:remove("options")
+opt.viewoptions:append({ "slash", "unix" })
