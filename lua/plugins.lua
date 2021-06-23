@@ -19,25 +19,79 @@ return require("packer").startup(function(use)
   -- self manage for packer
   use("wbthomason/packer.nvim")
 
-    -- python
-    use {
-      {
-        'raimon49/requirements.txt.vim',
-        ft = {'requirements'}
+  -- LSP and shit
+  use({
+    {
+      "nvim-treesitter/nvim-treesitter",
+      run = ":TSUpdate",
+      config = [[ require('config.treesitter') ]],
+      requires = {
+        { "p00f/nvim-ts-rainbow" },
       },
-      {
-        'tmhedberg/SimpylFold',
-        ft = {'python'}
-      },
-      {
-        'vim-scripts/indentpython.vim',
-        ft = {'python'}
-      },
-      {
-        'lambdalisue/vim-pyenv',
-        ft = {'python'}
-      },
-    }
+    },
+    "liuchengxu/vista.vim",
+    "nvim-lua/lsp-status.nvim",
+    "onsails/lspkind-nvim",
+    {
+      "neovim/nvim-lspconfig",
+      config = [[ require('config.lsp') ]],
+    },
+    {
+      "kabouzeid/nvim-lspinstall",
+      config = function()
+        require("lspinstall").setup()
+      end,
+    },
+    {
+      "ojroques/nvim-lspfuzzy",
+      config = function()
+        require("lspfuzzy").setup({
+          methods = "all",
+          fzf_action = {
+            ["ctrl-v"] = "vsplit",
+            ["ctrl-x"] = "split",
+          },
+        })
+      end,
+    },
+    {
+      "folke/trouble.nvim",
+      requires = { "kyazdani42/nvim-web-devicons" },
+      config = [[ require("plugins.trouble") ]],
+    },
+  })
+
+  -- completion
+  use({
+    "hrsh7th/nvim-compe",
+    config = [[ require('config.completion') ]],
+  })
+
+  -- snippets
+  use({
+    "hrsh7th/vim-vsnip",
+    "hrsh7th/vim-vsnip-integ",
+  })
+
+  -- python
+  use({
+    {
+      "raimon49/requirements.txt.vim",
+      ft = { "requirements" },
+    },
+    {
+      "tmhedberg/SimpylFold",
+      ft = { "python" },
+    },
+    {
+      "vim-scripts/indentpython.vim",
+      ft = { "python" },
+    },
+    {
+      "lambdalisue/vim-pyenv",
+      ft = { "python" },
+    },
+  })
 
   -- git
   use({
@@ -65,53 +119,107 @@ return require("packer").startup(function(use)
     },
   })
 
-    -- editor enhanced
-    use {
-        {
-            'lukas-reineke/indent-blankline.nvim',
-            branch = 'lua',
-            setup = [[require('config.indentline')]]
-        },
-        {
-            'ap/vim-css-color',
-            ft = {'css', 'scss', 'sass', 'elm', 'typescript', 'vue'}
-        },
-        'ConradIrwin/vim-bracketed-paste',
-        'scrooloose/nerdcommenter',
-        'tpope/vim-surround',
-        'zhimsel/vim-stay'
-    }
+  -- editor enhanced
+  use({
+    {
+      "nvim-telescope/telescope.nvim",
+      config = function()
+        require("telescope").setup()
+      end,
+      requires = {
+        "nvim-lua/popup.nvim",
+        "nvim-lua/plenary.nvim",
+      },
+    },
+    {
+      "lukas-reineke/indent-blankline.nvim",
+      branch = "lua",
+      setup = [[require('config.indentline')]],
+    },
+    {
+      "ap/vim-css-color",
+      ft = { "css", "scss", "sass", "elm", "typescript", "vue" },
+    },
+    "ConradIrwin/vim-bracketed-paste",
+    "scrooloose/nerdcommenter",
+    "tpope/vim-surround",
+    "andymass/vim-matchup",
+    "google/vim-searchindex",
+    "triglav/vim-visual-increment",
+    {
+      "monaqa/dial.nvim",
+      config = [[require("plugins.dial")]],
+    },
+    {
+      "zhimsel/vim-stay",
+      setup = [[require("config.matchup")]],
+    },
+    {
+      "junegunn/fzf",
+      run = "./install --all",
+      config = [[require("config.fzf")]],
+      requires = { "junegunn/fzf.vim" },
+    },
+  })
 
+  -- UI
+  use({
+    {
+      "marko-cerovac/material.nvim",
+      config = [[ require('config.colorscheme') ]],
+    },
+    {
+      "akinsho/nvim-bufferline.lua",
+      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      config = function()
+        require("bufferline").setup({
+          options = {
+            modified_icon = "✥",
+            buffer_close_icon = "",
+            numbers = "buffer_id",
+            diagnostics = "nvim_lsp",
+            show_buffer_close_icons = false,
+          },
+        })
+      end,
+    },
     {
       "hoob3rt/lualine.nvim",
       requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = [[ require("config.lualine") ]],
     },
+    "ryanoasis/vim-devicons",
+    "psliwka/vim-smoothie",
+    "kosayoda/nvim-lightbulb",
+  })
 
-    -- other
-    use {
-        'tpope/vim-repeat',
-        'svermeulen/vimpeccable',
-        'wakatime/vim-wakatime',
-        {
-          "folke/which-key.nvim",
-          config = function()
-            require("which-key").setup {
-              presets = {
-                g = true
-              }
-            }
-          end
-        },
-        {
-           'famiu/nvim-reload',
-            requires = { 'nvim-lua/plenary.nvim' }
-        },
-        {
-            'iamcco/markdown-preview.nvim',
-            run = 'cd app && yarn install',
-            cmd = 'MarkdownPreview',
-        }
-    }
-
+  -- other
+  use({
+    "ludovicchabant/vim-gutentags",
+    "tpope/vim-repeat",
+    "svermeulen/vimpeccable",
+    "wakatime/vim-wakatime",
+    "lambdalisue/suda.vim",
+    {
+      "folke/which-key.nvim",
+      config = function()
+        require("which-key").setup({
+          presets = {
+            g = true,
+          },
+        })
+      end,
+    },
+    {
+      "antoinemadec/FixCursorHold.nvim",
+      config = function()
+        vim.g.curshold_updatime = 1000
+      end,
+    },
+    {
+      "iamcco/markdown-preview.nvim",
+      run = "cd app && yarn install",
+      cmd = "MarkdownPreview",
+    },
+  })
 end)

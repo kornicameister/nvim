@@ -59,6 +59,12 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.smarttab = true
 
+opt.breakindent = true
+opt.breakindentopt = "shift:2"
+opt.showbreak = "↳"
+
+opt.joinspaces = true
+
 opt.wrap = false
 opt.wrapscan = true
 vim.cmd([[ set whichwrap+=<,>,[,] ]])
@@ -74,7 +80,7 @@ opt.modelines = 0 -- do not execute mode line
 opt.modeline = false --
 opt.title = true -- show title, why not
 
-opt.inccommand = "split"
+opt.inccommand = "split" -- incremental live completion
 opt.swapfile = false
 opt.backup = false
 opt.writebackup = false
@@ -87,6 +93,9 @@ opt.undofile = true
 opt.autoread = true
 opt.autowrite = true
 autocmd("autosave", [[FocusLost * :wa]])
+
+opt.hlsearch = true -- highlight on search
+opt.incsearch = true
 
 opt.clipboard = "unnamedplus"
 
@@ -142,3 +151,46 @@ opt.wildignore = {
 
 opt.viewoptions:remove("options")
 opt.viewoptions:append({ "slash", "unix" })
+
+-- vertical help
+vim.api.nvim_exec(
+  [[
+  augroup help_vertical
+    au!
+    command! -nargs=* -complete=help Help vertical belowright help <args>
+    autocmd FileType help wincmd L
+  augroup end
+  ]],
+  false
+)
+
+-- ESC leaves terminal mode
+vim.api.nvim_exec(
+  [[
+  augroup Terminal
+    autocmd!
+    au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+    au TermOpen * set nonu
+  augroup end
+  ]],
+  false
+)
+
+-- Highlight on yank
+-- Y does yy till the end of the line
+vim.api.nvim_exec(
+  [[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup end
+  ]],
+  false
+)
+vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true})
+
+-- keep cursos in place when joining lines
+vim.api.nvim_set_keymap('n', 'J', "mzJ`z", { noremap = true})
+
+-- copy to cliboard in n,v,s,o modes
+vim.api.nvim_set_keymap('', '<C-c>', '"+y', { noremap = true})
