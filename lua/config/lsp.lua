@@ -6,6 +6,34 @@ require("lspkind").init()
 
 require("vim.lsp.log").set_level("debug")
 
+vim.lsp.protocol.CompletionItemKind = {
+    " [text]",
+    " [method]",
+    " [function]",
+    " [constructor]",
+    "ﰠ [field]",
+    " [variable]",
+    " [class]",
+    " [interface]",
+    " [module]",
+    " [property]",
+    " [unit]",
+    " [value]",
+    " [enum]",
+    " [key]",
+    "﬌ [snippet]",
+    " [color]",
+    " [file]",
+    " [reference]",
+    " [folder]",
+    " [enum member]",
+    " [constant]",
+    " [struct]",
+    "⌘ [event]",
+    " [operator]",
+    " [type]"
+}
+
 local on_init = function(client)
   client.config.flags = client.config.flags or {}
   client.config.flags.allow_incremental_sync = true
