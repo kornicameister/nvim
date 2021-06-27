@@ -102,7 +102,7 @@ opt.clipboard = "unnamedplus"
 opt.spell = false
 vimp.nmap({ "silent", "buffer" }, "<leader>ss", [[:setlocal spell!<cr>]])
 
-opt.foldmethod = "marker"
+opt.foldmethod = "indent"
 opt.foldlevel = 99
 vimp.nnoremap({ "silent" }, "<Space>", "za")
 vimp.vnoremap({ "silent" }, "<Space>", "za")
