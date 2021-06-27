@@ -29,7 +29,10 @@ return require("packer").startup(function(use)
         { "p00f/nvim-ts-rainbow" },
       },
     },
-    "liuchengxu/vista.vim",
+    {
+      "liuchengxu/vista.vim",
+      config = [[ require("config.vista") ]],
+    },
     "nvim-lua/lsp-status.nvim",
     "onsails/lspkind-nvim",
     {
@@ -185,7 +188,10 @@ return require("packer").startup(function(use)
 
   -- other
   use({
-    "ludovicchabant/vim-gutentags",
+    {
+      "ludovicchabant/vim-gutentags",
+      config = [[ require("config.gutentags") ]],
+    },
     "tpope/vim-repeat",
     "svermeulen/vimpeccable",
     "wakatime/vim-wakatime",
