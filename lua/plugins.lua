@@ -96,6 +96,12 @@ return require("packer").startup(function(use)
     },
   })
 
+  -- json
+  use({
+    "gennaro-tedesco/nvim-jqx",
+    ft = { "json", "yaml" },
+  })
+
   -- git
   use({
     {
