@@ -171,17 +171,7 @@ return require("packer").startup(function(use)
     {
       "akinsho/nvim-bufferline.lua",
       requires = { "kyazdani42/nvim-web-devicons", opt = true },
-      config = function()
-        require("bufferline").setup({
-          options = {
-            modified_icon = "✥",
-            buffer_close_icon = "",
-            numbers = "buffer_id",
-            diagnostics = "nvim_lsp",
-            show_buffer_close_icons = false,
-          },
-        })
-      end,
+      config = [[ require("config.bufferline") ]],
     },
     {
       "hoob3rt/lualine.nvim",
