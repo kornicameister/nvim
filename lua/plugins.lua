@@ -73,12 +73,10 @@ return require("packer").startup(function(use)
   use({
     "hrsh7th/nvim-compe",
     config = [[ require('config.completion') ]],
-  })
-
-  -- snippets
-  use({
-    "hrsh7th/vim-vsnip",
-    "hrsh7th/vim-vsnip-integ",
+    requires = {
+      "hrsh7th/vim-vsnip",
+      "hrsh7th/vim-vsnip-integ",
+    }
   })
 
   -- python
