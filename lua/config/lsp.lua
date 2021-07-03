@@ -2,7 +2,6 @@ local lsp_config = require("lspconfig")
 local lsp_status = require("lsp-status")
 
 lsp_status.register_progress()
-require("lspkind").init()
 
 require("vim.lsp.log").set_level("debug")
 
@@ -47,6 +46,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
   -- prepare extensions
+  require('folding').on_attach()
   lsp_status.on_attach(client)
 
   --Enable completion triggered by <c-x><c-o>
@@ -77,6 +77,10 @@ local on_attach = function(client, bufnr)
   if client.resolved_capabilities.hover then
     buf_set_keymap("n", "?", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
   end
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<A-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+  end
 
   -- issues navigation
   buf_set_keymap("n", "<A-k>", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
@@ -90,7 +94,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 
   -- those are not yet ready
-  buf_set_keymap("n", "<A-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
