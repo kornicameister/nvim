@@ -42,7 +42,7 @@ return require("packer").startup(function(use)
           "liuchengxu/vista.vim",
           config = [[ require("config.vista") ]],
         },
-      }
+      },
     },
     {
       "kabouzeid/nvim-lspinstall",
@@ -75,11 +75,11 @@ return require("packer").startup(function(use)
     requires = {
       "hrsh7th/vim-vsnip",
       "hrsh7th/vim-vsnip-integ",
-    }
+    },
   })
 
-  -- python
   use({
+    -- python
     {
       "raimon49/requirements.txt.vim",
       ft = { "requirements" },
@@ -96,12 +96,16 @@ return require("packer").startup(function(use)
       "lambdalisue/vim-pyenv",
       ft = { "python" },
     },
-  })
-
-  -- json
-  use({
-    "gennaro-tedesco/nvim-jqx",
-    ft = { "json", "yaml" },
+    -- json
+    {
+      "gennaro-tedesco/nvim-jqx",
+      ft = { "json", "yaml" },
+    },
+    -- latex
+    {
+      "lervag/vimtex",
+      ft = "tex",
+    },
   })
 
   -- git
@@ -193,7 +197,7 @@ return require("packer").startup(function(use)
         require("nvim-web-devicons").setup({
           default = true,
         })
-      end
+      end,
     },
     "psliwka/vim-smoothie",
     "kosayoda/nvim-lightbulb",
