@@ -1,5 +1,6 @@
 require("bufferline").setup({
   options = {
+    separator_style = "slant",
     modified_icon = "✥",
     buffer_close_icon = "",
     numbers = "buffer_id",
