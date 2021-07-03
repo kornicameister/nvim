@@ -22,18 +22,6 @@ require("nvim-treesitter.configs").setup({
     enable = true,
   },
 
-  refactor = {
-    highlight_definitions = { enable = true },
-    highlight_current_scope = { enable = false },
-
-    smart_rename = {
-      enable = false,
-      keymaps = {
-        smart_rename = "grr",
-      },
-    },
-  },
-
   indent = {
     enable = true,
   },
@@ -49,4 +37,8 @@ require("nvim-treesitter.configs").setup({
   rainbow = {
     enable = true,
   },
+})
+
+require("treesitter-context.config").setup({
+  enable = true,
 })
