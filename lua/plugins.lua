@@ -170,6 +170,7 @@ return require("packer").startup(function(use)
       config = [[require("config.fzf")]],
       requires = { "junegunn/fzf.vim" },
     },
+    "sjl/gundo.vim",
   })
 
   -- UI
