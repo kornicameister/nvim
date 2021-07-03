@@ -81,7 +81,7 @@ require("lualine").setup({
     lualine_x = {
       "encoding",
       "fileformat",
-      "filetype",
+      { "filetype", colored = true },
     },
     lualine_y = {
       {
