@@ -142,7 +142,6 @@ return require("packer").startup(function(use)
     },
     {
       "lukas-reineke/indent-blankline.nvim",
-      branch = "lua",
       setup = [[require('config.indentline')]],
     },
     {
