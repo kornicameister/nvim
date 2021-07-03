@@ -19,25 +19,30 @@ return require("packer").startup(function(use)
   -- self manage for packer
   use("wbthomason/packer.nvim")
 
+  -- tree sitting monkey
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    config = [[ require('config.treesitter') ]],
+    requires = {
+      "p00f/nvim-ts-rainbow",
+      "romgrk/nvim-treesitter-context",
+    },
+  })
+
   -- LSP and shit
   use({
     {
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-      config = [[ require('config.treesitter') ]],
-      requires = {
-        { "p00f/nvim-ts-rainbow" },
-      },
-    },
-    {
-      "liuchengxu/vista.vim",
-      config = [[ require("config.vista") ]],
-    },
-    "nvim-lua/lsp-status.nvim",
-    "onsails/lspkind-nvim",
-    {
       "neovim/nvim-lspconfig",
       config = [[ require('config.lsp') ]],
+      requires = {
+        "pierreglaser/folding-nvim",
+        "nvim-lua/lsp-status.nvim",
+        {
+          "liuchengxu/vista.vim",
+          config = [[ require("config.vista") ]],
+        },
+      }
     },
     {
       "kabouzeid/nvim-lspinstall",
@@ -59,7 +64,7 @@ return require("packer").startup(function(use)
     },
     {
       "folke/trouble.nvim",
-      requires = { "kyazdani42/nvim-web-devicons" },
+      requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = [[ require("plugins.trouble") ]],
     },
   })
