@@ -7,9 +7,6 @@ vim.api.nvim_set_keymap("n", "<leader>F", ":Files<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>c", ":Commits<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>b", ":Buffers<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>h", ":History<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader><tab>", "<plug>(fzf-maps-n)", opts)
-vim.api.nvim_set_keymap("x", "<leader><tab>", "<plug>(fzf-maps-x)", opts)
-vim.api.nvim_set_keymap("o", "<leader><tab>", "<plug>(fzf-maps-o)", opts)
 
 vim.g.fzf_layout = {
   window = {
