@@ -26,7 +26,6 @@ return require("packer").startup(function(use)
     config = [[ require('config.treesitter') ]],
     requires = {
       "p00f/nvim-ts-rainbow",
-      "romgrk/nvim-treesitter-context",
     },
   })
 
