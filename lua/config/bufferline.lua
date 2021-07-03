@@ -17,8 +17,10 @@ local opts = {
   silent = true,
 }
 
-vim.api.nvim_set_keymap("n", "<Tab>", "<CMD>BufferLineCycleNext<CR>", opts)
-vim.api.nvim_set_keymap("n", "<S-Tab>", "<CMD>BufferLineCyclePrev<CR>", opts)
+require("which-key").register({
+  ["<Tab>"] = {"<cmd>BufferLineCycleNext<CR>", "bufferline: next"},
+  ["<S-Tab>"] = {"<cmd>BufferLineCyclePrev<CR>", "bufferline: prev"},
+}, opts)
 
 vim.api.nvim_set_keymap("n", "<leader>q", [[ :bd<cr>gT ]], opts)
 vim.api.nvim_set_keymap("n", "<leader>Q", [[ :bufdo bd<CR> ]], opts)
