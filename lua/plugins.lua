@@ -64,7 +64,6 @@ return require("packer").startup(function(use)
     },
     {
       "folke/trouble.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = [[ require("plugins.trouble") ]],
     },
   })
@@ -181,15 +180,21 @@ return require("packer").startup(function(use)
     },
     {
       "akinsho/nvim-bufferline.lua",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = [[ require("config.bufferline") ]],
     },
     {
       "hoob3rt/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
       config = [[ require("config.lualine") ]],
     },
     "ryanoasis/vim-devicons",
+    {
+      "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("nvim-web-devicons").setup({
+          default = true,
+        })
+      end
+    },
     "psliwka/vim-smoothie",
     "kosayoda/nvim-lightbulb",
   })
