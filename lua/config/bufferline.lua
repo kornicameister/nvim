@@ -24,10 +24,10 @@ local opts = {
 require("which-key").register({
   ["<Tab>"] = { "<cmd>BufferLineCycleNext<CR>", "bufferline: next" },
   ["<S-Tab>"] = { "<cmd>BufferLineCyclePrev<CR>", "bufferline: prev" },
-  ["<leader>B"] = { "<cmd>BufferLinePick<CR>", "bufferline: pick" },
+  ["<C-s>"] = { "<cmd>BufferPick<CR>", "bufferline: pick" },
+  ["<leader>q"] = { [[ :bd<cr>gT ]], "bufferline: close" },
 }, opts)
 
-vim.api.nvim_set_keymap("n", "<leader>q", [[ :bd<cr>gT ]], opts)
 vim.api.nvim_set_keymap("n", "<leader>Q", [[ :bufdo bd<CR> ]], opts)
 vim.api.nvim_set_keymap("n", "<leader>r", [[ :e<CR> ]], opts)
 vim.api.nvim_set_keymap("n", "<leader>R", [[ :e!<CR> ]], opts)
