@@ -1,12 +1,19 @@
-local opts = { silent = true , noremap = true}
+local opts = { silent = true, noremap = true }
 
-vim.api.nvim_set_keymap("n", "<leader>t", ":Tags<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>bt", ":BTags<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>f", ":GFiles<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>F", ":Files<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>c", ":Commits<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>b", ":Buffers<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>h", ":History<CR>", opts)
+require("which-key").register({
+  -- tags
+  ["<leader>t"] = { "<CMD>Tags<CR>", "fzf: tags" },
+  ["<leader>bt"] = { "<CMD>BTags<CR>", "fzf: btags" },
+  -- files
+  ["<leader>f"] = { "<CMD>GFiles<CR>", "fzf: git files" },
+  ["<leader>F"] = { "<CMD>Files<CR>", "fzf: all files" },
+  -- commits
+  ["<leader>c"] = { "<CMD>Commits<CR>", "fzf: commits" },
+  ["<leader>bc"] = { "<CMD>BCommits<CR>", "fzf: commits" },
+  -- general
+  ["<leader>b"] = { "<CMD>Buffers<CR>", "fzf: buffers" },
+  ["<leader>h"] = { "<CMD>History<CR>", "fzf: history" },
+}, opts)
 
 vim.g.fzf_layout = {
   window = {
@@ -14,3 +21,4 @@ vim.g.fzf_layout = {
     height = 0.6,
   },
 }
+vim.g.fzf_buffers_jump = true
