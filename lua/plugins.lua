@@ -179,7 +179,7 @@ return require("packer").startup(function(use)
   -- UI
   use({
     {
-      "marko-cerovac/material.nvim",
+      "yashguptaz/calvera-dark.nvim",
       config = [[ require('config.colorscheme') ]],
     },
     {
