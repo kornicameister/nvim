@@ -7,7 +7,7 @@ require("bufferline").setup({
     diagnostics = "nvim_lsp",
     diagnostics_indicator = function(count, level, _, context)
       if context.buffer:current() then
-        return ''
+        return ""
       end
       local icon = level:match("error") and " " or ""
       return " " .. icon .. " " .. count
@@ -22,8 +22,9 @@ local opts = {
 }
 
 require("which-key").register({
-  ["<Tab>"] = {"<cmd>BufferLineCycleNext<CR>", "bufferline: next"},
-  ["<S-Tab>"] = {"<cmd>BufferLineCyclePrev<CR>", "bufferline: prev"},
+  ["<Tab>"] = { "<cmd>BufferLineCycleNext<CR>", "bufferline: next" },
+  ["<S-Tab>"] = { "<cmd>BufferLineCyclePrev<CR>", "bufferline: prev" },
+  ["<leader>B"] = { "<cmd>BufferLinePick<CR>", "bufferline: pick" },
 }, opts)
 
 vim.api.nvim_set_keymap("n", "<leader>q", [[ :bd<cr>gT ]], opts)
