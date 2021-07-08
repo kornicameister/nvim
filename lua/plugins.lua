@@ -151,8 +151,13 @@ return require("packer").startup(function(use)
       setup = [[require('config.indentline')]],
     },
     {
-      "ap/vim-css-color",
-      ft = { "css", "scss", "sass", "elm", "typescript", "vue" },
+      "RRethy/vim-hexokinase",
+      run = "make hexokinase",
+      cmd = "HexokinaseToggle",
+      ft = { "lua", "python", "css", "scss", "sass", "elm", "typescript", "vue" },
+      config = function()
+        vim.g.Hexokinase_highlighters = { "virtual" }
+      end,
     },
     "ConradIrwin/vim-bracketed-paste",
     "scrooloose/nerdcommenter",
