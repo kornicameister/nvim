@@ -180,10 +180,10 @@ vim.api.nvim_exec(
   ]],
   false
 )
-vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true})
+vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
 
 -- keep cursos in place when joining lines
-vim.api.nvim_set_keymap('n', 'J', "mzJ`z", { noremap = true})
+vim.api.nvim_set_keymap("n", "J", "mzJ`z", { noremap = true })
 
 -- copy to cliboard in n,v,s,o modes
-vim.api.nvim_set_keymap('', '<C-c>', '"+y', { noremap = true})
+vim.api.nvim_set_keymap("", "<C-c>", '"+y', { noremap = true })
