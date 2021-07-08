@@ -38,6 +38,7 @@ return require("packer").startup(function(use)
       requires = {
         "pierreglaser/folding-nvim",
         "nvim-lua/lsp-status.nvim",
+        "RRethy/vim-illuminate",
         {
           "liuchengxu/vista.vim",
           config = [[ require("config.vista") ]],

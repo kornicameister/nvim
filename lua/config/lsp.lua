@@ -45,8 +45,10 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
+
   -- prepare extensions
-  require('folding').on_attach()
+  require('folding').on_attach(client)
+  require('illuminate').on_attach(client)
   lsp_status.on_attach(client)
 
   --Enable completion triggered by <c-x><c-o>
