@@ -6,31 +6,31 @@ lsp_status.register_progress()
 require("vim.lsp.log").set_level("debug")
 
 vim.lsp.protocol.CompletionItemKind = {
-    " [text]",
-    " [method]",
-    " [function]",
-    " [constructor]",
-    "ﰠ [field]",
-    " [variable]",
-    " [class]",
-    " [interface]",
-    " [module]",
-    " [property]",
-    " [unit]",
-    " [value]",
-    " [enum]",
-    " [key]",
-    "﬌ [snippet]",
-    " [color]",
-    " [file]",
-    " [reference]",
-    " [folder]",
-    " [enum member]",
-    " [constant]",
-    " [struct]",
-    "⌘ [event]",
-    " [operator]",
-    " [type]"
+  " [text]",
+  " [method]",
+  " [function]",
+  " [constructor]",
+  "ﰠ [field]",
+  " [variable]",
+  " [class]",
+  " [interface]",
+  " [module]",
+  " [property]",
+  " [unit]",
+  " [value]",
+  " [enum]",
+  " [key]",
+  "﬌ [snippet]",
+  " [color]",
+  " [file]",
+  " [reference]",
+  " [folder]",
+  " [enum member]",
+  " [constant]",
+  " [struct]",
+  "⌘ [event]",
+  " [operator]",
+  " [type]",
 }
 
 local on_init = function(client)
@@ -47,8 +47,8 @@ local on_attach = function(client, bufnr)
   end
 
   -- prepare extensions
-  require('folding').on_attach(client)
-  require('illuminate').on_attach(client)
+  require("folding").on_attach(client)
+  require("illuminate").on_attach(client)
   lsp_status.on_attach(client)
 
   --Enable completion triggered by <c-x><c-o>
@@ -144,7 +144,7 @@ local function setup_servers()
     "elmls",
     "html",
     "jsonls",
-    ["pyright"] = {
+    ["pyls"] = {
       ["root_dir"] = lsp_config.util.root_pattern(".git", vim.fn.getcwd()),
     },
     "texlab",
@@ -152,18 +152,37 @@ local function setup_servers()
     "vimls",
     "vuels",
     "yamlls",
+    ["efm"] = {
+      init_options = { documentFormatting = true },
+      settings = {
+        rootMarkers = { ".git/" },
+        languages = {
+          vim = {
+            { lintCommand = "vint -", lintStdin = true, lintFormats = { "%f:%l:%c: %m" } },
+          },
+          python = {
+            { formatCommand = "yapf", formatStdin = true },
+          },
+          lua = {
+            { formatCommand = "stylua", formatStdin = true },
+          },
+        },
+      },
+    },
   }
   for key, value in pairs(servers) do
     local has_config = type(key) == "string"
     local config = has_config and value or {}
     local name = has_config and key or value
 
-    config.on_attach = on_attach
-    config.on_init = on_init
-    config.capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities, config.capabilities or {})
+    if name ~= "efm" then
+      config.on_attach = on_attach
+      config.on_init = on_init
+      config.capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities, config.capabilities or {})
 
-    if lsp_status.extensions[name] ~= nil then
-      config.handlers = lsp_status.extensions[name].setup()
+      if lsp_status.extensions[name] ~= nil then
+        config.handlers = lsp_status.extensions[name].setup()
+      end
     end
 
     if lsp_config[name] ~= nil then
