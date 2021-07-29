@@ -6,7 +6,14 @@ require("compe").setup({
   min_length = 2,
   preselect = "enable",
 
-  documentation = true,
+  documentation = {
+    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = math.floor(vim.o.columns * 0.5),
+    min_width = math.floor(vim.o.columns * 0.2),
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+  },
 
   source = {
     buffer = true,

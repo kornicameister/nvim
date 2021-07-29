@@ -24,10 +24,7 @@ return require("packer").startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     config = [[ require('config.treesitter') ]],
-    requires = {
-      "p00f/nvim-ts-rainbow",
-      "windwp/nvim-ts-autotag",
-    },
+    requires = { "p00f/nvim-ts-rainbow", "windwp/nvim-ts-autotag" },
   })
 
   -- LSP and shit
@@ -39,10 +36,7 @@ return require("packer").startup(function(use)
         "pierreglaser/folding-nvim",
         "nvim-lua/lsp-status.nvim",
         "RRethy/vim-illuminate",
-        {
-          "liuchengxu/vista.vim",
-          config = [[ require("config.vista") ]],
-        },
+        { "liuchengxu/vista.vim", config = [[ require("config.vista") ]] },
       },
     },
     {
@@ -56,57 +50,28 @@ return require("packer").startup(function(use)
       config = function()
         require("lspfuzzy").setup({
           methods = "all",
-          fzf_action = {
-            ["ctrl-v"] = "vsplit",
-            ["ctrl-x"] = "split",
-          },
+          fzf_action = { ["ctrl-v"] = "vsplit", ["ctrl-x"] = "split" },
         })
       end,
     },
-    {
-      "folke/trouble.nvim",
-      config = [[ require("plugins.trouble") ]],
-    },
+    { "folke/trouble.nvim", config = [[ require("plugins.trouble") ]] },
   })
 
   -- completion
   use({
     "hrsh7th/nvim-compe",
     config = [[ require('config.completion') ]],
-    requires = {
-      "hrsh7th/vim-vsnip",
-      "hrsh7th/vim-vsnip-integ",
-    },
+    requires = { "hrsh7th/vim-vsnip", "hrsh7th/vim-vsnip-integ" },
   })
 
   use({
     -- python
-    {
-      "raimon49/requirements.txt.vim",
-      ft = { "requirements" },
-    },
-    {
-      "tmhedberg/SimpylFold",
-      ft = { "python" },
-    },
-    {
-      "vim-scripts/indentpython.vim",
-      ft = { "python" },
-    },
-    {
-      "lambdalisue/vim-pyenv",
-      ft = { "python" },
-    },
-    -- json
-    {
-      "gennaro-tedesco/nvim-jqx",
-      ft = { "json", "yaml" },
-    },
-    -- latex
-    {
-      "lervag/vimtex",
-      ft = "tex",
-    },
+    { "raimon49/requirements.txt.vim", ft = { "requirements" } },
+    { "tmhedberg/SimpylFold", ft = { "python" } },
+    { "vim-scripts/indentpython.vim", ft = { "python" } },
+    { "lambdalisue/vim-pyenv", ft = { "python" } }, -- json
+    { "gennaro-tedesco/nvim-jqx", ft = { "json", "yaml" } }, -- latex
+    { "lervag/vimtex", ft = "tex" },
   })
 
   -- git
@@ -117,21 +82,12 @@ return require("packer").startup(function(use)
     },
     "octref/rootignore",
     "tpope/vim-git",
-    {
-      "rhysd/git-messenger.vim",
-      cmd = "GitMessenger",
-      keys = "<leader>gm",
-    },
-    {
-      "rhysd/committia.vim",
-      setup = [[require('config.committia')]],
-    },
+    { "rhysd/git-messenger.vim", cmd = "GitMessenger", keys = "<leader>gm" },
+    { "rhysd/committia.vim", setup = [[require('config.committia')]] },
     {
       "lewis6991/gitsigns.nvim",
       config = [[require('config.gitsigns')]],
-      requires = {
-        "nvim-lua/plenary.nvim",
-      },
+      requires = { "nvim-lua/plenary.nvim" },
     },
   })
 
@@ -142,10 +98,7 @@ return require("packer").startup(function(use)
       config = function()
         require("telescope").setup()
       end,
-      requires = {
-        "nvim-lua/popup.nvim",
-        "nvim-lua/plenary.nvim",
-      },
+      requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
     },
     {
       "lukas-reineke/indent-blankline.nvim",
@@ -155,7 +108,16 @@ return require("packer").startup(function(use)
       "RRethy/vim-hexokinase",
       run = "make hexokinase",
       cmd = "HexokinaseToggle",
-      ft = { "lua", "python", "css", "scss", "sass", "elm", "typescript", "vue" },
+      ft = {
+        "lua",
+        "python",
+        "css",
+        "scss",
+        "sass",
+        "elm",
+        "typescript",
+        "vue",
+      },
       config = function()
         vim.g.Hexokinase_highlighters = { "virtual" }
       end,
@@ -166,14 +128,8 @@ return require("packer").startup(function(use)
     "andymass/vim-matchup",
     "google/vim-searchindex",
     "triglav/vim-visual-increment",
-    {
-      "monaqa/dial.nvim",
-      config = [[require("plugins.dial")]],
-    },
-    {
-      "zhimsel/vim-stay",
-      setup = [[require("config.matchup")]],
-    },
+    { "monaqa/dial.nvim", config = [[require("plugins.dial")]] },
+    { "zhimsel/vim-stay", setup = [[require("config.matchup")]] },
     {
       "junegunn/fzf",
       run = "./install --all",
@@ -192,17 +148,12 @@ return require("packer").startup(function(use)
       "akinsho/nvim-bufferline.lua",
       config = [[ require("config.bufferline") ]],
     },
-    {
-      "hoob3rt/lualine.nvim",
-      config = [[ require("config.lualine") ]],
-    },
+    { "hoob3rt/lualine.nvim", config = [[ require("config.lualine") ]] },
     "ryanoasis/vim-devicons",
     {
       "kyazdani42/nvim-web-devicons",
       config = function()
-        require("nvim-web-devicons").setup({
-          default = true,
-        })
+        require("nvim-web-devicons").setup({ default = true })
       end,
     },
     "psliwka/vim-smoothie",
@@ -222,11 +173,7 @@ return require("packer").startup(function(use)
     {
       "folke/which-key.nvim",
       config = function()
-        require("which-key").setup({
-          presets = {
-            g = true,
-          },
-        })
+        require("which-key").setup({ presets = { g = true } })
       end,
     },
     {

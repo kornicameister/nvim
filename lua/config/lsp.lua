@@ -1,5 +1,6 @@
 local lsp_config = require("lspconfig")
 local lsp_status = require("lsp-status")
+local efm_config = require("config.efm")
 
 lsp_status.register_progress()
 
@@ -80,6 +81,10 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "?", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
   end
   if client.resolved_capabilities.document_formatting then
+    if not vim.tbl_contains(vim.tbl_keys(efm_config), client.name) then
+      print("Using efm instead of " .. client.name .. " for formatting")
+      client.resolved_capabilities.document_formatting = false
+    end
     buf_set_keymap("n", "<A-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
     vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
   end
@@ -140,12 +145,13 @@ local function setup_servers()
     ["cmake"] = {
       ["filetypes"] = { "cmake", "make" },
     },
-    "dockerls",
-    "elmls",
+    ["dockerls"] = { filetypes = { "dockerfile" } },
+    ["elmls"] = { filetypes = { "elm" } },
     "html",
     "jsonls",
-    ["pyls"] = {
-      ["root_dir"] = lsp_config.util.root_pattern(".git", vim.fn.getcwd()),
+    ["pylsp"] = {
+      root_dir = lsp_config.util.root_pattern(".git", vim.fn.getcwd()),
+      filetypes = { "python" },
     },
     "texlab",
     "tsserver",
@@ -153,18 +159,23 @@ local function setup_servers()
     "vuels",
     "yamlls",
     ["efm"] = {
-      init_options = { documentFormatting = true },
+      init_options = { documentFormatting = true, codeAction = true },
+      root_dir = lsp_config.util.root_pattern({ ".git/", "." }),
+      filetypes = vim.tbl_keys(efm_config),
+      settings = { languages = efm_config },
+    },
+    ["sumneko_lua"] = {
+      cmd = {"lua-language-server"},
       settings = {
-        rootMarkers = { ".git/" },
-        languages = {
-          vim = {
-            { lintCommand = "vint -", lintStdin = true, lintFormats = { "%f:%l:%c: %m" } },
+        Lua = {
+          diagnostics = { globals = { "vim" } },
+          completion = { keywordSnippet = "Both" },
+          runtime = {
+            version = "LuaJIT",
+            path = vim.split(package.path, ";"),
           },
-          python = {
-            { formatCommand = "yapf", formatStdin = true },
-          },
-          lua = {
-            { formatCommand = "stylua", formatStdin = true },
+          workspace = {
+            library = vim.list_extend({ [vim.fn.expand("$VIMRUNTIME/lua")] = true }, {}),
           },
         },
       },
