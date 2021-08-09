@@ -75,7 +75,7 @@ local on_attach = function(client, bufnr)
 
   -- general
   if client.resolved_capabilities.rename then
-    buf_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    buf_set_keymap("n", "<C-r>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   end
   if client.resolved_capabilities.hover then
     buf_set_keymap("n", "?", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
