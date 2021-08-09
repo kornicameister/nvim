@@ -2,7 +2,7 @@ vim.opt.termguicolors = true
 
 require("bufferline").setup({
   options = {
-    separator_style = "slant",
+    separator_style = "thin",
     modified_icon = "✥",
     buffer_close_icon = "",
     numbers = "buffer_id",
