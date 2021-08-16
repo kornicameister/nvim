@@ -141,7 +141,7 @@ return require("packer").startup(function(use)
   -- UI
   use({
     {
-      "yashguptaz/calvera-dark.nvim",
+      "rafamadriz/neon",
       config = [[ require('config.colorscheme') ]],
     },
     {

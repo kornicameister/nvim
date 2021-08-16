@@ -20,7 +20,7 @@ local conditions = {
 
 require("lualine").setup({
   options = {
-    theme = "calvera-nvim",
+    theme = "neon",
     disabled_filetypes = { "fzf" },
     component_separators = "|",
     section_separators = { "", "" },
