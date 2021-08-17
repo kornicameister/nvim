@@ -16,6 +16,7 @@ require("nvim-treesitter.configs").setup({
     "typescript",
     "vue",
     "yaml",
+    "vim",
   },
 
   highlight = {
