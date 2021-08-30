@@ -53,6 +53,8 @@ vim.cmd([[ set listchars-=trail- ]])
 vim.cmd([[ set listchars+=trail:•,nbsp:~ ]])
 vim.cmd([[ highlight BadWhitespace ctermbg=red guibg=red ]])
 
+autocmd('trimwhitespaces', [[BufWritePre * :%s/\s\+$//e ]])
+
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
