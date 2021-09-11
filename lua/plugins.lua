@@ -57,12 +57,23 @@ return require("packer").startup(function(use)
     { "folke/trouble.nvim", config = [[ require("plugins.trouble") ]] },
   })
 
-  -- completion
-  use({
-    "hrsh7th/nvim-compe",
-    config = [[ require('config.completion') ]],
-    requires = { "hrsh7th/vim-vsnip", "hrsh7th/vim-vsnip-integ" },
-  })
+	-- completion
+	use({
+		"hrsh7th/nvim-cmp",
+		config = [[ require('config.completion') ]],
+		after = { "nvim-lspconfig" },
+		requires = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			{
+				"hrsh7th/vim-vsnip",
+				requires = { "hrsh7th/vim-vsnip-integ", "rafamadriz/friendly-snippets" },
+			},
+			"quangnguyen30192/cmp-nvim-tags",
+		},
+	})
 
   use({
     -- python
