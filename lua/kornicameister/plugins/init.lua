@@ -138,7 +138,7 @@ return require("packer").startup(function(use)
       end,
     },
     { "monaqa/dial.nvim", config = [[require("kornicameister.plugins.dial")]] },
-    { "zhimsel/vim-stay", setup = [[require("config.matchup")]] },
+    { "zhimsel/vim-stay", setup = [[require("kornicameister.plugins.vim-stay")]] },
     {
       "junegunn/fzf",
       run = "./install --all",
