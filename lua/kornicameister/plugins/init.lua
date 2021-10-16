@@ -137,7 +137,7 @@ return require("packer").startup(function(use)
         require("spellsitter").setup()
       end,
     },
-    { "monaqa/dial.nvim", config = [[require("plugins.dial")]] },
+    { "monaqa/dial.nvim", config = [[require("kornicameister.plugins.dial")]] },
     { "zhimsel/vim-stay", setup = [[require("config.matchup")]] },
     {
       "junegunn/fzf",
