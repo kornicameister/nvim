@@ -161,7 +161,7 @@ return require("packer").startup(function(use)
     },
     {
       "akinsho/nvim-bufferline.lua",
-      config = [[ require("config.bufferline") ]],
+      config = [[ require("kornicameister.plugins.bufferline") ]],
     },
     {
       "hoob3rt/lualine.nvim",

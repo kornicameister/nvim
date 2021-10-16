@@ -26,7 +26,6 @@ local opts = {
 require("which-key").register({
   ["<Tab>"] = { "<cmd>BufferLineCycleNext<CR>", "bufferline: next" },
   ["<S-Tab>"] = { "<cmd>BufferLineCyclePrev<CR>", "bufferline: prev" },
-  ["<C-s>"] = { "<cmd>BufferPick<CR>", "bufferline: pick" },
   ["<leader>q"] = { [[ :bd<cr>gT ]], "bufferline: close" },
 }, opts)
 
