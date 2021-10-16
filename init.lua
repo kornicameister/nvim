@@ -10,20 +10,17 @@ local env = vim.env --access to env
 local opt = vim.opt -- to set options
 local o, wo, bo = vim.o, vim.wo, vim.bo
 
-local plugins = require("plugins")
 local utils = require("utils")
 local vimp = require("vimp")
 
 local autocmd = utils.autocmd
 
+require("kornicameister.integrations")
+require("kornicameister.plugins")
+
 -- settings
 local buffer = { o, bo }
 local window = { o, wo }
-
-g.loaded_perl_provider = 0
-g.loaded_ruby_provider = 0
-g.python2_host_prog = env.PYENV_ROOT .. "/versions/neovim2/bin/python"
-g.python3_host_prog = env.PYENV_ROOT .. "/versions/neovim3/bin/python"
 
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
@@ -34,6 +31,7 @@ opt.hidden = true -- keep buffers around, hide them but close them
 
 opt.splitbelow = true
 opt.splitright = true
+vim.cmd([[ unmap <c-l>]])
 vimp.nnoremap("<c-h>", "<c-w>h")
 vimp.nnoremap("<c-j>", "<c-w>j")
 vimp.nnoremap("<c-k>", "<c-w>k")

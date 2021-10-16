@@ -20,7 +20,7 @@ local conditions = {
 
 require("lualine").setup({
   options = {
-    theme = "neon",
+    theme = "tokyodark",
     disabled_filetypes = { "fzf" },
     component_separators = "|",
     section_separators = { "", "" },
