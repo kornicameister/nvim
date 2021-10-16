@@ -156,8 +156,8 @@ return require("packer").startup(function(use)
   -- UI
   use({
     {
-      "tiagovla/tokyodark.nvim",
-      config = [[ require('config.colorscheme') ]],
+      "folke/tokyonight.nvim",
+      config = [[ require('kornicameister.plugins.colorscheme') ]],
     },
     {
       "akinsho/nvim-bufferline.lua",
@@ -165,7 +165,7 @@ return require("packer").startup(function(use)
     },
     {
       "hoob3rt/lualine.nvim",
-      config = [[ require("config.lualine") ]],
+      config = [[ require("kornicameister.plugins.lualine") ]],
     },
     "ryanoasis/vim-devicons",
     {
