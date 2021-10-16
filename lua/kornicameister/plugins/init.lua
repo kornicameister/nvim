@@ -142,7 +142,7 @@ return require("packer").startup(function(use)
     {
       "junegunn/fzf",
       run = "./install --all",
-      config = [[require("config.fzf")]],
+      config = [[require("kornicameister.plugins.fzf")]],
       requires = { "junegunn/fzf.vim" },
     },
     {
