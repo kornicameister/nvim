@@ -1,19 +1,21 @@
-local opts = { silent = true, noremap = true }
-
 require("which-key").register({
   -- tags
-  ["<leader>t"] = { "<CMD>Tags<CR>", "fzf: tags" },
-  ["<leader>bt"] = { "<CMD>BTags<CR>", "fzf: btags" },
+  ["t"] = { "<CMD>Tags<CR>", "fzf: tags" },
+  ["bt"] = { "<CMD>BTags<CR>", "fzf: btags" },
   -- files
-  ["<leader>f"] = { "<CMD>GFiles<CR>", "fzf: git files" },
-  ["<leader>F"] = { "<CMD>Files<CR>", "fzf: all files" },
+  ["f"] = { "<CMD>GFiles<CR>", "fzf: git files" },
+  ["F"] = { "<CMD>Files<CR>", "fzf: all files" },
   -- commits
-  ["<leader>c"] = { "<CMD>Commits<CR>", "fzf: commits" },
-  ["<leader>bc"] = { "<CMD>BCommits<CR>", "fzf: commits" },
+  ["c"] = { "<CMD>Commits<CR>", "fzf: commits" },
+  ["bc"] = { "<CMD>BCommits<CR>", "fzf: commits" },
   -- general
-  ["<leader>b"] = { "<CMD>Buffers<CR>", "fzf: buffers" },
-  ["<leader>h"] = { "<CMD>History<CR>", "fzf: history" },
-}, opts)
+  ["b"] = { "<CMD>Buffers<CR>", "fzf: buffers" },
+  ["h"] = { "<CMD>History<CR>", "fzf: history" },
+}, {
+  prefix = "<leader>",
+  silent = true,
+  noremap = true,
+})
 
 vim.g.fzf_layout = {
   window = {
