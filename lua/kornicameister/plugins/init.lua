@@ -182,7 +182,7 @@ return require("packer").startup(function(use)
   use({
     {
       "ludovicchabant/vim-gutentags",
-      config = [[ require("config.gutentags") ]],
+      config = [[ require("kornicameister.plugins.gutentags") ]],
     },
     "tpope/vim-repeat",
     "svermeulen/vimpeccable",
