@@ -2,7 +2,7 @@ local prettier = {
   formatCommand = "prettier --stdin-filepath ${INPUT}",
   formatStdin = true,
 }
-local stylua = { formatCommand = "stylua -s -", formatStdin = true }
+local stylua = { formatCommand = "stylua --indent-type spaces -s -", formatStdin = true }
 
 local flake8 = {
   lintCommand = "flake8 --stdin-display-name ${INPUT} -",
