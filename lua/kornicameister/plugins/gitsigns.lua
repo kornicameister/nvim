@@ -1,13 +1,3 @@
-local has_buddy, _ = pcall(require, "colorbuddy")
-if has_buddy then
-  local c = require("colorbuddy.color").colors
-  local Group = require("colorbuddy.group").Group
-
-  Group.new("GitSignsAdd", c.green)
-  Group.new("GitSignsChange", c.yellow)
-  Group.new("GitSignsDelete", c.red)
-end
-
 require("gitsigns").setup({
   numhl = true,
   linehl = false,
