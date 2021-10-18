@@ -140,7 +140,13 @@ local function setup_servers()
     "yamlls",
     ["efm"] = {
       init_options = { documentFormatting = true, codeAction = true },
-      root_dir = lsp_config.util.root_pattern({ ".git/", "requirements.txt", "package.json", "setup.cfg", vim.fn.getcwd() }),
+      root_dir = lsp_config.util.root_pattern({
+        ".git/",
+        "requirements.txt",
+        "package.json",
+        "setup.cfg",
+        vim.fn.getcwd(),
+      }),
       filetypes = vim.tbl_keys(efm_config),
       settings = { languages = efm_config },
     },
