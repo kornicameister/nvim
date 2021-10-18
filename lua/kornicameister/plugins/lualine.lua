@@ -117,4 +117,3 @@ require("lualine").setup({
     "quickfix",
   },
 })
-

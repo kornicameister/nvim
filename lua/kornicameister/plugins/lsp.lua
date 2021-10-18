@@ -85,8 +85,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 
   -- illuminate
-  buf_set_keymap('n', '<C-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
-  buf_set_keymap('n', '<C-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
+  buf_set_keymap("n", "<C-n>", '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', opts)
+  buf_set_keymap("n", "<C-p>", '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', opts)
 end
 
 ----

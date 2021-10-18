@@ -1,3 +1,3 @@
-local g = vim.g;
+local g = vim.g
 
 g.Hexokinase_highlighters = { "virtual" }
