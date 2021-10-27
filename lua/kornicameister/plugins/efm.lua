@@ -21,7 +21,7 @@ local mypy = {
   },
 }
 
-local shfmt = { formatCommand = "shfmt -ci -s -bn", formatStdin = true }
+local shfmt = { formatCommand = "shfmt -i 2 -c -s -bn", formatStdin = true }
 local shellcheck = {
   lintCommand = "shellcheck -f gcc -x",
   lintSource = "shellcheck",
