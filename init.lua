@@ -94,6 +94,8 @@ opt.autoread = true
 opt.autowrite = true
 autocmd("autosave", [[FocusLost * :wa]])
 
+opt.autochdir = false
+
 opt.hlsearch = true -- highlight on search
 opt.incsearch = true
 
