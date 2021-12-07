@@ -29,13 +29,14 @@ local shellcheck = {
 }
 
 local jq = { lintCommand = "jq ." }
+local fixjson = { formatCommand = "fixjson -w" }
 
 return {
   css = { prettier },
   scss = { prettier },
   less = { prettier },
   html = { prettier },
-  json = { prettier, jq },
+  json = { fixjson, prettier, jq },
   xml = { prettier },
   markdown = {
     prettier,

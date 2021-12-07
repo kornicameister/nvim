@@ -148,7 +148,10 @@ local function setup_servers()
         vim.fn.getcwd(),
       }),
       filetypes = vim.tbl_keys(efm_config),
-      settings = { languages = efm_config },
+      settings = {
+        rootMarkers = { ".git/" },
+        languages = efm_config,
+      },
     },
     ["sumneko_lua"] = {
       cmd = { "lua-language-server" },
@@ -190,10 +193,7 @@ local function setup_servers()
       end
     end
 
-    if not configs[name] then
-      configs[name] = { default_config = config }
-    end
-    lsp_config[name].setup({})
+    lsp_config[name].setup(config)
   end
 end
 
