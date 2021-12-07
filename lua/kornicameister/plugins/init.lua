@@ -57,6 +57,7 @@ return require("packer").startup(function(use)
         "hrsh7th/vim-vsnip",
         requires = { "hrsh7th/vim-vsnip-integ", "rafamadriz/friendly-snippets" },
       },
+      "f3fora/cmp-spell",
       "quangnguyen30192/cmp-nvim-tags",
     },
   })
