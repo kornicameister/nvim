@@ -1,5 +1,8 @@
 local lsp_config = require("lspconfig")
+local configs = require("lspconfig.configs")
+
 local lsp_status = require("lsp-status")
+local lsp_installer = require("nvim-lsp-installer")
 local efm_config = require("kornicameister.plugins.efm")
 
 lsp_status.register_progress()
@@ -100,8 +103,6 @@ end
 -- with python I believe pipx installation method is downright correct
 
 local function setup_servers()
-  require("lspinstall").setup()
-
   local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   capabilities.textDocument.codeLens = {
@@ -128,17 +129,16 @@ local function setup_servers()
     ["elmls"] = { filetypes = { "elm" } },
     ["intelephense"] = { filetypes = { "php" } },
     "html",
+    "cssls",
     "jsonls",
-    ["pylsp"] = {
-      root_dir = lsp_config.util.root_pattern(".git", "setup.cfg", "requirements.txt", vim.fn.getcwd()),
-      filetypes = { "python" },
-    },
+    "pylsp",
     "texlab",
     "tsserver",
     "vimls",
     "vuels",
     "yamlls",
     ["efm"] = {
+      cmd = { "efm-langserver" },
       init_options = { documentFormatting = true, codeAction = true },
       root_dir = lsp_config.util.root_pattern({
         ".git/",
@@ -172,6 +172,14 @@ local function setup_servers()
     local config = has_config and value or {}
     local name = has_config and key or value
 
+    local server_available, requested_server = lsp_installer.get_server(name)
+    if server_available then
+      if not requested_server:is_installed() then
+        print("LSP " .. name .. " will be installed")
+        requested_server:install()
+      end
+    end
+
     if name ~= "efm" then
       config.on_attach = on_attach
       config.on_init = on_init
@@ -182,18 +190,11 @@ local function setup_servers()
       end
     end
 
-    if lsp_config[name] ~= nil then
-      lsp_config[name].setup(config)
-    else
-      print("WTF LSP[" .. name .. "]")
+    if not configs[name] then
+      configs[name] = { default_config = config }
     end
+    lsp_config[name].setup({})
   end
 end
 
 setup_servers()
-
-require("lspinstall").post_install_hook = function()
-  print("Reloading LSP")
-  setup_servers()
-  vim.cmd("bufdo e")
-end

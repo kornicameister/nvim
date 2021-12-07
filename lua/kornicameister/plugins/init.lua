@@ -38,9 +38,9 @@ return require("packer").startup(function(use)
         "RRethy/vim-illuminate",
         "onsails/lspkind-nvim",
         "ojroques/nvim-lspfuzzy",
+        "williamboman/nvim-lsp-installer",
       },
     },
-    "kabouzeid/nvim-lspinstall",
     { "folke/trouble.nvim", config = [[ require("kornicameister.plugins.trouble") ]] },
   })
 
@@ -48,7 +48,6 @@ return require("packer").startup(function(use)
   use({
     "hrsh7th/nvim-cmp",
     config = [[ require('kornicameister.plugins.completion') ]],
-    after = { "nvim-lspconfig" },
     requires = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
