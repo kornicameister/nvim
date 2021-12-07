@@ -11,7 +11,7 @@ local opt = vim.opt -- to set options
 local o, wo, bo = vim.o, vim.wo, vim.bo
 
 local utils = require("utils")
-local vimp = require("vimp")
+local vimp_ok, vimp = pcall(require, 'vimp')
 
 local autocmd = utils.autocmd
 
@@ -32,14 +32,16 @@ opt.hidden = true -- keep buffers around, hide them but close them
 opt.splitbelow = true
 opt.splitright = true
 vim.cmd([[ unmap <c-l>]])
-vimp.nnoremap("<c-h>", "<c-w>h")
-vimp.nnoremap("<c-j>", "<c-w>j")
-vimp.nnoremap("<c-k>", "<c-w>k")
-vimp.nnoremap("<c-l>", "<c-w>l")
-vimp.nnoremap({ "silent" }, "<c-left>", [[:vertical resize +2<cr>]])
-vimp.nnoremap({ "silent" }, "<c-right>", [[:vertical resize -2<cr>]])
-vimp.nnoremap({ "silent" }, "<c-up>", [[:resize +2<cr>]])
-vimp.nnoremap({ "silent" }, "<c-down>", [[:resize -2<cr>]])
+if vimp_ok then
+  vimp.nnoremap("<c-h>", "<c-w>h")
+  vimp.nnoremap("<c-j>", "<c-w>j")
+  vimp.nnoremap("<c-k>", "<c-w>k")
+  vimp.nnoremap("<c-l>", "<c-w>l")
+  vimp.nnoremap({ "silent" }, "<c-left>", [[:vertical resize +2<cr>]])
+  vimp.nnoremap({ "silent" }, "<c-right>", [[:vertical resize -2<cr>]])
+  vimp.nnoremap({ "silent" }, "<c-up>", [[:resize +2<cr>]])
+  vimp.nnoremap({ "silent" }, "<c-down>", [[:resize -2<cr>]])
+end
 
 opt.smartindent = true
 opt.autoindent = true
@@ -102,14 +104,17 @@ opt.incsearch = true
 opt.clipboard = "unnamedplus"
 
 opt.spell = false
-vimp.nmap({ "silent", "buffer" }, "<leader>ss", [[:setlocal spell!<cr>]])
+if vimp_ok then
+  vimp.nmap({ "silent", "buffer" }, "<leader>ss", [[:setlocal spell!<cr>]])
+end
 
 opt.foldmethod = "indent"
 opt.foldlevel = 99
-vimp.nnoremap({ "silent" }, "<Space>", "za")
-vimp.vnoremap({ "silent" }, "<Space>", "za")
-
-vimp.nnoremap(";", ":") -- quicker access to :cmd
+if vimp_ok then
+  vimp.nnoremap({ "silent" }, "<Space>", "za")
+  vimp.vnoremap({ "silent" }, "<Space>", "za")
+  vimp.nnoremap(";", ":") -- quicker access to :cmd
+end
 
 opt.wildmenu = true
 opt.wildmode = { "longest:full", "full" }
