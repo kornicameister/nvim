@@ -44,6 +44,12 @@ return require("packer").startup(function(use)
     { "folke/trouble.nvim", config = [[ require("kornicameister.plugins.trouble") ]] },
   })
 
+  -- testing
+  use({
+    { "rcarriga/vim-ultest", requires = { "vim-test/vim-test" }, run = ":UpdateRemotePlugins" },
+    "mfussenegger/nvim-dap",
+  })
+
   -- completion
   use({
     "hrsh7th/nvim-cmp",
