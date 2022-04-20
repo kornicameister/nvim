@@ -3,7 +3,7 @@ local g, opt = vim.g, vim.opt
 opt.termguicolors = true
 opt.background = "dark"
 
-g.material_style = "darker"
+g.material_style = "palenight"
 
 require("material").setup({
   popup_menu = "dark",
