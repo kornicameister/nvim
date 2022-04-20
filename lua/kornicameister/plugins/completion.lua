@@ -44,11 +44,13 @@ cmp.setup({
     end,
   },
 
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    maxwidth = math.floor(vim.o.columns * 0.5),
-    maxheight = math.floor(vim.o.lines * 0.3),
+  window = {
+    documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+      winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+      maxwidth = math.floor(vim.o.columns * 0.5),
+      maxheight = math.floor(vim.o.lines * 0.3),
+    },
   },
 
   mapping = {
