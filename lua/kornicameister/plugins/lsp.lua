@@ -37,7 +37,7 @@ local on_attach = function(client, bufnr)
 
   -- Conditional capabilities
   -- ref: https://github.com/tjdevries/config_manager/blob/0ebe4c3232b61674aad0e4708228797b681fa2a7/xdg_config/nvim/lua/tj/lsp/init.lua#L100
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec(
       [[
       augroup lsp_document_highlight
@@ -54,20 +54,20 @@ local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
 
   -- general
-  if client.resolved_capabilities.rename then
+  if client.server_capabilities.renameProvider then
     buf_set_keymap("n", "<S-r>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   end
-  if client.resolved_capabilities.hover then
+  if client.server_capabilities.hoverProvider then
     buf_set_keymap("n", "?", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
   end
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     if not vim.tbl_contains(vim.tbl_keys(efm_config), client.name) then
       print("Using efm instead of " .. client.name .. " for formatting")
-      client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.documentFormattingProvider = false
     else
     end
-    buf_set_keymap("n", "<S-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    buf_set_keymap("n", "<S-f>", "<cmd>lua vim.lsp.buf.format({async = true}))<CR>", opts)
+    vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({async = true})")
   end
 
   -- issues navigation
