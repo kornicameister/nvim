@@ -37,10 +37,10 @@ if vimp_ok then
   vimp.nnoremap("<c-j>", "<c-w>j")
   vimp.nnoremap("<c-k>", "<c-w>k")
   vimp.nnoremap("<c-l>", "<c-w>l")
-  vimp.nnoremap({ "silent" }, "<c-left>", [[:vertical resize +2<cr>]])
-  vimp.nnoremap({ "silent" }, "<c-right>", [[:vertical resize -2<cr>]])
-  vimp.nnoremap({ "silent" }, "<c-up>", [[:resize +2<cr>]])
-  vimp.nnoremap({ "silent" }, "<c-down>", [[:resize -2<cr>]])
+  vimp.nnoremap({ "silent" }, "<c-s-left>", [[:vertical resize +2<cr>]])
+  vimp.nnoremap({ "silent" }, "<c-s-right>", [[:vertical resize -2<cr>]])
+  vimp.nnoremap({ "silent" }, "<c-s-up>", [[:resize +2<cr>]])
+  vimp.nnoremap({ "silent" }, "<c-s-down>", [[:resize -2<cr>]])
 end
 
 opt.smartindent = true
