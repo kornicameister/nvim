@@ -10,7 +10,6 @@ local flake8 = {
   lintIgnoreExitCode = true,
   lintFormats = { "%f:%l:%c: %m" },
 }
-local yapf = { formatCommand = "yapf --quiet", formatStdin = true }
 local mypy = {
   lintCommand = "mypy --show-column-numbers",
   lintIgnoreExitCode = true,
@@ -60,7 +59,7 @@ return {
   vim = {
     { lintCommand = "vint -", lintStdin = true, lintFormats = { "%f:%l:%c: %m" } },
   },
-  python = { flake8, yapf, mypy },
+  python = { flake8, mypy },
   lua = { stylua },
   sh = { shfmt, shellcheck },
 }
