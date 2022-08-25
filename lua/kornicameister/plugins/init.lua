@@ -144,6 +144,10 @@ return require("packer").startup(function(use)
       },
       config = [[ require("kornicameister.plugins.hexokinase") ]],
     },
+    {
+      "mechatroner/rainbow_csv",
+      ft = { "csv" },
+    },
     "ConradIrwin/vim-bracketed-paste",
     "scrooloose/nerdcommenter",
     "tpope/vim-surround",
