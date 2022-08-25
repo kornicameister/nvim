@@ -39,6 +39,17 @@ return require("packer").startup(function(use)
         "onsails/lspkind-nvim",
         "ojroques/nvim-lspfuzzy",
         "williamboman/nvim-lsp-installer",
+        {
+          "folke/lsp-colors.nvim",
+          config = function()
+            require("lsp-colors").setup()
+          end,
+        },
+        {
+          "junegunn/fzf",
+          run = "./install --all",
+          requires = { "junegunn/fzf.vim" },
+        },
       },
     },
     { "folke/trouble.nvim", config = [[ require("kornicameister.plugins.trouble") ]] },
@@ -109,6 +120,8 @@ return require("packer").startup(function(use)
         "nvim-lua/popup.nvim",
         "nvim-lua/plenary.nvim",
         "gbrlsnchs/telescope-lsp-handlers.nvim",
+        "nvim-telescope/telescope-ui-select.nvim",
+        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       },
     },
     {
@@ -145,17 +158,7 @@ return require("packer").startup(function(use)
     },
     { "monaqa/dial.nvim", config = [[require("kornicameister.plugins.dial")]] },
     { "zhimsel/vim-stay", setup = [[require("kornicameister.plugins.vim-stay")]] },
-    {
-      "junegunn/fzf",
-      run = "./install --all",
-      config = [[require("kornicameister.plugins.fzf")]],
-      requires = { "junegunn/fzf.vim" },
-    },
-    {
-      "mbbill/undotree",
-      cmd = "UndotreeToggle",
-      config = "vim.g.undotree_WindowLayout = 2",
-    },
+    { "Vimjas/vim-python-pep8-indent", ft = { "python", "python3" } },
     "Glench/Vim-Jinja2-Syntax",
   })
 
