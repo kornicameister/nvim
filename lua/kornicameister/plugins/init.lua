@@ -164,6 +164,7 @@ return require("packer").startup(function(use)
     { "zhimsel/vim-stay", setup = [[require("kornicameister.plugins.vim-stay")]] },
     { "Vimjas/vim-python-pep8-indent", ft = { "python", "python3" } },
     "Glench/Vim-Jinja2-Syntax",
+    "wgwoods/vim-systemd-syntax",
   })
 
   -- UI
