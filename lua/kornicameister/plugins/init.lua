@@ -57,8 +57,28 @@ return require("packer").startup(function(use)
 
   -- testing
   use({
-    { "rcarriga/vim-ultest", requires = { "vim-test/vim-test" }, run = ":UpdateRemotePlugins" },
     "mfussenegger/nvim-dap",
+    requires = {
+      {
+        "mfussenegger/nvim-dap-python",
+        ft = { "python" },
+        config = [[ require('kornicameister.plugins.dap') ]],
+      },
+    },
+  })
+  use({
+    "nvim-neotest/neotest",
+    after = {
+      "which-key.nvim",
+      "nvim-dap",
+    },
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-python",
+    },
+    config = [[ require('kornicameister.plugins.neotest') ]],
   })
 
   -- completion
