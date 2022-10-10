@@ -61,18 +61,17 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "?", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
   end
   if client.server_capabilities.documentFormattingProvider then
-    if not vim.tbl_contains(vim.tbl_keys(efm_config), client.name) then
+    if vim.tbl_contains(vim.tbl_keys(efm_config), client.name) then
       print("Using efm instead of " .. client.name .. " for formatting")
       client.server_capabilities.documentFormattingProvider = false
-    else
     end
     buf_set_keymap("n", "<S-f>", "<cmd>lua vim.lsp.buf.format({async = true}))<CR>", opts)
     vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({async = true})")
   end
 
   -- issues navigation
-  buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-  buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+  buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+  buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
   -- definition/implementation navigation
   buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
