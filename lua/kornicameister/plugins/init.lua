@@ -103,7 +103,6 @@ return require("packer").startup(function(use)
   use({
     { "raimon49/requirements.txt.vim", ft = { "requirements" } },
     { "tmhedberg/SimpylFold", ft = { "python" } },
-    { "vim-scripts/indentpython.vim", ft = { "python" } },
     { "lambdalisue/vim-pyenv", ft = { "python" } },
   })
 
