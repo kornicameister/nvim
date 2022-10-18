@@ -184,6 +184,7 @@ return require("packer").startup(function(use)
     { "Vimjas/vim-python-pep8-indent", ft = { "python", "python3" } },
     "Glench/Vim-Jinja2-Syntax",
     "wgwoods/vim-systemd-syntax",
+    { "kwkarlwang/bufjump.nvim", config = [[require("kornicameister.plugins.bufjump")]] },
   })
 
   -- UI
