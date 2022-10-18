@@ -189,7 +189,7 @@ return require("packer").startup(function(use)
   -- UI
   use({
     {
-      "marko-cerovac/material.nvim",
+      "EdenEast/nightfox.nvim",
       config = [[ require('kornicameister.plugins.colorscheme') ]],
     },
     {
