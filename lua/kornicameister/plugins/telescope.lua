@@ -50,6 +50,10 @@ require("which-key").register({
     "<cmd>lua require('telescope.builtin').find_files()<cr>",
     "Telescope: files",
   },
+  ["s"] = {
+    "<cmd>lua require('telescope.builtin').treesitter()<cr>",
+    "Telescope: symbols",
+  },
   ["b"] = {
     "<cmd>lua require('telescope.builtin').buffers()<cr>",
     "Telescope: buffers",
@@ -61,6 +65,14 @@ require("which-key").register({
   ["F"] = {
     "<cmd>lua require('telescope.builtin').live_grep()<cr>",
     "Telescope: look everywhere",
+  },
+  ["gs"] = {
+    "<cmd>lua require('telescope.builtin').git_status()<cr>",
+    "Telescope: git status",
+  },
+  ["gb"] = {
+    "<cmd>lua require('telescope.builtin').git_branches()<cr>",
+    "Telescope: git branches",
   },
 }, {
   prefix = "<leader>",
