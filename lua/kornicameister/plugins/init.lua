@@ -52,7 +52,7 @@ return require("packer").startup(function(use)
         },
       },
     },
-    { "folke/trouble.nvim", config = [[ require("kornicameister.plugins.trouble") ]] },
+    { "folke/trouble.nvim", branch = "main", config = [[ require("kornicameister.plugins.trouble") ]] },
   })
 
   -- testing
@@ -225,6 +225,7 @@ return require("packer").startup(function(use)
     "lambdalisue/suda.vim",
     {
       "folke/which-key.nvim",
+      branch = "main",
       config = function()
         require("which-key").setup({ presets = { g = true } })
       end,
