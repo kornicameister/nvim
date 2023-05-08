@@ -20,13 +20,6 @@ local mypy = {
   },
 }
 
-local shfmt = { formatCommand = "shfmt -i 2 -c -s -bn", formatStdin = true }
-local shellcheck = {
-  lintCommand = "shellcheck -f gcc -x",
-  lintSource = "shellcheck",
-  lintFormats = { "%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m" },
-}
-
 local jq = { lintCommand = "jq ." }
 local fixjson = { formatCommand = "fixjson -w" }
 
@@ -61,5 +54,4 @@ return {
   },
   python = { flake8, mypy },
   lua = { stylua },
-  sh = { shfmt, shellcheck },
 }

@@ -1,6 +1,5 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
-local g = vim.g
 
 local packar_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(packar_path)) > 0 then
@@ -38,7 +37,7 @@ return require("packer").startup(function(use)
         "RRethy/vim-illuminate",
         "onsails/lspkind-nvim",
         "ojroques/nvim-lspfuzzy",
-        "williamboman/nvim-lsp-installer",
+        { "williamboman/mason.nvim", requires = { "williamboman/mason-lspconfig.nvim" } },
         {
           "folke/lsp-colors.nvim",
           config = function()
