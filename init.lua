@@ -25,7 +25,7 @@ local window = { o, wo }
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
 
-opt.shell = "/bin/zsh"
+opt.shell = "/usr/local/bin/fish"
 
 opt.hidden = true -- keep buffers around, hide them but close them
 
