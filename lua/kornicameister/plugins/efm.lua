@@ -1,27 +1,31 @@
 local prettier = {
-  formatCommand = "prettier --stdin-filepath ${INPUT}",
+  formatCommand = 'prettier --stdin --stdin-filepath ${INPUT}',
   formatStdin = true,
 }
-local stylua = { formatCommand = "stylua --indent-type spaces -s -", formatStdin = true }
+local stylua = {
+  formatCommand = 'stylua --color Never -',
+  formatStdin = true,
+  rootMarkers = { 'stylua.toml', '.stylua.toml' },
+}
 
 local flake8 = {
-  lintCommand = "flake8 --stdin-display-name ${INPUT} -",
+  lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
   lintStdin = true,
   lintIgnoreExitCode = true,
-  lintFormats = { "%f:%l:%c: %m" },
+  lintFormats = { '%f:%l:%c: %m' },
 }
 local mypy = {
-  lintCommand = "mypy --show-column-numbers",
+  lintCommand = 'mypy --show-column-numbers',
   lintIgnoreExitCode = true,
   lintFormats = {
-    "%f:%l:%c: %trror: %m",
-    "%f:%l:%c: %tarning: %m",
-    "%f:%l:%c: %tote: %m",
+    '%f:%l:%c: %trror: %m',
+    '%f:%l:%c: %tarning: %m',
+    '%f:%l:%c: %tote: %m',
   },
 }
 
-local jq = { lintCommand = "jq ." }
-local fixjson = { formatCommand = "fixjson -w" }
+local jq = { lintCommand = 'jq .' }
+local fixjson = { formatCommand = 'npx fixjson', formatStdin = true }
 
 return {
   css = { prettier },
@@ -33,24 +37,28 @@ return {
   markdown = {
     prettier,
     {
-      lintCommand = "markdownlint -s",
+      lintCommand = 'markdownlint -s',
       lintStdin = true,
       lintFormats = {
-        "%f:%l %m",
-        "%f:%l:%c %m",
-        "%f: %l: %m",
+        '%f:%l %m',
+        '%f:%l:%c %m',
+        '%f: %l: %m',
       },
     },
   },
   yaml = {
-    { lintCommand = "yamllint -f parsable -", lintStdin = true },
+    { lintCommand = 'yamllint -f parsable -', lintStdin = true },
     prettier,
   },
   dockerfile = {
-    { lintCommand = "hadolint --no-color", lintFormats = { "%f:%l %m" } },
+    { lintCommand = 'hadolint --no-color', lintFormats = { '%f:%l %m' } },
   },
   vim = {
-    { lintCommand = "vint -", lintStdin = true, lintFormats = { "%f:%l:%c: %m" } },
+    {
+      lintCommand = 'vint -',
+      lintStdin = true,
+      lintFormats = { '%f:%l:%c: %m' },
+    },
   },
   python = { flake8, mypy },
   lua = { stylua },

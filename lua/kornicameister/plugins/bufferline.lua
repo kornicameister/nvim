@@ -1,18 +1,18 @@
 vim.opt.termguicolors = true
 
-require("bufferline").setup({
+require('bufferline').setup({
   options = {
-    separator_style = "thin",
-    modified_icon = "✥",
-    buffer_close_icon = "",
-    numbers = "buffer_id",
-    diagnostics = "nvim_lsp",
+    separator_style = 'thin',
+    modified_icon = '✥',
+    buffer_close_icon = '',
+    numbers = 'buffer_id',
+    diagnostics = 'nvim_lsp',
     diagnostics_indicator = function(count, level, _, context)
       if context.buffer:current() then
-        return ""
+        return ''
       end
-      local icon = level:match("error") and " " or ""
-      return " " .. icon .. " " .. count
+      local icon = level:match('error') and ' ' or ''
+      return ' ' .. icon .. ' ' .. count
     end,
     show_buffer_close_icons = false,
   },
@@ -23,12 +23,12 @@ local opts = {
   silent = true,
 }
 
-require("which-key").register({
-  ["<Tab>"] = { "<cmd>BufferLineCycleNext<CR>", "bufferline: next" },
-  ["<S-Tab>"] = { "<cmd>BufferLineCyclePrev<CR>", "bufferline: prev" },
-  ["<leader>q"] = { [[ :bd<cr>gT ]], "bufferline: close" },
+require('which-key').register({
+  ['<Tab>'] = { '<cmd>BufferLineCycleNext<CR>', 'bufferline: next' },
+  ['<S-Tab>'] = { '<cmd>BufferLineCyclePrev<CR>', 'bufferline: prev' },
+  ['<leader>q'] = { [[ :bd<cr>gT ]], 'bufferline: close' },
 }, opts)
 
-vim.api.nvim_set_keymap("n", "<leader>Q", [[ :bufdo bd<CR> ]], opts)
-vim.api.nvim_set_keymap("n", "<leader>r", [[ :e<CR> ]], opts)
-vim.api.nvim_set_keymap("n", "<leader>R", [[ :e!<CR> ]], opts)
+vim.api.nvim_set_keymap('n', '<leader>Q', [[ :bufdo bd<CR> ]], opts)
+vim.api.nvim_set_keymap('n', '<leader>r', [[ :e<CR> ]], opts)
+vim.api.nvim_set_keymap('n', '<leader>R', [[ :e!<CR> ]], opts)

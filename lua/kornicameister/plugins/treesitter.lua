@@ -1,23 +1,23 @@
-require("nvim-treesitter.configs").setup({
+require('nvim-treesitter.configs').setup({
 
   ensure_installed = {
-    "bash",
-    "dockerfile",
-    "elm",
-    "go",
-    "html",
-    "java",
-    "javascript",
-    "json",
-    "lua",
-    "python",
-    "scss",
-    "toml",
-    "tsx",
-    "typescript",
-    "vim",
-    "vue",
-    "yaml",
+    'bash',
+    'dockerfile',
+    'elm',
+    'go',
+    'html',
+    'java',
+    'javascript',
+    'json',
+    'lua',
+    'python',
+    'scss',
+    'toml',
+    'tsx',
+    'typescript',
+    'vim',
+    'vue',
+    'yaml',
   },
 
   highlight = {
@@ -32,10 +32,10 @@ require("nvim-treesitter.configs").setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+      init_selection = 'gnn',
+      node_incremental = 'grn',
+      scope_incremental = 'grc',
+      node_decremental = 'grm',
     },
   },
 
