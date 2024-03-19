@@ -6,72 +6,72 @@ o.showmode = false
 
 local conditions = {
   buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+    return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
   end,
   hide_in_width = function()
     return vim.fn.winwidth(0) > 80
   end,
   check_git_workspace = function()
-    local filepath = vim.fn.expand("%:p:h")
-    local gitdir = vim.fn.finddir(".git", filepath .. ";")
+    local filepath = vim.fn.expand('%:p:h')
+    local gitdir = vim.fn.finddir('.git', filepath .. ';')
     return gitdir and #gitdir > 0 and #gitdir < #filepath
   end,
 }
 
-require("lualine").setup({
+require('lualine').setup({
   options = {
-    theme = "nightfox",
-    disabled_filetypes = { "fzf" },
-    component_separators = "|",
-    section_separators = { "", "" },
+    theme = 'nightfox',
+    disabled_filetypes = { 'fzf' },
+    component_separators = '|',
+    section_separators = { '', '' },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { "filename" },
-    lualine_x = { "location" },
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {},
   },
   sections = {
-    lualine_a = { { "mode", upper = true } },
+    lualine_a = { { 'mode', upper = true } },
     lualine_b = {
       {
-        "branch",
-        icon = "",
+        'branch',
+        icon = '',
         condition = conditions.check_git_workspace,
       },
       {
-        "diff",
-        symbols = { added = " ", modified = "柳 ", removed = " " },
+        'diff',
+        symbols = { added = ' ', modified = '柳 ', removed = ' ' },
         condition = conditions.hide_in_width,
       },
     },
     lualine_c = {
       {
-        "filename",
+        'filename',
         file_status = true,
         condition = conditions.buffer_not_empty,
-        color = { gui = "bold" },
+        color = { gui = 'bold' },
       },
       {
         function()
           local function format_file_size(file)
             local size = vim.fn.getfsize(file)
             if size <= 0 then
-              return ""
+              return ''
             end
-            local sufixes = { "b", "k", "m", "g" }
+            local sufixes = { 'b', 'k', 'm', 'g' }
             local i = 1
             while size > 1024 do
               size = size / 1024
               i = i + 1
             end
-            return string.format("%.1f%s", size, sufixes[i])
+            return string.format('%.1f%s', size, sufixes[i])
           end
-          local file = vim.fn.expand("%:p")
+          local file = vim.fn.expand('%:p')
           if string.len(file) == 0 then
-            return ""
+            return ''
           end
           return format_file_size(file)
         end,
@@ -79,19 +79,19 @@ require("lualine").setup({
       },
     },
     lualine_x = {
-      "encoding",
-      "fileformat",
-      { "filetype", colored = true },
+      'encoding',
+      'fileformat',
+      { 'filetype', colored = true },
     },
     lualine_y = {
       {
-        "diagnostics",
-        sources = { "nvim_diagnostic" },
-        symbols = { error = " ", warn = " ", info = " " },
+        'diagnostics',
+        sources = { 'nvim_diagnostic' },
+        symbols = { error = ' ', warn = ' ', info = ' ' },
       },
       {
         function()
-          local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+          local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
           local clients = vim.lsp.get_active_clients()
           if next(clients) == nil then
             return
@@ -103,17 +103,17 @@ require("lualine").setup({
             end
           end
         end,
-        icon = "  ",
+        icon = '  ',
       },
     },
     lualine_z = {
-      { "progress", condition = conditions.hide_in_width },
-      { "location", condition = conditions.hide_in_width },
+      { 'progress', condition = conditions.hide_in_width },
+      { 'location', condition = conditions.hide_in_width },
     },
   },
   extensions = {
-    "fugitive",
-    "fzf",
-    "quickfix",
+    'fugitive',
+    'fzf',
+    'quickfix',
   },
 })

@@ -1,1 +1,1 @@
-require("colorbuddy").setup()
+require('colorbuddy').setup()

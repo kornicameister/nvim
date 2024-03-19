@@ -1,50 +1,50 @@
-local neotest = require("neotest")
-local whichKey = require("which-key")
+local neotest = require('neotest')
+local whichKey = require('which-key')
 
 neotest.setup({
   adapters = {
-    require("neotest-python")({
+    require('neotest-python')({
       dap = { justMyCode = false },
-      args = { "--log-level", "DEBUG" },
+      args = { '--log-level', 'DEBUG' },
     }),
   },
 })
 
 whichKey.register({
-  ["f"] = {
+  ['f'] = {
     "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>",
-    "test: file",
+    'test: file',
   },
-  ["t"] = {
+  ['t'] = {
     "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
-    "test: cursor",
+    'test: cursor',
   },
-  ["s"] = {
+  ['s'] = {
     "<cmd>lua require('neotest').summary.toggle()<cr>",
-    "test: summary",
+    'test: summary',
   },
-  ["o"] = {
+  ['o'] = {
     "<cmd>lua require('neotest').output.open({ enter = true })<cr>",
-    "test: summary",
+    'test: summary',
   },
-  ["l"] = {
+  ['l'] = {
     "<cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>",
-    "test: rerun last",
+    'test: rerun last',
   },
 }, {
-  prefix = "<leader>t",
+  prefix = '<leader>t',
   noremap = true,
   silent = true,
 })
 
 whichKey.register({
-  ["[f"] = {
+  ['[f'] = {
     "<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>",
-    "test: previous failed",
+    'test: previous failed',
   },
-  ["]f"] = {
+  [']f'] = {
     "<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>",
-    "test: next failed",
+    'test: next failed',
   },
 }, {
   noremap = true,
