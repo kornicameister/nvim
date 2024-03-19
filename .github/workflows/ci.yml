@@ -4,8 +4,8 @@ name: CI
 "on": [push]
 
 jobs:
-  vint:
-    name: Vint
+  stylua:
+    name: stylua
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
@@ -13,4 +13,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
-          args: --check .
+          args: -v --check .
