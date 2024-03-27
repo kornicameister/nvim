@@ -1,78 +1,86 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local packar_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(packar_path)) > 0 then
-  fn.system({
-    'git',
-    'clone',
-    'https://github.com/wbthomason/packer.nvim',
-    '--depth',
-    1,
-    packar_path,
-  })
-  execute('packadd packer.nvim')
+local function bootstrap_pckr()
+  local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
+
+  if not vim.loop.fs_stat(pckr_path) then
+    vim.fn.system({
+      'git',
+      'clone',
+      "--filter=blob:none",
+      'https://github.com/lewis6991/pckr.nvim',
+      pckr_path
+    })
+  end
+
+  vim.opt.rtp:prepend(pckr_path)
 end
 
-local function packerHook(use)
-  -- self manage for packer
-  use('wbthomason/packer.nvim')
+bootstrap_pckr()
+
+require('pckr').setup{
+  max_jobs            = 5,
+  autoremove          = true,
+  autoinstall         = true,
+  git = {
+    depth = 5,
+  },
+  log = { level = 'debug' },
+  lockfile = {
+    path = './pckr.lock.lua'
+  }
+}
+
+require('pckr').add({
+  -- self manage packer
+  'lewis6991/pckr.nvim',
 
   -- tree sitting monkey
-  use({
+  {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = [[ require('kornicameister.plugins.treesitter') ]],
+    config = 'kornicameister.plugins.treesitter',
     requires = { 'p00f/nvim-ts-rainbow', 'windwp/nvim-ts-autotag' },
-  })
+  },
 
   -- LSP and shit
-  use({
-    {
-      'neovim/nvim-lspconfig',
-      config = [[ require('kornicameister.plugins.lsp') ]],
-      requires = {
-        'pierreglaser/folding-nvim',
-        'nvim-lua/lsp-status.nvim',
-        'RRethy/vim-illuminate',
-        'onsails/lspkind-nvim',
-        'ojroques/nvim-lspfuzzy',
-        {
-          'williamboman/mason.nvim',
-          requires = { 'williamboman/mason-lspconfig.nvim', branch = 'main' },
-        },
-        {
-          'folke/lsp-colors.nvim',
-          config = function()
-            require('lsp-colors').setup()
-          end,
-        },
-        {
-          'junegunn/fzf',
-          run = './install --all',
-          requires = { 'junegunn/fzf.vim' },
-        },
+  {
+    'neovim/nvim-lspconfig',
+    config = 'kornicameister.plugins.lsp',
+    after = { 'hrsh7th/nvim-cmp' },
+    requires = {
+      'pierreglaser/folding-nvim',
+      'nvim-lua/lsp-status.nvim',
+      'RRethy/vim-illuminate',
+      'onsails/lspkind-nvim',
+      'ojroques/nvim-lspfuzzy',
+      {
+        'williamboman/mason.nvim',
+        requires = { 'williamboman/mason-lspconfig.nvim', branch = 'main' },
+      },
+      {
+        'folke/lsp-colors.nvim',
+        config = function()
+          require('lsp-colors').setup()
+        end,
+      },
+      {
+        'junegunn/fzf',
+        run = './install --all',
+        requires = { 'junegunn/fzf.vim' },
       },
     },
-    {
-      'folke/trouble.nvim',
-      branch = 'main',
-      config = [[ require("kornicameister.plugins.trouble") ]],
-    },
-  })
+  },
+  {
+    'folke/trouble.nvim',
+    branch = 'main',
+    config = 'kornicameister.plugins.trouble',
+  },
 
   -- testing
-  use({
-    'mfussenegger/nvim-dap',
-    requires = {
-      {
-        'mfussenegger/nvim-dap-python',
-        ft = { 'python' },
-        config = [[ require('kornicameister.plugins.dap') ]],
-      },
-    },
-  })
-  use({
+  'mfussenegger/nvim-dap',
+  {
     'nvim-neotest/neotest',
     after = {
       'which-key.nvim',
@@ -83,14 +91,21 @@ local function packerHook(use)
       'nvim-treesitter/nvim-treesitter',
       'antoinemadec/FixCursorHold.nvim',
       'nvim-neotest/neotest-python',
+      'nvim-neotest/nvim-nio',
     },
-    config = [[ require('kornicameister.plugins.neotest') ]],
-  })
+    config = 'kornicameister.plugins.neotest',
+  },
+  {
+    'mfussenegger/nvim-dap-python',
+    ft = { 'python' },
+    after = { 'neotest', 'nvim-dap' },
+    config = 'kornicameister.plugins.dap',
+  },
 
   -- completion
-  use({
+  {
     'hrsh7th/nvim-cmp',
-    config = [[ require('kornicameister.plugins.completion') ]],
+    config = 'kornicameister.plugins.completion',
     requires = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
@@ -103,177 +118,149 @@ local function packerHook(use)
       'f3fora/cmp-spell',
       'quangnguyen30192/cmp-nvim-tags',
     },
-  })
+  },
 
   -- python
-  use({
-    { 'raimon49/requirements.txt.vim', ft = { 'requirements' } },
-    { 'tmhedberg/SimpylFold', ft = { 'python' } },
-    { 'lambdalisue/vim-pyenv', ft = { 'python' } },
-  })
+  { 'raimon49/requirements.txt.vim', ft = { 'requirements' } },
+  { 'tmhedberg/SimpylFold', ft = { 'python' } },
+  { 'lambdalisue/vim-pyenv', ft = { 'python' } },
 
   -- other languages features
-  use({
-    { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
-    { 'lervag/vimtex', ft = 'tex' },
-    { 'elzr/vim-json', ft = 'json' },
-  })
+  { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
+  { 'lervag/vimtex', ft = 'tex' },
+  { 'elzr/vim-json', ft = 'json' },
 
   -- git
-  use({
-    {
-      'tpope/vim-fugitive',
-      cmd = { 'Git', 'Gcommit', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' },
-    },
-    'octref/rootignore',
-    'tpope/vim-git',
-    { 'rhysd/git-messenger.vim', cmd = 'GitMessenger', keys = '<leader>gm' },
-    {
-      'rhysd/committia.vim',
-      setup = [[require('kornicameister.plugins.committia')]],
-    },
-    {
-      'lewis6991/gitsigns.nvim',
-      config = [[require('kornicameister.plugins.gitsigns')]],
-      requires = { 'nvim-lua/plenary.nvim' },
-    },
-  })
+  {
+    'tpope/vim-fugitive',
+    cmd = { 'Git', 'Gcommit', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' },
+  },
+  'octref/rootignore',
+  'tpope/vim-git',
+  { 'rhysd/git-messenger.vim', cmd = 'GitMessenger', keys = '<leader>gm' },
+  {
+    'rhysd/committia.vim',
+    setup = 'kornicameister.plugins.committia',
+  },
+  {
+    'lewis6991/gitsigns.nvim',
+    config = 'kornicameister.plugins.gitsigns',
+    requires = { 'nvim-lua/plenary.nvim' },
+  },
 
   -- editor enhanced
-  use({
-    {
-      'nvim-telescope/telescope.nvim',
-      config = [[ require("kornicameister.plugins.telescope") ]],
-      requires = {
-        'nvim-lua/popup.nvim',
-        'nvim-lua/plenary.nvim',
-        'gbrlsnchs/telescope-lsp-handlers.nvim',
-        'nvim-telescope/telescope-ui-select.nvim',
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        'jvgrootveld/telescope-zoxide',
-      },
+  {
+    'nvim-telescope/telescope.nvim',
+    config = 'kornicameister.plugins.telescope',
+    requires = {
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim',
+      'gbrlsnchs/telescope-lsp-handlers.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      'jvgrootveld/telescope-zoxide',
     },
-    {
-      'lukas-reineke/indent-blankline.nvim',
-      setup = [[require('kornicameister.plugins.indentline')]],
+  },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    setup = 'kornicameister.plugins.indentline',
+  },
+  {
+    'RRethy/vim-hexokinase',
+    run = 'make hexokinase',
+    cmd = 'HexokinaseToggle',
+    ft = {
+      'lua',
+      'python',
+      'css',
+      'scss',
+      'sass',
+      'elm',
+      'typescript',
+      'vue',
     },
-    {
-      'RRethy/vim-hexokinase',
-      run = 'make hexokinase',
-      cmd = 'HexokinaseToggle',
-      ft = {
-        'lua',
-        'python',
-        'css',
-        'scss',
-        'sass',
-        'elm',
-        'typescript',
-        'vue',
-      },
-      config = [[ require("kornicameister.plugins.hexokinase") ]],
-    },
-    {
-      'mechatroner/rainbow_csv',
-      ft = { 'csv' },
-    },
-    'ConradIrwin/vim-bracketed-paste',
-    'scrooloose/nerdcommenter',
-    'tpope/vim-surround',
-    'andymass/vim-matchup',
-    'google/vim-searchindex',
-    'triglav/vim-visual-increment',
-    {
-      'lewis6991/spellsitter.nvim',
-      config = function()
-        require('spellsitter').setup()
-      end,
-    },
-    { 'monaqa/dial.nvim', config = [[require("kornicameister.plugins.dial")]] },
-    {
-      'zhimsel/vim-stay',
-      setup = [[require("kornicameister.plugins.vim-stay")]],
-    },
-    { 'Vimjas/vim-python-pep8-indent', ft = { 'python', 'python3' } },
-    'Glench/Vim-Jinja2-Syntax',
-    'wgwoods/vim-systemd-syntax',
-    {
-      'kwkarlwang/bufjump.nvim',
-      config = [[require("kornicameister.plugins.bufjump")]],
-    },
-  })
+    config = 'kornicameister.plugins.hexokinase',
+  },
+  {
+    'mechatroner/rainbow_csv',
+    ft = { 'csv' },
+  },
+  'ConradIrwin/vim-bracketed-paste',
+  'scrooloose/nerdcommenter',
+  'tpope/vim-surround',
+  'andymass/vim-matchup',
+  'google/vim-searchindex',
+  'triglav/vim-visual-increment',
+  {
+    'lewis6991/spellsitter.nvim',
+    config = function()
+      require('spellsitter').setup()
+    end,
+  },
+  { 'monaqa/dial.nvim', config = 'kornicameister.plugins.dial' },
+  {
+    'zhimsel/vim-stay',
+    setup = 'kornicameister.plugins.vim-stay',
+  },
+  { 'Vimjas/vim-python-pep8-indent', ft = { 'python', 'python3' } },
+  'Glench/Vim-Jinja2-Syntax',
+  'wgwoods/vim-systemd-syntax',
+  {
+    'kwkarlwang/bufjump.nvim',
+    config = 'kornicameister.plugins.bufjump',
+  },
 
   -- UI
-  use({
-    {
-      'EdenEast/nightfox.nvim',
-      config = [[ require('kornicameister.plugins.colorscheme') ]],
-    },
-    {
-      'akinsho/nvim-bufferline.lua',
-      config = [[ require("kornicameister.plugins.bufferline") ]],
-      branch = 'main',
-    },
-    {
-      'hoob3rt/lualine.nvim',
-      config = [[ require("kornicameister.plugins.lualine") ]],
-    },
-    'ryanoasis/vim-devicons',
-    {
-      'kyazdani42/nvim-web-devicons',
-      config = function()
-        require('nvim-web-devicons').setup({ default = true })
-      end,
-    },
-    'psliwka/vim-smoothie',
-    'kosayoda/nvim-lightbulb',
-  })
+  {
+    'EdenEast/nightfox.nvim',
+    config = 'kornicameister.plugins.colorscheme',
+  },
+  {
+    'akinsho/nvim-bufferline.lua',
+    config = 'kornicameister.plugins.bufferline',
+    branch = 'main',
+  },
+  {
+    'hoob3rt/lualine.nvim',
+    config = 'kornicameister.plugins.lualine',
+  },
+  'ryanoasis/vim-devicons',
+  {
+    'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('nvim-web-devicons').setup({ default = true })
+    end,
+  },
+  'psliwka/vim-smoothie',
+  'kosayoda/nvim-lightbulb',
 
   -- other
-  use({
-    {
-      'ludovicchabant/vim-gutentags',
-      config = [[ require("kornicameister.plugins.gutentags") ]],
-    },
-    'tpope/vim-repeat',
-    'svermeulen/vimpeccable',
-    'wakatime/vim-wakatime',
-    'lambdalisue/suda.vim',
-    {
-      'folke/which-key.nvim',
-      branch = 'main',
-      config = vim.defer_fn(function()
-        require('which-key').setup({ presets = { g = true } })
-      end, 100),
-    },
-    {
-      'antoinemadec/FixCursorHold.nvim',
-      config = function()
-        vim.g.curshold_updatime = 1000
-      end,
-    },
-    {
-      'iamcco/markdown-preview.nvim',
-      run = 'cd app && yarn install',
-      cmd = 'MarkdownPreview',
-    },
-  })
-end
-
-return require('packer').startup({
-  packerHook,
-  config = {
-    max_jobs = 20,
-    autoremove = true,
-    git = {
-      subcommands = {
-        fetch = 'fetch --tags --force --depth 15 --progress',
-      },
-    },
-    display = {
-      open_fn = function()
-        return require('packer.util').float({ border = 'rounded' })
-      end,
-    },
+  {
+    'ludovicchabant/vim-gutentags',
+    config = 'kornicameister.plugins.gutentags',
+  },
+  'tpope/vim-repeat',
+  'svermeulen/vimpeccable',
+  'wakatime/vim-wakatime',
+  'lambdalisue/suda.vim',
+  {
+    'folke/which-key.nvim',
+    branch = 'main',
+    config = vim.defer_fn(function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require('which-key').setup({ presets = { g = true } })
+    end, 100),
+  },
+  {
+    'antoinemadec/FixCursorHold.nvim',
+    config = function()
+      vim.g.curshold_updatime = 1000
+    end,
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+    run = 'cd app && yarn install',
+    cmd = 'MarkdownPreview',
   },
 })
