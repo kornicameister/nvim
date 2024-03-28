@@ -1,279 +1,279 @@
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-local packar_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(packar_path)) > 0 then
-  fn.system({
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
     'git',
     'clone',
-    'https://github.com/wbthomason/packer.nvim',
-    '--depth',
-    1,
-    packar_path,
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
   })
-  execute('packadd packer.nvim')
 end
+vim.opt.rtp:prepend(lazypath)
 
-local function packerHook(use)
-  -- self manage for packer
-  use('wbthomason/packer.nvim')
+local lazy_config = require('config.lazy')
+require('lazy').setup({
+  -- self manage packer
+  'folke/lazy.nvim',
 
-  -- tree sitting monkey
-  use({
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = [[ require('kornicameister.plugins.treesitter') ]],
-    requires = { 'p00f/nvim-ts-rainbow', 'windwp/nvim-ts-autotag' },
-  })
+  -- target configuration
+  { import = 'kornicameister.plugins.treesitter' },
+  { import = 'kornicameister.plugins.editor' },
+  { import = 'kornicameister.plugins.ui' },
 
   -- LSP and shit
-  use({
-    {
-      'neovim/nvim-lspconfig',
-      config = [[ require('kornicameister.plugins.lsp') ]],
-      requires = {
-        'pierreglaser/folding-nvim',
-        'nvim-lua/lsp-status.nvim',
-        'RRethy/vim-illuminate',
-        'onsails/lspkind-nvim',
-        'ojroques/nvim-lspfuzzy',
-        {
-          'williamboman/mason.nvim',
-          requires = { 'williamboman/mason-lspconfig.nvim', branch = 'main' },
-        },
-        {
-          'folke/lsp-colors.nvim',
-          config = function()
-            require('lsp-colors').setup()
-          end,
-        },
-        {
-          'junegunn/fzf',
-          run = './install --all',
-          requires = { 'junegunn/fzf.vim' },
-        },
-      },
-    },
-    {
-      'folke/trouble.nvim',
-      branch = 'main',
-      config = [[ require("kornicameister.plugins.trouble") ]],
-    },
-  })
-
-  -- testing
-  use({
-    'mfussenegger/nvim-dap',
-    requires = {
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require('kornicameister.plugins.lsp')
+    end,
+    dependencies = {
+      'pierreglaser/folding-nvim',
+      'nvim-lua/lsp-status.nvim',
+      'RRethy/vim-illuminate',
+      'onsails/lspkind-nvim',
+      'ojroques/nvim-lspfuzzy',
+      'folke/neodev.nvim',
       {
-        'mfussenegger/nvim-dap-python',
-        ft = { 'python' },
-        config = [[ require('kornicameister.plugins.dap') ]],
+        'williamboman/mason.nvim',
+        dependencies = { 'williamboman/mason-lspconfig.nvim', branch = 'main' },
+      },
+      {
+        'folke/lsp-colors.nvim',
+        config = function()
+          require('lsp-colors').setup()
+        end,
+      },
+      {
+        'junegunn/fzf',
+        build = './install --all',
+        dependencies = { 'junegunn/fzf.vim' },
       },
     },
-  })
-  use({
-    'nvim-neotest/neotest',
-    after = {
-      'which-key.nvim',
-      'nvim-dap',
-    },
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-      'antoinemadec/FixCursorHold.nvim',
-      'nvim-neotest/neotest-python',
-    },
-    config = [[ require('kornicameister.plugins.neotest') ]],
-  })
+  },
 
   -- completion
-  use({
+  {
     'hrsh7th/nvim-cmp',
-    config = [[ require('kornicameister.plugins.completion') ]],
-    requires = {
+    event = 'InsertEnter',
+    config = function()
+      require('kornicameister.plugins.completion')
+    end,
+    dependencies = {
+      'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       {
         'hrsh7th/vim-vsnip',
-        requires = { 'hrsh7th/vim-vsnip-integ', 'rafamadriz/friendly-snippets' },
+        dependencies = {
+          'hrsh7th/vim-vsnip-integ',
+          'rafamadriz/friendly-snippets',
+        },
       },
       'f3fora/cmp-spell',
       'quangnguyen30192/cmp-nvim-tags',
     },
-  })
-
-  -- python
-  use({
-    { 'raimon49/requirements.txt.vim', ft = { 'requirements' } },
-    { 'tmhedberg/SimpylFold', ft = { 'python' } },
-    { 'lambdalisue/vim-pyenv', ft = { 'python' } },
-  })
-
-  -- other languages features
-  use({
-    { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
-    { 'lervag/vimtex', ft = 'tex' },
-    { 'elzr/vim-json', ft = 'json' },
-  })
-
-  -- git
-  use({
-    {
-      'tpope/vim-fugitive',
-      cmd = { 'Git', 'Gcommit', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' },
-    },
-    'octref/rootignore',
-    'tpope/vim-git',
-    { 'rhysd/git-messenger.vim', cmd = 'GitMessenger', keys = '<leader>gm' },
-    {
-      'rhysd/committia.vim',
-      setup = [[require('kornicameister.plugins.committia')]],
-    },
-    {
-      'lewis6991/gitsigns.nvim',
-      config = [[require('kornicameister.plugins.gitsigns')]],
-      requires = { 'nvim-lua/plenary.nvim' },
-    },
-  })
+  },
+  {
+    'folke/trouble.nvim',
+    branch = 'main',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('kornicameister.plugins.trouble')
+    end,
+  },
 
   -- editor enhanced
-  use({
-    {
-      'nvim-telescope/telescope.nvim',
-      config = [[ require("kornicameister.plugins.telescope") ]],
-      requires = {
-        'nvim-lua/popup.nvim',
-        'nvim-lua/plenary.nvim',
-        'gbrlsnchs/telescope-lsp-handlers.nvim',
-        'nvim-telescope/telescope-ui-select.nvim',
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        'jvgrootveld/telescope-zoxide',
-      },
-    },
-    {
-      'lukas-reineke/indent-blankline.nvim',
-      setup = [[require('kornicameister.plugins.indentline')]],
-    },
-    {
-      'RRethy/vim-hexokinase',
-      run = 'make hexokinase',
-      cmd = 'HexokinaseToggle',
-      ft = {
-        'lua',
-        'python',
-        'css',
-        'scss',
-        'sass',
-        'elm',
-        'typescript',
-        'vue',
-      },
-      config = [[ require("kornicameister.plugins.hexokinase") ]],
-    },
-    {
-      'mechatroner/rainbow_csv',
-      ft = { 'csv' },
-    },
-    'ConradIrwin/vim-bracketed-paste',
-    'scrooloose/nerdcommenter',
-    'tpope/vim-surround',
-    'andymass/vim-matchup',
-    'google/vim-searchindex',
-    'triglav/vim-visual-increment',
-    {
-      'lewis6991/spellsitter.nvim',
-      config = function()
-        require('spellsitter').setup()
-      end,
-    },
-    { 'monaqa/dial.nvim', config = [[require("kornicameister.plugins.dial")]] },
-    {
-      'zhimsel/vim-stay',
-      setup = [[require("kornicameister.plugins.vim-stay")]],
-    },
-    { 'Vimjas/vim-python-pep8-indent', ft = { 'python', 'python3' } },
-    'Glench/Vim-Jinja2-Syntax',
-    'wgwoods/vim-systemd-syntax',
-    {
-      'kwkarlwang/bufjump.nvim',
-      config = [[require("kornicameister.plugins.bufjump")]],
-    },
-  })
-
-  -- UI
-  use({
-    {
-      'EdenEast/nightfox.nvim',
-      config = [[ require('kornicameister.plugins.colorscheme') ]],
-    },
-    {
-      'akinsho/nvim-bufferline.lua',
-      config = [[ require("kornicameister.plugins.bufferline") ]],
-      branch = 'main',
-    },
-    {
-      'hoob3rt/lualine.nvim',
-      config = [[ require("kornicameister.plugins.lualine") ]],
-    },
-    'ryanoasis/vim-devicons',
-    {
-      'kyazdani42/nvim-web-devicons',
-      config = function()
-        require('nvim-web-devicons').setup({ default = true })
-      end,
-    },
-    'psliwka/vim-smoothie',
-    'kosayoda/nvim-lightbulb',
-  })
-
-  -- other
-  use({
-    {
-      'ludovicchabant/vim-gutentags',
-      config = [[ require("kornicameister.plugins.gutentags") ]],
-    },
-    'tpope/vim-repeat',
-    'svermeulen/vimpeccable',
-    'wakatime/vim-wakatime',
-    'lambdalisue/suda.vim',
-    {
-      'folke/which-key.nvim',
-      branch = 'main',
-      config = vim.defer_fn(function()
-        require('which-key').setup({ presets = { g = true } })
-      end, 100),
-    },
-    {
-      'antoinemadec/FixCursorHold.nvim',
-      config = function()
-        vim.g.curshold_updatime = 1000
-      end,
-    },
-    {
-      'iamcco/markdown-preview.nvim',
-      run = 'cd app && yarn install',
-      cmd = 'MarkdownPreview',
-    },
-  })
-end
-
-return require('packer').startup({
-  packerHook,
-  config = {
-    max_jobs = 20,
-    autoremove = true,
-    git = {
-      subcommands = {
-        fetch = 'fetch --tags --force --depth 15 --progress',
-      },
-    },
-    display = {
-      open_fn = function()
-        return require('packer.util').float({ border = 'rounded' })
-      end,
+  {
+    'nvim-telescope/telescope.nvim',
+    config = function()
+      require('kornicameister.plugins.telescope')
+    end,
+    dependencies = {
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim',
+      'gbrlsnchs/telescope-lsp-handlers.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      'jvgrootveld/telescope-zoxide',
     },
   },
-})
+
+  {
+    'RRethy/vim-hexokinase',
+    build = 'make hexokinase',
+    cmd = 'HexokinaseToggle',
+    ft = {
+      'lua',
+      'python',
+      'css',
+      'scss',
+      'sass',
+      'elm',
+      'typescript',
+      'vue',
+    },
+    config = function()
+      require('kornicameister.plugins.hexokinase')
+    end,
+  },
+
+  {
+    'mechatroner/rainbow_csv',
+    ft = { 'csv' },
+  },
+  'ConradIrwin/vim-bracketed-paste',
+  'scrooloose/nerdcommenter',
+  'tpope/vim-surround',
+  'andymass/vim-matchup',
+  'google/vim-searchindex',
+  'triglav/vim-visual-increment',
+  {
+    'lewis6991/spellsitter.nvim',
+    config = function()
+      require('spellsitter').setup()
+    end,
+  },
+  {
+    'monaqa/dial.nvim',
+    config = function()
+      require('kornicameister.plugins.dial')
+    end,
+  },
+  {
+    'zhimsel/vim-stay',
+    init = function()
+      require('kornicameister.plugins.vim-stay')
+    end,
+  },
+  {
+    'kwkarlwang/bufjump.nvim',
+    config = function()
+      require('kornicameister.plugins.bufjump')
+    end,
+  },
+
+  -- testing
+  'mfussenegger/nvim-dap',
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-dap',
+      'nvim-lua/plenary.nvim',
+      'nvim-neotest/neotest-python',
+      'nvim-neotest/nvim-nio',
+      'nvim-treesitter/nvim-treesitter',
+      'which-key.nvim',
+    },
+    config = function()
+      require('kornicameister.plugins.neotest')
+    end,
+  },
+
+  -- git
+  'tpope/vim-git',
+  'octref/rootignore',
+  {
+    'tpope/vim-fugitive',
+    cmd = { 'Git', 'Gcommit', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' },
+  },
+  {
+    'rhysd/committia.vim',
+    init = function()
+      require('kornicameister.plugins.committia')
+    end,
+  },
+  {
+    'rhysd/git-messenger.vim',
+    cmd = 'GitMessenger',
+    keys = {
+      { '<leader>gm', '<cmd>GitMessenger<cr>', desc = 'NeoTree' },
+    },
+  },
+  {
+    'lewis6991/gitsigns.nvim',
+    event = 'BufReadPost',
+    config = function()
+      require('kornicameister.plugins.gitsigns')
+    end,
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+
+  -- UI
+  {
+    'EdenEast/nightfox.nvim',
+    config = function()
+      require('kornicameister.plugins.colorscheme')
+    end,
+  },
+  {
+    'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('nvim-web-devicons').setup({ default = true })
+    end,
+  },
+  'psliwka/vim-smoothie',
+  'kosayoda/nvim-lightbulb',
+
+  -- python
+  { 'raimon49/requirements.txt.vim', lazy = true, ft = { 'requirements' } },
+  { 'tmhedberg/SimpylFold', lazy = true, ft = { 'python' } },
+  { 'lambdalisue/vim-pyenv', lazdy = true, ft = { 'python' } },
+  {
+    'Vimjas/vim-python-pep8-indent',
+    lazy = true,
+    ft = { 'python', 'python3' },
+  },
+  {
+    'mfussenegger/nvim-dap-python',
+    lazy = true,
+    ft = { 'python' },
+    dependencies = { 'nvim-neotest/neotest', 'mfussenegger/nvim-dap' },
+    config = function()
+      require('kornicameister.plugins.dap')
+    end,
+  },
+
+  -- other languages features
+  { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
+  { 'lervag/vimtex', ft = 'tex' },
+  { 'elzr/vim-json', ft = 'json' },
+  { 'Glench/Vim-Jinja2-Syntax', ft = { 'jinja2' } },
+  { 'wgwoods/vim-systemd-syntax', ft = { 'systemd' } },
+
+  {
+    'folke/which-key.nvim',
+    branch = 'main',
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require('which-key').setup({ presets = { g = true } })
+    end,
+  },
+  {
+    'antoinemadec/FixCursorHold.nvim',
+    config = function()
+      vim.g.curshold_updatime = 1000
+    end,
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+    build = 'cd app && npx --yes yarn install',
+    cmd = 'MarkdownPreview',
+  },
+
+  -- other
+  {
+    'ludovicchabant/vim-gutentags',
+    config = function()
+      require('kornicameister.plugins.gutentags')
+    end,
+  },
+  'tpope/vim-repeat',
+  'svermeulen/vimpeccable',
+  'wakatime/vim-wakatime',
+  'lambdalisue/suda.vim',
+}, lazy_config)

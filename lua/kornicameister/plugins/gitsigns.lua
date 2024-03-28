@@ -16,35 +16,27 @@ require('gitsigns').setup({
       numhl = 'GitSignsDeleteNr',
     },
   },
-  keymaps = {
-    -- defaults
-    noremap = true,
-    buffer = true,
-
-    -- navigate hunks
-    ['n ]c'] = {
-      expr = true,
-      "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'",
-    },
-    ['n [c'] = {
-      expr = true,
-      "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'",
-    },
-
-    ['n <A-,>'] = {
-      noremap = false,
-      silent = true,
-      "<cmd>lua require('gitsigns').reset_hunk()<CR>",
-    },
-    ['n <A-.>'] = {
-      noremap = false,
-      silent = true,
-      "<cmd>lua require('gitsigns').stage_hunk()<CR>",
-    },
-    ['n <A-/>'] = {
-      noremap = false,
-      silent = true,
-      "<cmd>lua require('gitsigns').preview_hunk()<CR>",
-    },
-  },
 })
+
+require('which-key').register({
+  ['n ]c'] = {
+    '<cmd>lua require"gitsigns.actions".next_hunk()<CR>',
+    'Next hunk',
+  },
+  ['n [c'] = {
+    '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>',
+    'Previous hunk',
+  },
+  ['n <A-,>'] = {
+    "<cmd>lua require('gitsigns').reset_hunk()<CR>",
+    'Reset hunk',
+  },
+  ['n <A-.>'] = {
+    "<cmd>lua require('gitsigns').stage_hunk()<CR>",
+    'Stage hunk',
+  },
+  ['n <A-/>'] = {
+    "<cmd>lua require('gitsigns').preview_hunk()<CR>",
+    'Preview hunk',
+  },
+}, { silent = true, noremap = true, buffer = true })

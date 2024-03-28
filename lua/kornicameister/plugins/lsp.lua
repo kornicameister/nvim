@@ -2,6 +2,8 @@ local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
 local efm_config = require('kornicameister.plugins.efm')
 
+require('neodev').setup({})
+
 require('mason').setup({
   ui = {
     icons = {
