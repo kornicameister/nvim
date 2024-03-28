@@ -223,7 +223,7 @@ return {
 
   -- indent guides for Neovim
   {
-    "lukas-reineke/indent-blankline.nvim",
+    'lukas-reineke/indent-blankline.nvim',
     opts = {
       indent = {
         char = '┊',
@@ -232,18 +232,18 @@ return {
       scope = { enabled = false },
       exclude = {
         filetypes = {
-          "Trouble",
-          "dashboard",
-          "help",
-          "lazy",
-          "lazyterm",
-          "man",
-          "mason",
-          "toggleterm",
-          "trouble",
+          'Trouble',
+          'dashboard',
+          'help',
+          'lazy',
+          'lazyterm',
+          'man',
+          'mason',
+          'toggleterm',
+          'trouble',
         },
       },
     },
-    main = "ibl",
+    main = 'ibl',
   },
 }
