@@ -1,4 +1,19 @@
 return {
+  'tpope/vim-git',
+  'octref/rootignore',
+  {
+    'rhysd/committia.vim',
+    init = function()
+      require('kornicameister.plugins.committia')
+    end,
+  },
+  {
+    'rhysd/git-messenger.vim',
+    cmd = 'GitMessenger',
+    keys = {
+      { '<leader>gm', '<cmd>GitMessenger<cr>', desc = 'NeoTree' },
+    },
+  },
   {
     'kdheepak/lazygit.nvim',
     cmd = {
