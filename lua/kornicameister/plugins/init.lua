@@ -41,12 +41,6 @@ require('lazy').setup({
         dependencies = { 'williamboman/mason-lspconfig.nvim', branch = 'main' },
       },
       {
-        'folke/lsp-colors.nvim',
-        config = function()
-          require('lsp-colors').setup()
-        end,
-      },
-      {
         'junegunn/fzf',
         build = './install --all',
         dependencies = { 'junegunn/fzf.vim' },
@@ -151,7 +145,7 @@ require('lazy').setup({
   'kosayoda/nvim-lightbulb',
 
   -- python
-  { 'tmhedberg/SimpylFold',  lazy = true,  ft = { 'python' } },
+  { 'tmhedberg/SimpylFold', lazy = true, ft = { 'python' } },
   { 'lambdalisue/vim-pyenv', lazdy = true, ft = { 'python' } },
   {
     'Vimjas/vim-python-pep8-indent',
@@ -169,10 +163,10 @@ require('lazy').setup({
   },
 
   -- other languages features
-  { 'gennaro-tedesco/nvim-jqx',   ft = { 'json', 'yaml' } },
-  { 'elzr/vim-json',              ft = 'json' },
-  { 'lervag/vimtex',              ft = 'tex' },
-  { 'Glench/Vim-Jinja2-Syntax',   ft = { 'jinja2' } },
+  { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
+  { 'elzr/vim-json', ft = 'json' },
+  { 'lervag/vimtex', ft = 'tex' },
+  { 'Glench/Vim-Jinja2-Syntax', ft = { 'jinja2' } },
   { 'wgwoods/vim-systemd-syntax', ft = { 'systemd' } },
 
   {
