@@ -5,9 +5,9 @@ return {
     branch = 'main',
     event = 'VimEnter',
     keys = {
-      { '<leader>q', '<Cmd>bd<CR>gT', desc = 'Close buffer' },
-      { '<S-Tab>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
-      { '<Tab>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+      { '<leader>q', '<Cmd>bd<CR>gT',                desc = 'Close buffer' },
+      { '<S-Tab>',   '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
+      { '<Tab>',     '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     },
     config = function()
       vim.opt.termguicolors = true
@@ -55,6 +55,9 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     event = 'VimEnter',
+    dependencies = {
+      'vuki656/package-info.nvim',
+    },
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
       if vim.fn.argc(-1) > 0 then
@@ -173,6 +176,11 @@ return {
                 end
               end,
               icon = '  ',
+            },
+            {
+              function()
+                return require('package-info').get_status()
+              end,
             },
           },
           lualine_z = {

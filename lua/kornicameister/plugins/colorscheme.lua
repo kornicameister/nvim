@@ -1,7 +1,5 @@
-local g, opt = vim.g, vim.opt
-
-opt.termguicolors = true
-opt.background = 'dark'
+vim.opt.termguicolors = true
+vim.opt.background = 'dark'
 
 require('nightfox').setup({
   options = {
@@ -10,4 +8,4 @@ require('nightfox').setup({
   },
 })
 
-vim.cmd([[colorscheme duskfox]])
+vim.cmd([[colorscheme nordfox]])

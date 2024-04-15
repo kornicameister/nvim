@@ -3,7 +3,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
     'git',
     'clone',
-    '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
     '--branch=stable', -- latest stable release
     lazypath,
@@ -20,6 +19,9 @@ require('lazy').setup({
   { import = 'kornicameister.plugins.treesitter' },
   { import = 'kornicameister.plugins.editor' },
   { import = 'kornicameister.plugins.ui' },
+  { import = 'kornicameister.plugins.monorepo' },
+  { import = 'kornicameister.plugins.git' },
+  { import = 'kornicameister.plugins.test' },
 
   -- LSP and shit
   {
@@ -76,31 +78,8 @@ require('lazy').setup({
       'quangnguyen30192/cmp-nvim-tags',
     },
   },
-  {
-    'folke/trouble.nvim',
-    branch = 'main',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('kornicameister.plugins.trouble')
-    end,
-  },
 
   -- editor enhanced
-  {
-    'nvim-telescope/telescope.nvim',
-    config = function()
-      require('kornicameister.plugins.telescope')
-    end,
-    dependencies = {
-      'nvim-lua/popup.nvim',
-      'nvim-lua/plenary.nvim',
-      'gbrlsnchs/telescope-lsp-handlers.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      'jvgrootveld/telescope-zoxide',
-    },
-  },
-
   {
     'RRethy/vim-hexokinase',
     build = 'make hexokinase',
@@ -155,31 +134,9 @@ require('lazy').setup({
     end,
   },
 
-  -- testing
-  'mfussenegger/nvim-dap',
-  {
-    'nvim-neotest/neotest',
-    dependencies = {
-      'antoinemadec/FixCursorHold.nvim',
-      'nvim-dap',
-      'nvim-lua/plenary.nvim',
-      'nvim-neotest/neotest-python',
-      'nvim-neotest/nvim-nio',
-      'nvim-treesitter/nvim-treesitter',
-      'which-key.nvim',
-    },
-    config = function()
-      require('kornicameister.plugins.neotest')
-    end,
-  },
-
   -- git
   'tpope/vim-git',
   'octref/rootignore',
-  {
-    'tpope/vim-fugitive',
-    cmd = { 'Git', 'Gcommit', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' },
-  },
   {
     'rhysd/committia.vim',
     init = function()
@@ -192,14 +149,6 @@ require('lazy').setup({
     keys = {
       { '<leader>gm', '<cmd>GitMessenger<cr>', desc = 'NeoTree' },
     },
-  },
-  {
-    'lewis6991/gitsigns.nvim',
-    event = 'BufReadPost',
-    config = function()
-      require('kornicameister.plugins.gitsigns')
-    end,
-    dependencies = { 'nvim-lua/plenary.nvim' },
   },
 
   -- UI
@@ -219,8 +168,7 @@ require('lazy').setup({
   'kosayoda/nvim-lightbulb',
 
   -- python
-  { 'raimon49/requirements.txt.vim', lazy = true, ft = { 'requirements' } },
-  { 'tmhedberg/SimpylFold', lazy = true, ft = { 'python' } },
+  { 'tmhedberg/SimpylFold',  lazy = true,  ft = { 'python' } },
   { 'lambdalisue/vim-pyenv', lazdy = true, ft = { 'python' } },
   {
     'Vimjas/vim-python-pep8-indent',
@@ -238,10 +186,10 @@ require('lazy').setup({
   },
 
   -- other languages features
-  { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
-  { 'lervag/vimtex', ft = 'tex' },
-  { 'elzr/vim-json', ft = 'json' },
-  { 'Glench/Vim-Jinja2-Syntax', ft = { 'jinja2' } },
+  { 'gennaro-tedesco/nvim-jqx',   ft = { 'json', 'yaml' } },
+  { 'elzr/vim-json',              ft = 'json' },
+  { 'lervag/vimtex',              ft = 'tex' },
+  { 'Glench/Vim-Jinja2-Syntax',   ft = { 'jinja2' } },
   { 'wgwoods/vim-systemd-syntax', ft = { 'systemd' } },
 
   {

@@ -22,6 +22,7 @@ require('mason-lspconfig').setup({
     'dockerls',
     'efm',
     'elmls',
+    'eslint',
     -- "hadolint",
     'html',
     'jsonls',
@@ -32,9 +33,12 @@ require('mason-lspconfig').setup({
     -- "shfmt",
     'sqlls',
     'texlab',
-    'tsserver',
+    'vtsls',
     'vimls',
     'vuels',
+    'typos_lsp', -- typos
+    'vacuum', -- open api
+    'cucumber_language_server', -- cucumber LSP
   },
 })
 
@@ -63,6 +67,22 @@ require('mason-lspconfig').setup_handlers({
       end
       local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
+      end
+
+      if server_name == 'typescript' then
+        config.commands = {
+          OrganizeImports = {
+            function()
+              local params = {
+                command = '_typescript.organizeImports',
+                arguments = { vim.api.nvim_buf_get_name(0) },
+                title = '',
+              }
+              vim.lsp.buf.execute_command(params)
+            end,
+            description = 'Organize Imports',
+          },
+        }
       end
 
       -- prepare extensions
