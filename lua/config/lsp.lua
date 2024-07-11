@@ -1,9 +1,6 @@
-local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
-local efm_config = require('kornicameister.plugins.efm')
 
 require('neodev').setup({})
-
 require('mason').setup({
   ui = {
     icons = {
@@ -11,6 +8,7 @@ require('mason').setup({
     },
   },
 })
+
 -- commented sections are not LSP servers
 -- how do I install them?
 require('mason-lspconfig').setup({
@@ -20,31 +18,33 @@ require('mason-lspconfig').setup({
     'cmake',
     'cssls',
     'dockerls',
-    'efm',
     'elmls',
-    'eslint',
-    -- "hadolint",
     'html',
     'jsonls',
     'lua_ls',
     'marksman',
-    'pylsp',
-    -- "shellcheck",
-    -- "shfmt",
     'sqlls',
     'texlab',
-    'vtsls',
     'vimls',
-    'vuels',
-    'typos_lsp', -- typos
-    'vacuum', -- open api
-    'cucumber_language_server', -- cucumber LSP
+    'vacuum',                   -- open api
+    -- yaml_tag
+    'yamlls',
+    -- Python
+    'pylsp',
+    -- TS + JS
+    'biome',
+    'eslint',
+    'vtsls',
   },
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
 capabilities.textDocument.codeLens = {
   dynamicRegistration = false,
 }
@@ -58,7 +58,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 require('mason-lspconfig').setup_handlers({
-  function(server_name) -- default handler (optional)
+  function(server_name)
     local config = {}
 
     config.on_attach = function(client, bufnr)
@@ -69,24 +69,8 @@ require('mason-lspconfig').setup_handlers({
         vim.api.nvim_buf_set_option(bufnr, ...)
       end
 
-      if server_name == 'typescript' then
-        config.commands = {
-          OrganizeImports = {
-            function()
-              local params = {
-                command = '_typescript.organizeImports',
-                arguments = { vim.api.nvim_buf_get_name(0) },
-                title = '',
-              }
-              vim.lsp.buf.execute_command(params)
-            end,
-            description = 'Organize Imports',
-          },
-        }
-      end
-
       -- prepare extensions
-      require('folding').on_attach(client)
+      require('folding').on_attach()
       require('illuminate').on_attach(client)
       lsp_status.on_attach(client)
 
@@ -119,19 +103,12 @@ require('mason-lspconfig').setup_handlers({
         buf_set_keymap('n', '?', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
       end
 
-      vim.cmd(
-        'autocmd BufWritePost <buffer> lua vim.lsp.buf.format({async = true})'
-      )
       buf_set_keymap(
         'n',
         '<S-f>',
-        '<cmd>lua vim.lsp.buf.format({async = true}))<CR>',
+        '<cmd>lua vim.lsp.buf.format({ async = true })<CR>',
         opts
       )
-      if vim.tbl_keys(efm_config)[client.name] ~= nil then
-        print('Using efm instead of ' .. client.name .. ' for formatting')
-        client.server_capabilities.documentFormattingProvider = false
-      end
 
       -- issues navigation
       buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -210,23 +187,6 @@ require('mason-lspconfig').setup_handlers({
     end
 
     require('lspconfig')[server_name].setup(config)
-  end,
-  ['efm'] = function()
-    require('lspconfig')['efm'].setup({
-      init_options = { documentFormatting = true, codeAction = true },
-      root_dir = lsp_config.util.root_pattern({
-        '.git/',
-        'requirements.txt',
-        'package.json',
-        'setup.cfg',
-        vim.fn.getcwd(),
-      }),
-      filetypes = vim.tbl_keys(efm_config),
-      settings = {
-        rootMarkers = { '.git/' },
-        languages = efm_config,
-      },
-    })
   end,
   ['lua_ls'] = function()
     require('lspconfig')['lua_ls'].setup({

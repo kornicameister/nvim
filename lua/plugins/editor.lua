@@ -14,6 +14,38 @@ return {
     },
   },
 
+  'zhimsel/vim-stay',
+  {
+    'kwkarlwang/bufjump.nvim',
+    opts = {},
+    keys = {
+      {
+        ']]',
+        function ()
+          require('bufjump').forward()
+        end,
+      },
+      {
+        'S-]]',
+        function ()
+          require('bufjump').forward_same_buf()
+        end,
+      },
+      {
+        '[[',
+        function ()
+          require('bufjump').backward()
+        end,
+      },
+      {
+        'S-[[',
+        function ()
+          require('bufjump').backward_same_buf()
+        end,
+      }
+    },
+  },
+
   {
     'nvim-neo-tree/neo-tree.nvim',
     cmd = 'Neotree',
@@ -156,7 +188,10 @@ return {
       },
     },
     config = function()
-      require('coverage').setup()
+      require('coverage').setup({
+        auto_reload = true,
+        auto_preview = true,
+      })
     end,
   },
 
@@ -226,7 +261,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     config = function()
-      require('kornicameister.plugins.telescope')
+      require('plugins.telescope')
     end,
     dependencies = {
       'gbrlsnchs/telescope-lsp-handlers.nvim',

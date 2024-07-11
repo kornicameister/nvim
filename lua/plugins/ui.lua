@@ -1,13 +1,78 @@
 return {
+  'psliwka/vim-smoothie',
+
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    keys = {
+      {
+        '<space><space>',
+        'za',
+        desc = 'Toggle fold',
+      },
+      {
+        'zR',
+        function()
+          require('ufo').openAllFolds()
+        end,
+      },
+      {
+        'zM',
+        function()
+          require('ufo').closeAllFolds()
+        end,
+      },
+    },
+    opts = {
+      enable_get_fold_virt_text = true,
+      provider_selector = function()
+        return { 'treesitter', 'indent' }
+      end,
+    },
+  },
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      require('tokyonight').setup({
+        style = 'night',
+      })
+
+      vim.opt.termguicolors = true
+      vim.opt.background = 'dark'
+      vim.cmd([[colorscheme tokyonight]])
+    end,
+  },
+
+  {
+    'RRethy/vim-hexokinase',
+    build = 'make hexokinase',
+    cmd = 'HexokinaseToggle',
+    ft = {
+      'lua',
+      'python',
+      'css',
+      'scss',
+      'sass',
+      'elm',
+      'typescript',
+      'vue',
+    },
+    config = function()
+      vim.g.Hexokinase_highlighters = { 'virtual' }
+    end,
+  },
 
   {
     'akinsho/nvim-bufferline.lua',
     branch = 'main',
     event = 'VimEnter',
     keys = {
-      { '<leader>q', '<Cmd>bd<CR>gT',                desc = 'Close buffer' },
-      { '<S-Tab>',   '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
-      { '<Tab>',     '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+      { '<leader>q', '<Cmd>bd<CR>gT', desc = 'Close buffer' },
+      { '<S-Tab>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
+      { '<Tab>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     },
     config = function()
       vim.opt.termguicolors = true
@@ -56,6 +121,7 @@ return {
     'nvim-lualine/lualine.nvim',
     event = 'VimEnter',
     dependencies = {
+      'folke/tokyonight.nvim',
       'vuki656/package-info.nvim',
     },
     init = function()
@@ -88,7 +154,7 @@ return {
 
       require('lualine').setup({
         options = {
-          theme = 'nightfox',
+          theme = 'tokyonight',
           disabled_filetypes = { 'fzf' },
           component_separators = '|',
           section_separators = { '', '' },
@@ -232,12 +298,19 @@ return {
   -- indent guides for Neovim
   {
     'lukas-reineke/indent-blankline.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       indent = {
         char = '┊',
         tab_char = '>',
       },
-      scope = { enabled = false },
+      scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
+        injected_languages = true,
+        priority = 1,
+      },
       exclude = {
         filetypes = {
           'Trouble',
@@ -254,4 +327,50 @@ return {
     },
     main = 'ibl',
   },
+
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      lsp = {
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+      },
+      routes = {
+        {
+          filter = {
+            event = 'msg_show',
+            any = {
+              { find = '%d+L, %d+B' },
+              { find = '; after #%d+' },
+              { find = '; before #%d+' },
+            },
+          },
+          view = 'mini',
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = true,
+      },
+    },
+    -- stylua: ignore
+    keys = {
+      { "<S-Enter>",   function() require("noice").redirect(vim.fn.getcmdline()) end,                 mode = "c",                 desc = "Redirect Cmdline" },
+      { "<leader>snl", function() require("noice").cmd("last") end,                                   desc = "Noice Last Message" },
+      { "<leader>snh", function() require("noice").cmd("history") end,                                desc = "Noice History" },
+      { "<leader>sna", function() require("noice").cmd("all") end,                                    desc = "Noice All" },
+      { "<leader>snd", function() require("noice").cmd("dismiss") end,                                desc = "Dismiss All" },
+      { "<c-f>",       function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,  silent = true,              expr = true,              desc = "Scroll Forward",  mode = { "i", "n", "s" } },
+      { "<c-b>",       function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true,              expr = true,              desc = "Scroll Backward", mode = { "i", "n", "s" } },
+    },
+  },
+
+  { 'nvim-tree/nvim-web-devicons', lazy = true },
+  { 'MunifTanjim/nui.nvim', lazy = true },
 }

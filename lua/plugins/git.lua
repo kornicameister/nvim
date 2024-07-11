@@ -4,7 +4,15 @@ return {
   {
     'rhysd/committia.vim',
     init = function()
-      require('kornicameister.plugins.committia')
+      local g = vim.g
+      local vimp = require('vimp')
+
+      g.committia_hooks = {}
+
+      -- Scroll the diff window from insert mode
+      -- Map <A-n> and <A-p>
+      vimp.imap({ 'buffer' }, '<A-n>', '<Plug>(committia-scroll-diff-down-half')
+      vimp.imap({ 'buffer' }, '<A-p>', '<Plug>(committia-scroll-diff-up-half)')
     end,
   },
   {
@@ -49,14 +57,14 @@ return {
         desc = 'Git: previous change',
       },
       {
-        '<A-.>',
+        '<C-.>',
         function()
           require('gitsigns.actions').stage_hunk()
         end,
         desc = 'Git: stage change',
       },
       {
-        '<A-,>',
+        '<C-,>',
         function()
           require('gitsigns.actions').reset_hunk()
         end,
@@ -68,27 +76,11 @@ return {
         numhl = true,
         linehl = false,
         signs = {
-          add = { hl = 'GitSignsAdd', text = '', numhl = 'GitSignsAddNr' },
-          delete = {
-            hl = 'GitSignsDelete',
-            text = '',
-            numhl = 'GitSignsDeleteNr',
-          },
-          change = {
-            hl = 'GitSignsChange',
-            text = '',
-            numhl = 'GitSignsChangeNr',
-          },
-          changedelete = {
-            hl = 'GitSignsDelete',
-            text = '',
-            numhl = 'GitSignsChangeNr',
-          },
-          topdelete = {
-            hl = 'GitSignsDelete',
-            text = '',
-            numhl = 'GitSignsDeleteNr',
-          },
+          add = { text = '' },
+          delete = { text = '' },
+          change = { text = '' },
+          changedelete = { text = '' },
+          topdelete = { text = '' },
         },
       })
     end,
