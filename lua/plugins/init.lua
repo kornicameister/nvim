@@ -75,10 +75,10 @@ require('lazy').setup({
   },
 
   -- other languages features
-  { 'gennaro-tedesco/nvim-jqx',   ft = { 'json', 'yaml' } },
-  { 'elzr/vim-json',              ft = 'json' },
-  { 'lervag/vimtex',              ft = 'tex' },
-  { 'Glench/Vim-Jinja2-Syntax',   ft = { 'jinja2' } },
+  { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
+  { 'elzr/vim-json', ft = 'json' },
+  { 'lervag/vimtex', ft = 'tex' },
+  { 'Glench/Vim-Jinja2-Syntax', ft = { 'jinja2' } },
   { 'wgwoods/vim-systemd-syntax', ft = { 'systemd' } },
 
   {

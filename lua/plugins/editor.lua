@@ -21,28 +21,28 @@ return {
     keys = {
       {
         ']]',
-        function ()
+        function()
           require('bufjump').forward()
         end,
       },
       {
         'S-]]',
-        function ()
+        function()
           require('bufjump').forward_same_buf()
         end,
       },
       {
         '[[',
-        function ()
+        function()
           require('bufjump').backward()
         end,
       },
       {
         'S-[[',
-        function ()
+        function()
           require('bufjump').backward_same_buf()
         end,
-      }
+      },
     },
   },
 

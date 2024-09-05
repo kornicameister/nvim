@@ -26,7 +26,7 @@ require('mason-lspconfig').setup({
     'sqlls',
     'texlab',
     'vimls',
-    'vacuum',                   -- open api
+    'vacuum', -- open api
     -- yaml_tag
     'yamlls',
     -- Python
@@ -42,8 +42,8 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
 capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
 }
 capabilities.textDocument.codeLens = {
   dynamicRegistration = false,
