@@ -2,6 +2,7 @@ autoload/*
 plugged/*
 view/*
 undodir/*
+spell/*.spl
 
 !plugged/.gitkeep
 !autoload/.gitkeep

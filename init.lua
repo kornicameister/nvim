@@ -11,9 +11,9 @@ local vimp_ok, vimp = pcall(require, 'vimp')
 
 local autocmd = utils.autocmd
 
-require('kornicameister.config')
-require('kornicameister.integrations')
-require('kornicameister.plugins')
+require('config')
+require('integrations')
+require('plugins')
 
 -- settings
 
@@ -96,19 +96,6 @@ opt.hlsearch = true -- highlight on search
 opt.incsearch = true
 
 opt.clipboard = 'unnamedplus'
-
-opt.spell = false
-if vimp_ok then
-  vimp.nmap({ 'silent', 'buffer' }, '<leader>ss', [[:setlocal spell!<cr>]])
-end
-
-opt.foldmethod = 'indent'
-opt.foldlevel = 99
-if vimp_ok then
-  vimp.nnoremap({ 'silent' }, '<Space>', 'za')
-  vimp.vnoremap({ 'silent' }, '<Space>', 'za')
-  vimp.nnoremap(';', ':') -- quicker access to :cmd
-end
 
 opt.wildmenu = true
 opt.wildmode = { 'longest:full', 'full' }

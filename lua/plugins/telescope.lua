@@ -23,6 +23,7 @@ telescope.setup({
     },
   },
   extensions = {
+    lazy = {},
     lsp_handlers = {
       code_action = {
         telescope = require('telescope.themes').get_dropdown({}),
@@ -41,7 +42,9 @@ telescope.setup({
 })
 
 telescope.load_extension('fzf')
+telescope.load_extension('lazy')
 telescope.load_extension('ui-select')
+telescope.load_extension('package_info')
 
 require('which-key').register({
   ['<leader>'] = {
