@@ -31,18 +31,18 @@ return {
     },
   },
   {
-    'folke/tokyonight.nvim',
+    'navarasu/onedark.nvim',
     lazy = false,
     priority = 1000,
     opts = {},
     config = function()
-      require('tokyonight').setup({
-        style = 'night',
+      require('onedark').setup({
+        style = 'darker',
       })
 
       vim.opt.termguicolors = true
       vim.opt.background = 'dark'
-      vim.cmd([[colorscheme tokyonight]])
+      vim.cmd([[colorscheme onedark]])
     end,
   },
 
@@ -154,7 +154,7 @@ return {
 
       require('lualine').setup({
         options = {
-          theme = 'tokyonight',
+          theme = 'onedark',
           disabled_filetypes = { 'fzf' },
           component_separators = '|',
           section_separators = { '', '' },
