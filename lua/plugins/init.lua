@@ -92,12 +92,6 @@ require('lazy').setup({
   },
 
   -- other
-  {
-    'ludovicchabant/vim-gutentags',
-    config = function()
-      require('plugins.gutentags')
-    end,
-  },
   'tpope/vim-repeat',
   'svermeulen/vimpeccable',
   { 'wakatime/vim-wakatime', lazy = false },
