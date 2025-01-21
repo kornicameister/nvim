@@ -75,7 +75,7 @@ return {
         },
       })
     end,
-    dependencies = { 'p00f/nvim-ts-rainbow', 'windwp/nvim-ts-autotag' },
+    dependencies = { 'hiphish/rainbow-delimiters.nvim', 'windwp/nvim-ts-autotag' },
   },
 
   {

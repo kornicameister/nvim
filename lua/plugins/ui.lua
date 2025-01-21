@@ -45,7 +45,6 @@ return {
       vim.cmd([[colorscheme onedark]])
     end,
   },
-
   {
     'RRethy/vim-hexokinase',
     build = 'make hexokinase',
@@ -64,7 +63,6 @@ return {
       vim.g.Hexokinase_highlighters = { 'virtual' }
     end,
   },
-
   {
     'akinsho/nvim-bufferline.lua',
     branch = 'main',
