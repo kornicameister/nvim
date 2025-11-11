@@ -94,6 +94,5 @@ require('lazy').setup({
   -- other
   'tpope/vim-repeat',
   'svermeulen/vimpeccable',
-  { 'wakatime/vim-wakatime', lazy = false },
   'lambdalisue/suda.vim',
 }, lazy_config)
