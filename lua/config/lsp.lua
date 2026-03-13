@@ -9,8 +9,6 @@ require('mason').setup({
   },
 })
 
--- commented sections are not LSP servers
--- how do I install them?
 require('mason-lspconfig').setup({
   ensure_installed = {
     'awk_ls',
@@ -26,18 +24,17 @@ require('mason-lspconfig').setup({
     'sqlls',
     'texlab',
     'vimls',
-    'vacuum', -- open api
-    -- yaml_tag
+    'vacuum',
     'yamlls',
-    -- Python
     'pylsp',
-    -- TS + JS
     'biome',
     'eslint',
     'vtsls',
   },
+  automatic_enable = true,
 })
 
+-- Capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
@@ -57,158 +54,96 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 
-require('mason-lspconfig').setup_handlers({
-  function(server_name)
-    local config = {}
+-- On attach function
+local on_attach = function(client, bufnr)
+  -- Extensions
+  require('folding').on_attach()
+  require('illuminate').on_attach(client)
+  lsp_status.on_attach(client)
 
-    config.on_attach = function(client, bufnr)
-      local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-      end
-      local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-      end
+  -- Omnifunc
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-      -- prepare extensions
-      require('folding').on_attach()
-      require('illuminate').on_attach(client)
-      lsp_status.on_attach(client)
-
-      --Enable completion triggered by <c-x><c-o>
-      buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-      -- Conditional capabilities
-      -- ref: https://github.com/tjdevries/config_manager/blob/0ebe4c3232b61674aad0e4708228797b681fa2a7/xdg_config/nvim/lua/tj/lsp/init.lua#L100
-      if client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_exec(
-          [[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-      ]],
-          false
-        )
-      end
-
-      -- Mappings.
-      local opts = { noremap = true, silent = true }
-
-      -- general
-      if client.server_capabilities.renameProvider then
-        buf_set_keymap('n', '<S-r>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-      end
-      if client.server_capabilities.hoverProvider then
-        buf_set_keymap('n', '?', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-      end
-
-      buf_set_keymap(
-        'n',
-        '<S-f>',
-        '<cmd>lua vim.lsp.buf.format({ async = true })<CR>',
-        opts
-      )
-
-      -- issues navigation
-      buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-      buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-
-      -- definition/implementation navigation
-      buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-      buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-      buf_set_keymap(
-        'n',
-        'gT',
-        '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-        opts
-      )
-      buf_set_keymap(
-        'n',
-        'gi',
-        '<cmd>lua vim.lsp.buf.implementation()<CR>',
-        opts
-      )
-      buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-
-      -- those are not yet ready
-      buf_set_keymap(
-        'n',
-        '<C-k>',
-        '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-        opts
-      )
-      buf_set_keymap(
-        'n',
-        '<space>ca',
-        '<cmd>lua vim.lsp.buf.code_action()<CR>',
-        opts
-      )
-      buf_set_keymap(
-        'n',
-        '<space>e',
-        '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-        opts
-      )
-      buf_set_keymap(
-        'n',
-        '<space>q',
-        '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
-        opts
-      )
-
-      -- illuminate
-      buf_set_keymap(
-        'n',
-        '<C-n>',
-        '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>',
-        opts
-      )
-      buf_set_keymap(
-        'n',
-        '<C-p>',
-        '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>',
-        opts
-      )
-    end
-    config.on_init = function(client)
-      client.config.flags = client.config.flags or {}
-      client.config.flags.allow_incremental_sync = true
-    end
-    config.capabilities = vim.tbl_extend(
-      'keep',
-      capabilities,
-      lsp_status.capabilities,
-      config.capabilities or {}
-    )
-
-    if lsp_status.extensions[server_name] ~= nil then
-      config.handlers = lsp_status.extensions[server_name].setup()
-    end
-
-    require('lspconfig')[server_name].setup(config)
-  end,
-  ['lua_ls'] = function()
-    require('lspconfig')['lua_ls'].setup({
-      settings = {
-        Lua = {
-          diagnostics = { globals = { 'vim' } },
-          completion = { keywordSnippet = 'Both' },
-          runtime = {
-            version = 'LuaJIT',
-            path = vim.split(package.path, ';'),
-          },
-          workspace = {
-            library = vim.list_extend(
-              { [vim.fn.expand('$VIMRUNTIME/lua')] = true },
-              {}
-            ),
-          },
-        },
-      },
+  -- Document highlight
+  if client.server_capabilities.documentHighlightProvider then
+    local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, {})
+    vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+      group = group,
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
     })
-  end,
+    vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+      group = group,
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
+
+  -- Keymaps
+  local opts = { noremap = true, silent = true, buffer = bufnr }
+
+  if client.server_capabilities.renameProvider then
+    vim.keymap.set('n', '<S-r>', vim.lsp.buf.rename, opts)
+  end
+  if client.server_capabilities.hoverProvider then
+    vim.keymap.set('n', '?', vim.lsp.buf.hover, opts)
+  end
+
+  vim.keymap.set('n', '<S-f>', function()
+    vim.lsp.buf.format({ async = true })
+  end, opts)
+
+  -- Diagnostics navigation
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+  -- Go to definition/implementation
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+
+  -- Other
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+  vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+  -- Illuminate
+  vim.keymap.set('n', '<C-n>', function()
+    require('illuminate').goto_next_reference({ wrap = true })
+  end, opts)
+  vim.keymap.set('n', '<C-p>', function()
+    require('illuminate').goto_prev_reference({ wrap = true })
+  end, opts)
+end
+
+-- Default config for all servers
+vim.lsp.config('*', {
+  capabilities = vim.tbl_extend('keep', capabilities, lsp_status.capabilities),
+  on_attach = on_attach,
 })
+
+-- Lua specific config
+vim.lsp.config.lua_ls = {
+  settings = {
+    Lua = {
+      diagnostics = { globals = { 'vim' } },
+      completion = { keywordSnippet = 'Both' },
+      runtime = {
+        version = 'LuaJIT',
+        path = vim.split(package.path, ';'),
+      },
+      workspace = {
+        library = vim.list_extend(
+          { [vim.fn.expand('$VIMRUNTIME/lua')] = true },
+          {}
+        ),
+      },
+    },
+  },
+}
 
 lsp_status.register_progress()
 require('lspkind').init({
