@@ -1,10 +1,12 @@
 return {
   {
-    'neovim/nvim-lspconfig',
+    "mason-org/mason-lspconfig.nvim",
     config = function()
       require('config.lsp')
     end,
     dependencies = {
+      'mason-org/mason.nvim',
+      'neovim/nvim-lspconfig',
       'pierreglaser/folding-nvim',
       'nvim-lua/lsp-status.nvim',
       'RRethy/vim-illuminate',
@@ -12,10 +14,6 @@ return {
       'ojroques/nvim-lspfuzzy',
       'folke/neodev.nvim',
       'kosayoda/nvim-lightbulb',
-      {
-        'williamboman/mason.nvim',
-        dependencies = { 'williamboman/mason-lspconfig.nvim', branch = 'main' },
-      },
       {
         'junegunn/fzf',
         build = './install --all',
