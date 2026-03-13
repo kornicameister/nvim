@@ -286,9 +286,9 @@ return {
             outdated = '|  ',
           },
         },
-        colors = {
-          up_to_date = '#00FF00',
-          outdated = '#D19A66',
+        highlights = {
+          up_to_date = { fg = '#00FF00' },
+          outdated = { fg = '#D19A66' },
         },
       })
     end,
