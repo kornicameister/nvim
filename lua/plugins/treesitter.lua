@@ -8,9 +8,6 @@ return {
     'nvim-treesitter/nvim-treesitter',
     version = false,
     build = ':TSUpdate',
-    init = function()
-      require('nvim-treesitter.query_predicates')
-    end,
 
     keys = {
       { init_selection, desc = 'Increment Selection' },
