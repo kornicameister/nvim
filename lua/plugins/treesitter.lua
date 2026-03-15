@@ -1,11 +1,9 @@
 local init_selection = 'gnn'
 
 return {
-  -- Treesitter is a new parser generator tool that we can
-  -- use in Neovim to power faster and more accurate
-  -- syntax highlighting.
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'master',
     version = false,
     build = ':TSUpdate',
 
@@ -15,7 +13,6 @@ return {
     cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
 
     config = function()
-      ---@type TSConfig
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup({
         ensure_installed = {
