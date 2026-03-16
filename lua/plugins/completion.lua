@@ -9,7 +9,7 @@ opt.shortmess:append('c')
 
 -- cmp setup
 
-function formatter(entry, vim_item)
+local function formatter(entry, vim_item)
   vim_item.kind = lspkind.presets.default[vim_item.kind] .. ' ' .. vim_item.kind
 
   -- set a name for each source
