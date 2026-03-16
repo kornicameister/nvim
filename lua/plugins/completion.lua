@@ -3,7 +3,6 @@ local cmp = require('cmp')
 local lspkind = require('lspkind')
 
 -- useful options
-opt.inccommand = 'nosplit'
 opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 opt.shortmess:append('c')
 
