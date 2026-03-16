@@ -23,6 +23,7 @@ require('lazy').setup({
 
   { import = 'lang.csv' },
   { import = 'lang.oas' },
+  { import = 'lang.python' },
 
   -- completion
   {
@@ -56,23 +57,6 @@ require('lazy').setup({
   'andymass/vim-matchup',
   'google/vim-searchindex',
   'triglav/vim-visual-increment',
-
-  -- python
-  { 'lambdalisue/vim-pyenv', lazdy = true, ft = { 'python' } },
-  {
-    'Vimjas/vim-python-pep8-indent',
-    lazy = true,
-    ft = { 'python', 'python3' },
-  },
-  {
-    'mfussenegger/nvim-dap-python',
-    lazy = true,
-    ft = { 'python' },
-    dependencies = { 'nvim-neotest/neotest', 'mfussenegger/nvim-dap' },
-    config = function()
-      require('plugins.dap')
-    end,
-  },
 
   -- other languages features
   { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },

@@ -8,22 +8,6 @@ local stylua = {
   rootMarkers = { 'stylua.toml', '.stylua.toml' },
 }
 
-local flake8 = {
-  lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
-  lintStdin = true,
-  lintIgnoreExitCode = true,
-  lintFormats = { '%f:%l:%c: %m' },
-}
-local mypy = {
-  lintCommand = 'mypy --show-column-numbers',
-  lintIgnoreExitCode = true,
-  lintFormats = {
-    '%f:%l:%c: %trror: %m',
-    '%f:%l:%c: %tarning: %m',
-    '%f:%l:%c: %tote: %m',
-  },
-}
-
 local jq = { lintCommand = 'jq .' }
 local fixjson = { formatCommand = 'npx fixjson', formatStdin = true }
 
@@ -60,6 +44,5 @@ return {
       lintFormats = { '%f:%l:%c: %m' },
     },
   },
-  python = { flake8, mypy },
   lua = { stylua },
 }

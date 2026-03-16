@@ -12,24 +12,25 @@ require('mason').setup({
 require('mason-lspconfig').setup({
   ensure_installed = {
     'awk_ls',
+    'basedpyright',
     'bashls',
+    'biome',
     'cmake',
     'cssls',
     'dockerls',
     'elmls',
+    'eslint',
     'html',
     'jsonls',
     'lua_ls',
     'marksman',
+    'pylsp',
     'sqlls',
     'texlab',
-    'vimls',
     'vacuum',
-    'yamlls',
-    'pylsp',
-    'biome',
-    'eslint',
+    'vimls',
     'vtsls',
+    'yamlls',
   },
   automatic_enable = true,
 })
@@ -124,26 +125,6 @@ vim.lsp.config('*', {
   capabilities = vim.tbl_extend('keep', capabilities, lsp_status.capabilities),
   on_attach = on_attach,
 })
-
--- Lua specific config
-vim.lsp.config.lua_ls = {
-  settings = {
-    Lua = {
-      diagnostics = { globals = { 'vim' } },
-      completion = { keywordSnippet = 'Both' },
-      runtime = {
-        version = 'LuaJIT',
-        path = vim.split(package.path, ';'),
-      },
-      workspace = {
-        library = vim.list_extend(
-          { [vim.fn.expand('$VIMRUNTIME/lua')] = true },
-          {}
-        ),
-      },
-    },
-  },
-}
 
 lsp_status.register_progress()
 require('lspkind').init({
