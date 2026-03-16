@@ -40,7 +40,6 @@ return {
         style = 'darker',
       })
 
-      vim.opt.termguicolors = true
       vim.opt.background = 'dark'
       vim.cmd([[colorscheme onedark]])
     end,
@@ -73,8 +72,6 @@ return {
       { '<Tab>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     },
     config = function()
-      vim.opt.termguicolors = true
-
       require('bufferline').setup({
         options = {
           numbers = 'buffer_id',
