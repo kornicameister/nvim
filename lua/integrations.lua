@@ -1,7 +1,6 @@
-local g, env = vim.g, vim.env
+local g = vim.g
 
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
-g.python2_host_prog = env.PYENV_ROOT .. '/versions/neovim2/bin/python'
-g.python3_host_prog = env.PYENV_ROOT .. '/versions/neovim3/bin/python'
+g.loaded_python3_provider = 0
