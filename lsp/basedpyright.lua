@@ -1,12 +1,11 @@
 return {
-  root_dir = function(bufnr, default)
-    -- For uv workspaces: use the workspace root (has uv.lock + real .venv)
-    -- instead of sub-package root where basedpyright would land by default
+  root_dir = function(bufnr, on_dir)
     local uv_root = vim.fs.root(bufnr, 'uv.lock')
-    return uv_root or default()
+    local project_root = vim.fs.root(bufnr, { 'pyproject.toml', 'setup.py', '.git' })
+    on_dir(uv_root or project_root)
   end,
   settings = {
-    basedPyright = {
+    basedpyright = {
       analysis = {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
