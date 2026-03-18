@@ -106,10 +106,10 @@ opt.wildignore = {
 opt.viewoptions:remove('options')
 opt.viewoptions:append({ 'slash', 'unix' })
 
-vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
+vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank to end of line' })
 
--- keep cursos in place when joining lines
-vim.api.nvim_set_keymap('n', 'J', 'mzJ`z', { noremap = true })
+-- keep cursor in place when joining lines
+vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines (keep cursor)' })
 
--- copy to cliboard in n,v,s,o modes
-vim.api.nvim_set_keymap('', '<C-c>', '"+y', { noremap = true })
+-- copy to clipboard in n,v,s,o modes
+vim.keymap.set('', '<C-c>', '"+y', { desc = 'Copy to clipboard' })
