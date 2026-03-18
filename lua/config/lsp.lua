@@ -1,5 +1,3 @@
-local lsp_status = require('lsp-status')
-
 require('mason').setup({
   ui = {
     icons = {
@@ -57,7 +55,6 @@ local on_attach = function(client, bufnr)
   -- Extensions
   require('folding').on_attach()
   require('illuminate').on_attach(client)
-  lsp_status.on_attach(client)
 
   -- Omnifunc
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -119,11 +116,10 @@ end
 
 -- Default config for all servers
 vim.lsp.config('*', {
-  capabilities = vim.tbl_extend('keep', capabilities, lsp_status.capabilities),
+  capabilities = capabilities,
   on_attach = on_attach,
 })
 
-lsp_status.register_progress()
 require('lspkind').init({
   preset = 'codicons',
 })

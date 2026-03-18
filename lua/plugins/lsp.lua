@@ -8,7 +8,6 @@ return {
       'mason-org/mason.nvim',
       'neovim/nvim-lspconfig',
       'pierreglaser/folding-nvim',
-      'nvim-lua/lsp-status.nvim',
       'RRethy/vim-illuminate',
       'onsails/lspkind-nvim',
       'ojroques/nvim-lspfuzzy',
