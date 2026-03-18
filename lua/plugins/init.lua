@@ -77,6 +77,5 @@ require('lazy').setup({
 
   -- other
   'tpope/vim-repeat',
-  'svermeulen/vimpeccable',
   'lambdalisue/suda.vim',
 }, lazy_config)

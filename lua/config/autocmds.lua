@@ -27,3 +27,49 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
   end,
 })
+
+-- trim trailing whitespace on save
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = augroup('trimwhitespaces'),
+  command = [[%s/\s\+$//e]],
+})
+
+-- toggle relative numbers based on focus/mode
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, {
+  group = augroup('numbertoggle'),
+  command = 'set relativenumber',
+})
+vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' }, {
+  group = augroup('numbertoggle'),
+  command = 'set norelativenumber',
+})
+
+-- auto save on focus lost
+vim.api.nvim_create_autocmd('FocusLost', {
+  group = augroup('autosave'),
+  command = 'silent! wa',
+})
+
+-- open help in vertical split
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup('help_vertical'),
+  pattern = 'help',
+  command = 'wincmd L',
+})
+
+-- terminal defaults
+vim.api.nvim_create_autocmd('TermOpen', {
+  group = augroup('terminal'),
+  callback = function()
+    vim.opt_local.number = false
+    vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { buffer = true })
+  end,
+})
+
+-- highlight on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = augroup('yank_highlight'),
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
