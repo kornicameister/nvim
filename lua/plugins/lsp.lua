@@ -12,7 +12,15 @@ return {
       'RRethy/vim-illuminate',
       'onsails/lspkind-nvim',
       'ojroques/nvim-lspfuzzy',
-      'folke/neodev.nvim',
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {
+          library = {
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          },
+        },
+      },
       'kosayoda/nvim-lightbulb',
       {
         'junegunn/fzf',

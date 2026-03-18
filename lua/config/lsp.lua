@@ -1,6 +1,5 @@
 local lsp_status = require('lsp-status')
 
-require('neodev').setup({})
 require('mason').setup({
   ui = {
     icons = {
