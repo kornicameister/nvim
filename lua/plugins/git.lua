@@ -70,6 +70,16 @@ return {
         end,
         desc = 'Git: reset change',
       },
+      {
+        '<leader>gbb',
+        '<cmd>Gitsigns blame<cr>',
+        desc = 'Git: blame (buffer)',
+      },
+      {
+        '<leader>gbl',
+        '<cmd>Gitsigns blame_line<cr>',
+        desc = 'Git: blame (line)',
+      },
     },
     config = function()
       require('gitsigns').setup({
