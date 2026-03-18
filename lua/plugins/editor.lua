@@ -6,18 +6,25 @@ return {
     opts = {},
   },
   {
-    'nvim-pack/nvim-spectre',
-    build = false,
-    cmd = 'Spectre',
+    'MagicDuck/grug-far.nvim',
     keys = {
       {
         '<leader>/',
         function()
-          require('spectre').open()
+          require('grug-far').open()
         end,
-        desc = 'Replace in Files (Spectre)',
+        desc = 'Replace in Files (grug-far)',
+      },
+      {
+        '<leader>/',
+        function()
+          require('grug-far').with_visual_selection()
+        end,
+        mode = 'v',
+        desc = 'Replace selection in Files (grug-far)',
       },
     },
+    opts = {},
   },
 
   'zhimsel/vim-stay',
