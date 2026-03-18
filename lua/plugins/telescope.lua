@@ -46,45 +46,14 @@ telescope.load_extension('lazy')
 telescope.load_extension('ui-select')
 telescope.load_extension('package_info')
 
-require('which-key').register({
-  ['<leader>'] = {
-    "<cmd>lua require('telescope.builtin').git_files()<cr>",
-    'Telescope: git',
-  },
-  ['<leader><leader>'] = {
-    "<cmd>lua require('telescope.builtin').find_files()<cr>",
-    'Telescope: files',
-  },
-  ['s'] = {
-    "<cmd>lua require('telescope.builtin').treesitter()<cr>",
-    'Telescope: symbols',
-  },
-  ['b'] = {
-    "<cmd>lua require('telescope.builtin').buffers()<cr>",
-    'Telescope: buffers',
-  },
-  ['w'] = {
-    "<cmd>lua require('telescope.builtin').grep_string()<cr>",
-    'Telescope: find word',
-  },
-  ['F'] = {
-    "<cmd>lua require('telescope.builtin').live_grep()<cr>",
-    'Telescope: look everywhere',
-  },
-  ['gs'] = {
-    "<cmd>lua require('telescope.builtin').git_status()<cr>",
-    'Telescope: git status',
-  },
-  ['gb'] = {
-    "<cmd>lua require('telescope.builtin').git_branches()<cr>",
-    'Telescope: git branches',
-  },
-  ['cd'] = {
-    "<cmd>lua require('telescope').extensions.zoxide.list()<cr>",
-    'Telescope: git branches',
-  },
-}, {
-  prefix = '<leader>',
-  noremap = true,
-  silent = true,
+require('which-key').add({
+  { '<leader><leader>', "<cmd>lua require('telescope.builtin').git_files()<cr>", desc = 'Telescope: git' },
+  { '<leader><leader><leader>', "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = 'Telescope: files' },
+  { '<leader>s', "<cmd>lua require('telescope.builtin').treesitter()<cr>", desc = 'Telescope: symbols' },
+  { '<leader>b', "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = 'Telescope: buffers' },
+  { '<leader>w', "<cmd>lua require('telescope.builtin').grep_string()<cr>", desc = 'Telescope: find word' },
+  { '<leader>F', "<cmd>lua require('telescope.builtin').live_grep()<cr>", desc = 'Telescope: look everywhere' },
+  { '<leader>gs', "<cmd>lua require('telescope.builtin').git_status()<cr>", desc = 'Telescope: git status' },
+  { '<leader>gb', "<cmd>lua require('telescope.builtin').git_branches()<cr>", desc = 'Telescope: git branches' },
+  { '<leader>cd', "<cmd>lua require('telescope').extensions.zoxide.list()<cr>", desc = 'Telescope: zoxide' },
 })
