@@ -6,6 +6,11 @@ return {
     opts = {},
   },
   {
+    'catgoose/nvim-colorizer.lua',
+    event = 'BufReadPre',
+    opts = {},
+  },
+  {
     'nvim-pack/nvim-spectre',
     build = false,
     cmd = 'Spectre',
