@@ -23,7 +23,6 @@ require('mason-lspconfig').setup({
     'jsonls',
     'lua_ls',
     'marksman',
-    'pylsp',
     'sqlls',
     'texlab',
     'vacuum',
