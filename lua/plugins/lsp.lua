@@ -9,7 +9,6 @@ return {
       'neovim/nvim-lspconfig',
       'RRethy/vim-illuminate',
       'onsails/lspkind-nvim',
-      'ojroques/nvim-lspfuzzy',
       {
         'folke/lazydev.nvim',
         ft = 'lua',
@@ -20,11 +19,6 @@ return {
         },
       },
       'kosayoda/nvim-lightbulb',
-      {
-        'junegunn/fzf',
-        build = './install --all',
-        dependencies = { 'junegunn/fzf.vim' },
-      },
     },
   },
   {

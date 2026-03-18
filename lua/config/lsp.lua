@@ -122,7 +122,3 @@ vim.lsp.config('*', {
 require('lspkind').init({
   preset = 'codicons',
 })
-require('lspfuzzy').setup({
-  methods = 'all',
-  fzf_action = { ['ctrl-v'] = 'vsplit', ['ctrl-x'] = 'split' },
-})
