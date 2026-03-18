@@ -45,9 +45,7 @@ return {
     end,
   },
   {
-    'RRethy/vim-hexokinase',
-    build = 'make hexokinase',
-    cmd = 'HexokinaseToggle',
+    'catgoose/nvim-colorizer.lua',
     ft = {
       'lua',
       'python',
@@ -57,10 +55,15 @@ return {
       'elm',
       'typescript',
       'vue',
+      'html',
+      'json',
+      'yaml',
+      'markdown',
+      'javascript',
+      'toml',
+      'conf',
     },
-    config = function()
-      vim.g.Hexokinase_highlighters = { 'virtual' }
-    end,
+    opts = {},
   },
   {
     'akinsho/nvim-bufferline.lua',
