@@ -54,6 +54,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local on_attach = function(client, bufnr)
   -- Extensions
   require('illuminate').on_attach(client)
+  require('nvim-lightbulb').setup({ autocmd = { enabled = true } })
 
   -- Omnifunc
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
