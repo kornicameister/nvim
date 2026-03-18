@@ -51,11 +51,8 @@ require('lazy').setup({
   },
 
   -- editor enhanced
-  'ConradIrwin/vim-bracketed-paste',
-  'scrooloose/nerdcommenter',
   'tpope/vim-surround',
   'andymass/vim-matchup',
-  'google/vim-searchindex',
   'triglav/vim-visual-increment',
 
   -- other languages features
