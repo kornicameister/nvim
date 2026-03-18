@@ -53,7 +53,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- On attach function
 local on_attach = function(client, bufnr)
   -- Extensions
-  require('folding').on_attach()
   require('illuminate').on_attach(client)
 
   -- Omnifunc

@@ -7,7 +7,6 @@ return {
     dependencies = {
       'mason-org/mason.nvim',
       'neovim/nvim-lspconfig',
-      'pierreglaser/folding-nvim',
       'RRethy/vim-illuminate',
       'onsails/lspkind-nvim',
       'ojroques/nvim-lspfuzzy',
