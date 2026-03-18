@@ -1,5 +1,11 @@
 return {
   {
+    'm4xshen/hardtime.nvim',
+    lazy = false,
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    opts = {},
+  },
+  {
     'nvim-pack/nvim-spectre',
     build = false,
     cmd = 'Spectre',
