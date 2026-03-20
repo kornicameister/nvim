@@ -184,7 +184,7 @@ return {
         '<leader>;',
         function()
           require('coverage').load(true)
-          require('coverage').toggle()
+          require('coverage').show()
         end,
         desc = 'Toggle coverage',
       },
@@ -194,12 +194,11 @@ return {
         desc = 'Shows coverage summary',
       },
     },
-    config = function()
-      require('coverage').setup({
-        auto_reload = true,
-        auto_preview = true,
-      })
-    end,
+    cmd = { 'Coverage', 'CoverageLoad', 'CoverageToggle', 'CoverageSummary', 'CoverageClear' },
+    opts = {
+      auto_reload = true,
+      auto_preview = true,
+    },
   },
 
   {
