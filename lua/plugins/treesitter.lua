@@ -26,6 +26,7 @@ return {
           'json',
           'lua',
           'python',
+          'regex',
           'scss',
           'toml',
           'tsx',
