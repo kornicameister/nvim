@@ -44,3 +44,7 @@ end, { desc = 'Comment: toggle line' })
 map('v', '<leader>cc', function()
   vim.api.nvim_feedkeys('gc', 'm', false)
 end, { desc = 'Comment: toggle selection' })
+
+-- jumplist navigation
+map('n', '[[', '<C-o>', { desc = 'Jump back' })
+map('n', ']]', '<C-i>', { desc = 'Jump forward' })
