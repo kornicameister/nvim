@@ -179,26 +179,20 @@ return {
   {
     'andythigpen/nvim-coverage',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    ft = { 'python', 'typescript', 'typescriptreact' },
     keys = {
-      {
-        '<leader>;',
-        function()
-          require('coverage').load(true)
-          require('coverage').show()
-        end,
-        desc = 'Toggle coverage',
-      },
-      {
-        '<leader>;;',
-        '<cmd>CoverageSummary<cr>',
-        desc = 'Shows coverage summary',
-      },
+      { '<leader>;', '<cmd>CoverageToggle<cr>', desc = 'Toggle coverage' },
+      { '<leader>;;', '<cmd>CoverageSummary<cr>', desc = 'Shows coverage summary' },
     },
     cmd = { 'Coverage', 'CoverageLoad', 'CoverageToggle', 'CoverageSummary', 'CoverageClear' },
-    opts = {
-      auto_reload = true,
-      auto_preview = true,
-    },
+    config = function()
+      require('coverage').setup({
+        auto_reload = true,
+      })
+      vim.schedule(function()
+        require('coverage').load(true)
+      end)
+    end,
   },
 
   {
