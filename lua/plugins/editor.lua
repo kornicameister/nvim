@@ -192,6 +192,12 @@ return {
       vim.schedule(function()
         require('coverage').load(true)
       end)
+      vim.api.nvim_create_autocmd('BufEnter', {
+        pattern = { '*.py', '*.ts', '*.tsx' },
+        callback = function()
+          require('coverage').show()
+        end,
+      })
     end,
   },
 
