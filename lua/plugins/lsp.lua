@@ -8,7 +8,6 @@ return {
       'mason-org/mason.nvim',
       'neovim/nvim-lspconfig',
       'RRethy/vim-illuminate',
-      'onsails/lspkind-nvim',
       {
         'folke/lazydev.nvim',
         ft = 'lua',

@@ -1,80 +1,34 @@
-local g, opt = vim.g, vim.opt
-local cmp = require('cmp')
-local lspkind = require('lspkind')
+---@module 'blink.cmp'
+---@type blink.cmp.Config
+return {
+  keymap = {
+    preset = 'enter',
+    ['<Tab>'] = { 'select_next', 'fallback' },
+    ['<S-Tab>'] = { 'select_prev', 'fallback' },
+    ['<C-Space>'] = { 'show' },
+  },
 
--- useful options
-opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
-opt.shortmess:append('c')
-
--- cmp setup
-
-local function formatter(entry, vim_item)
-  vim_item.kind = lspkind.presets.default[vim_item.kind] .. ' ' .. vim_item.kind
-
-  -- set a name for each source
-  vim_item.menu = ({
-    nvim_lsp = '[LSP]',
-    buffer = '[Buffer]',
-    path = '[Path]',
-    nvim_lua = '[Lua]',
-    calc = '[Calc]',
-    emoji = '[Emoji]',
-    ultisnips = '[UltiSnips]',
-    cmp_tabnine = '[TabNine]',
-  })[entry.source.name]
-
-  return vim_item
-end
-
-cmp.setup({
-  enabled = true,
+  appearance = { nerd_font_variant = 'mono' },
 
   completion = {
-    keyword_length = 2,
+    keyword = { range = 'prefix' },
+    documentation = { auto_show = true },
   },
 
-  formatting = { format = formatter },
-
-  preselect = cmp.PreselectMode.Item,
-
-  snippet = {
-    expand = function(args)
-      vim.fn['vsnip#anonymous'](args.body)
-    end,
-  },
-
-  window = {
-    documentation = {
-      border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-      winhighlight = 'NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder',
-      maxwidth = math.floor(vim.o.columns * 0.5),
-      maxheight = math.floor(vim.o.lines * 0.3),
+  sources = {
+    default = { 'lsp', 'path', 'snippets', 'buffer' },
+    per_filetype = {
+      lua = { inherit_defaults = true, 'lazydev' },
+      python = { 'lsp', 'path', 'snippets' },
+    },
+    providers = {
+      lazydev = {
+        name = 'LazyDev',
+        module = 'lazydev.integrations.blink',
+        score_offset = 100,
+      },
     },
   },
 
-  mapping = {
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }),
-  },
-
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'buffer' },
-    { name = 'tags' },
-    { name = 'path' },
-    { name = 'vsnip' },
-  },
-})
-
-cmp.setup.filetype('lua', {
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = 'buffer' },
-  },
-})
+  fuzzy = { implementation = 'prefer_rust_with_warning' },
+}

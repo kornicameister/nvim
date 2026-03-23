@@ -27,27 +27,11 @@ require('lazy').setup({
 
   -- completion
   {
-    'hrsh7th/nvim-cmp',
+    'saghen/blink.cmp',
+    version = '1.*',
     event = 'InsertEnter',
-    config = function()
-      require('plugins.completion')
-    end,
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lua',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      {
-        'hrsh7th/vim-vsnip',
-        dependencies = {
-          'hrsh7th/vim-vsnip-integ',
-          'rafamadriz/friendly-snippets',
-        },
-      },
-      'f3fora/cmp-spell',
-      'quangnguyen30192/cmp-nvim-tags',
-    },
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    opts = require('plugins.completion'),
   },
 
   -- editor enhanced
