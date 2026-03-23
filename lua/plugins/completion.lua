@@ -13,9 +13,9 @@ local function formatter(entry, vim_item)
 
   -- set a name for each source
   vim_item.menu = ({
+    nvim_lsp = '[LSP]',
     buffer = '[Buffer]',
     path = '[Path]',
-    nvim_lsp = '[LSP]',
     nvim_lua = '[Lua]',
     calc = '[Calc]',
     emoji = '[Emoji]',
@@ -64,10 +64,17 @@ cmp.setup({
 
   sources = {
     { name = 'nvim_lsp' },
-    --{ name = "nvim_lua" },
     { name = 'buffer' },
     { name = 'tags' },
     { name = 'path' },
     { name = 'vsnip' },
+  },
+})
+
+cmp.setup.filetype('lua', {
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
+    { name = 'buffer' },
   },
 })
