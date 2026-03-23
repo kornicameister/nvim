@@ -123,3 +123,6 @@ vim.lsp.config('*', {
 require('lspkind').init({
   preset = 'codicons',
 })
+
+-- Non-mason LSP servers
+vim.lsp.enable('iam_legend')

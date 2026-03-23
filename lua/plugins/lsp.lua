@@ -27,4 +27,10 @@ return {
       require('fidget').setup({})
     end,
   },
+
+  {
+    'mbarneyjr/iam-legend-lsp',
+    ft = { 'yaml.cloudformation', 'json.cloudformation' },
+    build = 'npm install',
+  },
 }
