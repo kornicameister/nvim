@@ -227,19 +227,11 @@ return {
             },
             {
               function()
-                local buf_ft = vim.bo[0].filetype
-                local clients = vim.lsp.get_clients()
-                if next(clients) == nil then
-                  return
-                end
-                for _, client in ipairs(clients) do
-                  local filetypes = client.config.filetypes
-                  if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                    return client.name
-                  end
-                end
+                local count = #vim.lsp.get_clients({ bufnr = 0 })
+                if count == 0 then return '' end
+                return tostring(count)
               end,
-              icon = '  ',
+              icon = ' ',
             },
             {
               function()

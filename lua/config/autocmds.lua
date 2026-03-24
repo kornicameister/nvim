@@ -84,3 +84,62 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
+
+-- Floating LSP status in top-right corner
+do
+  local win, buf
+  local function update_lsp_float()
+    local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+    if #clients == 0 then
+      if win and vim.api.nvim_win_is_valid(win) then
+        vim.api.nvim_win_close(win, true)
+        win = nil
+      end
+      return
+    end
+
+    local lines = {}
+    local max_width = 0
+    for _, c in ipairs(clients) do
+      local line = '  ' .. c.name
+      lines[#lines + 1] = line
+      if #line > max_width then max_width = #line end
+    end
+
+    if not buf or not vim.api.nvim_buf_is_valid(buf) then
+      buf = vim.api.nvim_create_buf(false, true)
+      vim.bo[buf].bufhidden = 'wipe'
+    end
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+    local width = max_width + 1
+    local opts = {
+      relative = 'editor',
+      row = 1,
+      col = vim.o.columns - width - 2,
+      width = width,
+      height = #lines,
+      style = 'minimal',
+      focusable = false,
+      zindex = 10,
+    }
+
+    if win and vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_set_config(win, opts)
+    else
+      win = vim.api.nvim_open_win(buf, false, opts)
+      vim.api.nvim_set_option_value('winblend', 0, { win = win })
+      vim.api.nvim_set_option_value('winhighlight', 'Normal:Comment', { win = win })
+    end
+  end
+
+  local group = vim.api.nvim_create_augroup('LspFloatStatus', { clear = true })
+  for _, event in ipairs({ 'LspAttach', 'LspDetach', 'BufEnter' }) do
+    vim.api.nvim_create_autocmd(event, {
+      group = group,
+      callback = function()
+        vim.schedule(update_lsp_float)
+      end,
+    })
+  end
+end
