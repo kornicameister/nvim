@@ -5,7 +5,7 @@ local opt = vim.opt
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
 
-opt.shell = '/usr/local/bin/fish'
+opt.shell = vim.fn.exepath('fish') or '/usr/local/bin/fish'
 opt.termguicolors = true
 opt.hidden = true -- keep buffers around, hide them but close them
 
