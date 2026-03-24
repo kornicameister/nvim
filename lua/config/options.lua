@@ -91,3 +91,6 @@ opt.wildignore = {
 -- view
 opt.viewoptions:remove('options')
 opt.viewoptions:append({ 'slash', 'unix' })
+
+-- scrolling
+opt.smoothscroll = true
