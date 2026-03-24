@@ -81,8 +81,8 @@ local on_attach = function(client, bufnr)
   end, opts)
 
   -- Diagnostics navigation
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+  vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts)
+  vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts)
 
   -- Go to definition/implementation
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
