@@ -1,6 +1,7 @@
 return {
   {
     "mason-org/mason-lspconfig.nvim",
+    event = 'VeryLazy',
     config = function()
       require('config.lsp')
     end,
@@ -22,6 +23,7 @@ return {
   },
   {
     'j-hui/fidget.nvim',
+    event = 'LspAttach',
     config = function()
       require('fidget').setup({})
     end,

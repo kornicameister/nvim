@@ -35,9 +35,9 @@ require('lazy').setup({
   },
 
   -- editor enhanced
-  'tpope/vim-surround',
-  'andymass/vim-matchup',
-  'triglav/vim-visual-increment',
+  { 'tpope/vim-surround', event = 'VeryLazy' },
+  { 'andymass/vim-matchup', event = 'BufReadPost' },
+  { 'triglav/vim-visual-increment', event = 'VeryLazy' },
 
   -- other languages features
   { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
@@ -49,6 +49,7 @@ require('lazy').setup({
   {
     'folke/which-key.nvim',
     branch = 'main',
+    event = 'VeryLazy',
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -57,6 +58,6 @@ require('lazy').setup({
   },
 
   -- other
-  'tpope/vim-repeat',
-  'lambdalisue/suda.vim',
+  { 'tpope/vim-repeat', event = 'VeryLazy' },
+  { 'lambdalisue/suda.vim', cmd = { 'SudaRead', 'SudaWrite' } },
 }, lazy_config)

@@ -1,5 +1,4 @@
 return {
-  'psliwka/vim-smoothie',
 
   {
     'kevinhwang91/nvim-ufo',

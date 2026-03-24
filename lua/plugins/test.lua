@@ -1,6 +1,6 @@
 return {
 
-  'mfussenegger/nvim-dap',
+  { 'mfussenegger/nvim-dap', lazy = true },
   {
     'nvim-neotest/neotest',
     lazy = true,

@@ -1,8 +1,9 @@
 return {
-  'tpope/vim-git',
-  'octref/rootignore',
+  { 'tpope/vim-git', event = 'VeryLazy' },
+  { 'octref/rootignore', event = 'VeryLazy' },
   {
     'rhysd/committia.vim',
+    ft = 'gitcommit',
     init = function()
       local g = vim.g
 
@@ -97,6 +98,7 @@ return {
   },
   {
     'sindrets/diffview.nvim',
+    cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory' },
     config = function()
       require('diffview').setup()
     end,

@@ -1,5 +1,5 @@
 return {
-  defaults = { lazy = false },
+  defaults = { lazy = true },
   install = { colorscheme = { 'nightfox' } },
 
   ui = {

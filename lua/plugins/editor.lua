@@ -21,7 +21,6 @@ return {
     opts = {},
   },
 
-  'zhimsel/vim-stay',
   {
     'kwkarlwang/bufjump.nvim',
     opts = {},
@@ -266,6 +265,18 @@ return {
 
   {
     'nvim-telescope/telescope.nvim',
+    cmd = 'Telescope',
+    keys = {
+      { '<leader><leader>', desc = 'Telescope: git files' },
+      { '<leader><leader><leader>', desc = 'Telescope: files' },
+      { '<leader>s', desc = 'Telescope: symbols' },
+      { '<leader>b', desc = 'Telescope: buffers' },
+      { '<leader>w', desc = 'Telescope: find word' },
+      { '<leader>F', desc = 'Telescope: live grep' },
+      { '<leader>gs', desc = 'Telescope: git status' },
+      { '<leader>gb', desc = 'Telescope: git branches' },
+      { '<leader>cd', desc = 'Telescope: zoxide' },
+    },
     config = function()
       require('plugins.telescope')
     end,
@@ -283,6 +294,7 @@ return {
 
   {
     'vuki656/package-info.nvim',
+    event = 'BufRead package.json',
     dependencies = { 'MunifTanjim/nui.nvim' },
     config = function()
       require('package-info').setup({
