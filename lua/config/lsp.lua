@@ -10,7 +10,6 @@ require('mason-lspconfig').setup({
   ensure_installed = {
     'awk_ls',
     'bashls',
-    'biome',
     'cmake',
     'cssls',
     'dockerls',
@@ -115,3 +114,5 @@ vim.lsp.config('*', {
 
 -- Non-mason LSP servers
 vim.lsp.enable('iam_legend')
+vim.lsp.enable('ruff')
+vim.lsp.enable('biome')
