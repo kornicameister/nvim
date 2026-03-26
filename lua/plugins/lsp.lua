@@ -8,7 +8,15 @@ return {
     dependencies = {
       'mason-org/mason.nvim',
       'neovim/nvim-lspconfig',
-      'RRethy/vim-illuminate',
+      {
+        'RRethy/vim-illuminate',
+        -- treesitter provider broken with nvim-treesitter v2 (define_modules removed)
+        config = function()
+          require('illuminate').configure({
+            providers = { 'lsp', 'regex' },
+          })
+        end,
+      },
       {
         'folke/lazydev.nvim',
         ft = 'lua',

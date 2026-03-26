@@ -55,26 +55,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if not client then return end
 
     -- Extensions
-    require('illuminate').on_attach(client)
     require('nvim-lightbulb').setup({ autocmd = { enabled = true } })
 
     -- Omnifunc
     vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Document highlight
-    if client.server_capabilities.documentHighlightProvider then
-      local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, {})
-      vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-        group = group,
-        buffer = bufnr,
-        callback = vim.lsp.buf.document_highlight,
-      })
-      vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
-        group = group,
-        buffer = bufnr,
-        callback = vim.lsp.buf.clear_references,
-      })
-    end
 
     -- Keymaps
     local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -109,10 +93,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Illuminate
     vim.keymap.set('n', '<C-n>', function()
-      require('illuminate').goto_next_reference({ wrap = true })
+      require('illuminate').goto_next_reference(true)
     end, opts)
     vim.keymap.set('n', '<C-p>', function()
-      require('illuminate').goto_prev_reference({ wrap = true })
+      require('illuminate').goto_prev_reference(true)
     end, opts)
   end,
 })
