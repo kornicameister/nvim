@@ -264,7 +264,8 @@ return {
     keys = {
       { '<leader><leader>', desc = 'Telescope: git files' },
       { '<leader><leader><leader>', desc = 'Telescope: files' },
-      { '<leader>s', desc = 'Telescope: symbols' },
+      { '<leader>bs', desc = 'Telescope: buffer symbols' },
+      { '<leader>ws', desc = 'Telescope: workspace symbols' },
       { '<leader>b', desc = 'Telescope: buffers' },
       { '<leader>w', desc = 'Telescope: find word' },
       { '<leader>F', desc = 'Telescope: live grep' },

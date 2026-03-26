@@ -49,7 +49,8 @@ telescope.load_extension('package_info')
 require('which-key').add({
   { '<leader><leader>', "<cmd>lua require('telescope.builtin').git_files()<cr>", desc = 'Telescope: git' },
   { '<leader><leader><leader>', "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = 'Telescope: files' },
-  { '<leader>s', "<cmd>lua require('telescope.builtin').treesitter()<cr>", desc = 'Telescope: symbols' },
+  { '<leader>bs', "<cmd>lua require('telescope.builtin').treesitter()<cr>", desc = 'Telescope: buffer symbols' },
+  { '<leader>ws', "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", desc = 'Telescope: workspace symbols' },
   { '<leader>b', "<cmd>lua require('telescope.builtin').buffers()<cr>", desc = 'Telescope: buffers' },
   { '<leader>w', "<cmd>lua require('telescope.builtin').grep_string()<cr>", desc = 'Telescope: find word' },
   { '<leader>F', "<cmd>lua require('telescope.builtin').live_grep()<cr>", desc = 'Telescope: look everywhere' },
