@@ -6,7 +6,7 @@ return {
     ft = 'python',
     dependencies = { 'nvim-neotest/neotest', 'mfussenegger/nvim-dap' },
     config = function()
-      require('dap-python').setup('~/.pyenv/versions/debugpy/bin/python')
+      require('dap-python').setup('python3')
     end,
   },
   {
