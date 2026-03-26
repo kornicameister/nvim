@@ -1,73 +1,21 @@
-local init_selection = 'gnn'
-
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    branch = 'master',
-    version = false,
+    lazy = false,
     build = ':TSUpdate',
-
-    keys = {
-      { init_selection, desc = 'Increment Selection' },
-    },
-    cmd = { 'TSUpdateSync', 'TSUpdate', 'TSInstall' },
-
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup({
-        ensure_installed = {
-          'bash',
-          'dockerfile',
-          'elm',
-          'go',
-          'html',
-          'java',
-          'javascript',
-          'json',
-          'lua',
-          'python',
-          'regex',
-          'scss',
-          'toml',
-          'tsx',
-          'typescript',
-          'vim',
-          'vue',
-          'yaml',
-        },
-        auto_install = true,
-        sync_install = false,
+      require('nvim-treesitter').install({
+        'bash', 'dockerfile', 'elm', 'go', 'html', 'java',
+        'javascript', 'json', 'lua', 'python', 'regex', 'scss',
+        'toml', 'tsx', 'typescript', 'vim', 'vue', 'yaml',
+      })
 
-        highlight = {
-          enable = true,
-          use_languagetree = true,
-        },
-
-        indent = {
-          enable = true,
-        },
-
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = init_selection,
-            node_incremental = 'grn',
-            scope_incremental = 'grc',
-            node_decremental = 'grm',
-          },
-        },
-
-        matchup = {
-          enable = true,
-        },
-
-        rainbow = {
-          enable = true,
-        },
-
-        autotag = {
-          enable = true,
-        },
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          if pcall(vim.treesitter.start) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
       })
     end,
     dependencies = { 'hiphish/rainbow-delimiters.nvim', 'windwp/nvim-ts-autotag' },
