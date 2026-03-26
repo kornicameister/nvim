@@ -42,74 +42,79 @@ local capabilities = require('blink.cmp').get_lsp_capabilities({
   },
 })
 
--- On attach function
-local on_attach = function(client, bufnr)
-  -- Extensions
-  require('illuminate').on_attach(client)
-  require('nvim-lightbulb').setup({ autocmd = { enabled = true } })
-
-  -- Omnifunc
-  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-  -- Document highlight
-  if client.server_capabilities.documentHighlightProvider then
-    local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, {})
-    vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-      group = group,
-      buffer = bufnr,
-      callback = vim.lsp.buf.document_highlight,
-    })
-    vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
-      group = group,
-      buffer = bufnr,
-      callback = vim.lsp.buf.clear_references,
-    })
-  end
-
-  -- Keymaps
-  local opts = { noremap = true, silent = true, buffer = bufnr }
-
-  if client.server_capabilities.renameProvider then
-    vim.keymap.set('n', '<S-r>', vim.lsp.buf.rename, opts)
-  end
-  if client.server_capabilities.hoverProvider then
-    vim.keymap.set('n', '?', vim.lsp.buf.hover, opts)
-  end
-
-  vim.keymap.set('n', '<S-f>', function()
-    vim.lsp.buf.format({ async = true })
-  end, opts)
-
-  -- Diagnostics navigation
-  vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts)
-  vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts)
-
-  -- Go to definition/implementation
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-  vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, opts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-
-  -- Other
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
-  vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-  vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
-  -- Illuminate
-  vim.keymap.set('n', '<C-n>', function()
-    require('illuminate').goto_next_reference({ wrap = true })
-  end, opts)
-  vim.keymap.set('n', '<C-p>', function()
-    require('illuminate').goto_prev_reference({ wrap = true })
-  end, opts)
-end
-
 -- Default config for all servers
 vim.lsp.config('*', {
   capabilities = capabilities,
-  on_attach = on_attach,
+})
+
+-- On attach (replaces old on_attach — not supported in vim.lsp.config)
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local bufnr = args.buf
+    if not client then return end
+
+    -- Extensions
+    require('illuminate').on_attach(client)
+    require('nvim-lightbulb').setup({ autocmd = { enabled = true } })
+
+    -- Omnifunc
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Document highlight
+    if client.server_capabilities.documentHighlightProvider then
+      local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, {})
+      vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+        group = group,
+        buffer = bufnr,
+        callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+        group = group,
+        buffer = bufnr,
+        callback = vim.lsp.buf.clear_references,
+      })
+    end
+
+    -- Keymaps
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+
+    if client.server_capabilities.renameProvider then
+      vim.keymap.set('n', '<S-r>', vim.lsp.buf.rename, opts)
+    end
+    if client.server_capabilities.hoverProvider then
+      vim.keymap.set('n', '?', vim.lsp.buf.hover, opts)
+    end
+
+    vim.keymap.set('n', '<S-f>', function()
+      vim.lsp.buf.format({ async = true })
+    end, opts)
+
+    -- Diagnostics navigation
+    vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts)
+    vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts)
+
+    -- Go to definition/implementation
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+
+    -- Other
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+    -- Illuminate
+    vim.keymap.set('n', '<C-n>', function()
+      require('illuminate').goto_next_reference({ wrap = true })
+    end, opts)
+    vim.keymap.set('n', '<C-p>', function()
+      require('illuminate').goto_prev_reference({ wrap = true })
+    end, opts)
+  end,
 })
 
 -- Non-mason LSP servers
