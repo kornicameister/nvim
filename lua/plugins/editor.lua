@@ -163,6 +163,25 @@ return {
       },
     },
     config = function(_, opts)
+      local events = require('neo-tree.events')
+      opts.event_handlers = opts.event_handlers or {}
+      table.insert(opts.event_handlers, {
+        event = events.FILE_RENAMED,
+        handler = function(args)
+          local notified = false
+          for _, client in ipairs(vim.lsp.get_clients()) do
+            if client:supports_method('workspace/didRenameFiles') then
+              client:notify('workspace/didRenameFiles', {
+                files = { { oldUri = vim.uri_from_fname(args.source), newUri = vim.uri_from_fname(args.destination) } },
+              })
+              notified = true
+            end
+          end
+          if not notified then
+            vim.notify('No LSP supports workspace/didRenameFiles', vim.log.levels.WARN)
+          end
+        end,
+      })
       require('neo-tree').setup(opts)
       vim.api.nvim_create_autocmd('TermClose', {
         pattern = '*lazygit',
@@ -180,7 +199,7 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     ft = { 'python', 'typescript', 'typescriptreact' },
     keys = {
-      { '<leader>;', '<cmd>CoverageToggle<cr>', desc = 'Toggle coverage' },
+      { '<leader>;',  '<cmd>CoverageToggle<cr>',  desc = 'Toggle coverage' },
       { '<leader>;;', '<cmd>CoverageSummary<cr>', desc = 'Shows coverage summary' },
     },
     cmd = { 'Coverage', 'CoverageLoad', 'CoverageToggle', 'CoverageSummary', 'CoverageClear' },
@@ -262,16 +281,16 @@ return {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     keys = {
-      { '<leader><leader>', desc = 'Telescope: git files' },
+      { '<leader><leader>',         desc = 'Telescope: git files' },
       { '<leader><leader><leader>', desc = 'Telescope: files' },
-      { '<leader>bs', desc = 'Telescope: buffer symbols' },
-      { '<leader>ws', desc = 'Telescope: workspace symbols' },
-      { '<leader>b', desc = 'Telescope: buffers' },
-      { '<leader>w', desc = 'Telescope: find word' },
-      { '<leader>F', desc = 'Telescope: live grep' },
-      { '<leader>gs', desc = 'Telescope: git status' },
-      { '<leader>gb', desc = 'Telescope: git branches' },
-      { '<leader>cd', desc = 'Telescope: zoxide' },
+      { '<leader>bs',               desc = 'Telescope: buffer symbols' },
+      { '<leader>ws',               desc = 'Telescope: workspace symbols' },
+      { '<leader>b',                desc = 'Telescope: buffers' },
+      { '<leader>w',                desc = 'Telescope: find word' },
+      { '<leader>F',                desc = 'Telescope: live grep' },
+      { '<leader>gs',               desc = 'Telescope: git status' },
+      { '<leader>gb',               desc = 'Telescope: git branches' },
+      { '<leader>cd',               desc = 'Telescope: zoxide' },
     },
     config = function()
       require('plugins.telescope')
