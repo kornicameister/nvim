@@ -54,6 +54,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local bufnr = args.buf
     if not client then return end
 
+    -- Skip non-code buffers
+    if vim.bo[bufnr].buftype ~= '' then
+      client:stop(true)
+      return
+    end
+
     -- Extensions
     require('nvim-lightbulb').setup({ autocmd = { enabled = true } })
 
