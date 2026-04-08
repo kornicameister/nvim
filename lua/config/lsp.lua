@@ -61,36 +61,35 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     -- Keymaps
-    local opts = { noremap = true, silent = true, buffer = bufnr }
+    local function map(key, fn, desc)
+      vim.keymap.set('n', key, fn, { buffer = bufnr, desc = desc })
+    end
 
     if client.server_capabilities.renameProvider then
-      vim.keymap.set('n', '<S-r>', vim.lsp.buf.rename, opts)
+      map('<S-r>', vim.lsp.buf.rename, 'LSP: Rename')
     end
     if client.server_capabilities.hoverProvider then
-      vim.keymap.set('n', '?', vim.lsp.buf.hover, opts)
+      map('?', vim.lsp.buf.hover, 'LSP: Hover')
     end
 
-    vim.keymap.set('n', '<S-f>', function()
-      vim.lsp.buf.format({ async = true })
-    end, opts)
+    map('<S-f>', function() vim.lsp.buf.format({ async = true }) end, 'LSP: Format')
 
     -- Diagnostics navigation
-    vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts)
-    vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts)
+    map('[d', function() vim.diagnostic.jump({ count = -1 }) end, 'Prev diagnostic')
+    map(']d', function() vim.diagnostic.jump({ count = 1 }) end, 'Next diagnostic')
 
     -- Go to definition/implementation (via Telescope)
     local tb = require('telescope.builtin')
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', tb.lsp_definitions, opts)
-    vim.keymap.set('n', 'gT', tb.lsp_type_definitions, opts)
-    vim.keymap.set('n', 'gi', tb.lsp_implementations, opts)
-    vim.keymap.set('n', 'gr', tb.lsp_references, opts)
+    map('gd', tb.lsp_definitions, 'LSP: Definition')
+    map('gT', tb.lsp_type_definitions, 'LSP: Type definition')
+    map('gi', tb.lsp_implementations, 'LSP: Implementation')
+    map('gr', tb.lsp_references, 'LSP: References')
 
     -- Other
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+    map('<C-k>', vim.lsp.buf.signature_help, 'LSP: Signature help')
+    map('<space>ca', vim.lsp.buf.code_action, 'LSP: Code action')
+    map('<space>e', vim.diagnostic.open_float, 'Diagnostic: Float')
+    map('<space>q', vim.diagnostic.setloclist, 'Diagnostic: Loclist')
 
     -- LSP features (auto-enable + toggle keymaps)
     if client:supports_method('textDocument/inlayHint') then
@@ -109,12 +108,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- Illuminate
-    vim.keymap.set('n', '<C-n>', function()
-      require('illuminate').goto_next_reference(true)
-    end, opts)
-    vim.keymap.set('n', '<C-p>', function()
-      require('illuminate').goto_prev_reference(true)
-    end, opts)
+    map('<C-n>', function() require('illuminate').goto_next_reference(true) end, 'Next reference')
+    map('<C-p>', function() require('illuminate').goto_prev_reference(true) end, 'Prev reference')
   end,
 })
 
