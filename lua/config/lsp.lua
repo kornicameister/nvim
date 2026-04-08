@@ -105,3 +105,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.enable('iam_legend')
 vim.lsp.enable('ruff')
 vim.lsp.enable('biome')
+vim.lsp.enable('ty')
