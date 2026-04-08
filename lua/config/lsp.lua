@@ -100,11 +100,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, { buffer = bufnr, desc = 'Toggle inlay hints' })
 
     if client:supports_method('textDocument/codeLens') then
-      vim.lsp.codelens.refresh({ bufnr = bufnr })
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
-        buffer = bufnr,
-        callback = function() vim.lsp.codelens.refresh({ bufnr = bufnr }) end,
-      })
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end
 
     if client:supports_method('textDocument/inlineCompletion') then
