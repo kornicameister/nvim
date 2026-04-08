@@ -4,18 +4,32 @@ local M = {}
 ---@param root string project root directory
 ---@return string|nil venv path
 function M.find_venv(root)
+  local function rel(path) return vim.fn.fnamemodify(path, ':~') end
+  local function info(msg) vim.notify(msg, vim.log.levels.INFO, { timeout = 5000 }) end
+  local function warn(msg) vim.notify(msg, vim.log.levels.WARN, { timeout = 5000 }) end
+
   -- 1. Active venv from environment
   local active = vim.env.VIRTUAL_ENV
-  if active then return active end
+  if active then
+    info('venv: $VIRTUAL_ENV → ' .. rel(active))
+    return active
+  end
 
   -- 2. .venv in project root
   local dot_venv = vim.fs.joinpath(root, '.venv')
-  if vim.uv.fs_stat(dot_venv) then return dot_venv end
+  if vim.uv.fs_stat(dot_venv) then
+    info('venv: .venv → ' .. rel(dot_venv))
+    return dot_venv
+  end
 
   -- 3. venv/ in project root
   local venv = vim.fs.joinpath(root, 'venv')
-  if vim.uv.fs_stat(venv) then return venv end
+  if vim.uv.fs_stat(venv) then
+    info('venv: venv/ → ' .. rel(venv))
+    return venv
+  end
 
+  warn('venv: not found in ' .. rel(root))
   return nil
 end
 
