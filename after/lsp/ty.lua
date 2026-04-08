@@ -1,3 +1,5 @@
+local venv_util = require('utils.python-venv')
+
 return {
   filetypes = { 'python' },
   cmd = { 'uvx', 'ty', 'server' },
@@ -6,7 +8,7 @@ return {
     on_dir(uv_root or vim.fs.root(bufnr, { 'pyproject.toml', 'setup.py', '.git' }))
   end,
   before_init = function(_, config)
-    local venv = vim.fs.joinpath(config.root_dir, '.venv')
+    local venv = venv_util.find_venv(config.root_dir)
     config.settings = {
       ty = {
         showSyntaxErrors = false,
@@ -14,7 +16,7 @@ return {
         completions = { autoImport = true },
         inlayHints = { variableTypes = true, callArgumentNames = true },
         configuration = {
-          environment = vim.uv.fs_stat(venv) and { python = venv } or nil,
+          environment = venv and { python = venv } or nil,
           rules = {
             ['possibly-unresolved-reference'] = 'warn',
             ['possibly-missing-attribute'] = 'warn',
