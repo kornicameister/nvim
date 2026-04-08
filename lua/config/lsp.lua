@@ -90,12 +90,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+    -- LSP features (auto-enable + toggle keymaps)
     if client:supports_method('textDocument/inlayHint') then
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
     vim.keymap.set('n', '<leader>ih', function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
     end, { buffer = bufnr, desc = 'Toggle inlay hints' })
+
+    if client:supports_method('textDocument/codeLens') then
+      vim.lsp.codelens.refresh({ bufnr = bufnr })
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
+        buffer = bufnr,
+        callback = function() vim.lsp.codelens.refresh({ bufnr = bufnr }) end,
+      })
+    end
+
+    if client:supports_method('textDocument/inlineCompletion') then
+      vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+    end
 
     -- Illuminate
     vim.keymap.set('n', '<C-n>', function()
