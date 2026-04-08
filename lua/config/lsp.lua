@@ -78,12 +78,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts)
     vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts)
 
-    -- Go to definition/implementation
+    -- Go to definition/implementation (via Telescope)
+    local tb = require('telescope.builtin')
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', 'gd', tb.lsp_definitions, opts)
+    vim.keymap.set('n', 'gT', tb.lsp_type_definitions, opts)
+    vim.keymap.set('n', 'gi', tb.lsp_implementations, opts)
+    vim.keymap.set('n', 'gr', tb.lsp_references, opts)
 
     -- Other
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
