@@ -24,6 +24,7 @@ require('mason-lspconfig').setup({
     'jsonls',
     'lua_ls',
     'marksman',
+    'rust_analyzer',
     'sqlls',
     'texlab',
     'vacuum',
@@ -129,3 +130,4 @@ vim.lsp.enable('iam_legend')
 vim.lsp.enable('ruff')
 vim.lsp.enable('biome')
 vim.lsp.enable('ty')
+vim.lsp.enable('pytest_fixtures')
