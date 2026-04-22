@@ -5,14 +5,27 @@ return {
     'rhysd/committia.vim',
     ft = 'gitcommit',
     init = function()
-      local g = vim.g
+      vim.g.committia_hooks = {
+        edit_open = function()
+          vim.opt_local.spell = true
+          vim.opt_local.spelllang = 'en'
+          vim.opt_local.colorcolumn = '50,72'
+          vim.opt_local.textwidth = 72
 
-      g.committia_hooks = {}
+          -- Start in insert mode if commit message is empty
+          if vim.fn.getline(1) == '' then
+            vim.cmd('startinsert')
+          end
 
-      -- Scroll the diff window from insert mode
-      -- Map <A-n> and <A-p>
-      vim.keymap.set('i', '<A-n>', '<Plug>(committia-scroll-diff-down-half', { buffer = true })
-      vim.keymap.set('i', '<A-p>', '<Plug>(committia-scroll-diff-up-half)', { buffer = true })
+          -- Scroll diff from insert mode
+          local opts = { buffer = true }
+          vim.keymap.set('i', '<C-n>', '<Plug>(committia-scroll-diff-down-half)', opts)
+          vim.keymap.set('i', '<C-p>', '<Plug>(committia-scroll-diff-up-half)', opts)
+        end,
+        diff_open = function()
+          vim.opt_local.number = true
+        end,
+      }
     end,
   },
   {
