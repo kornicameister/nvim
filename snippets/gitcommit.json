@@ -1,0 +1,62 @@
+{
+  "feat": {
+    "prefix": "feat",
+    "description": "New feature (MINOR in semver)",
+    "body": "feat(${1:scope}): ${2:description}"
+  },
+  "fix": {
+    "prefix": "fix",
+    "description": "Bug fix (PATCH in semver)",
+    "body": "fix(${1:scope}): ${2:description}"
+  },
+  "refactor": {
+    "prefix": "refactor",
+    "description": "Code change (no fix, no feature)",
+    "body": "refactor(${1:scope}): ${2:description}"
+  },
+  "chore": {
+    "prefix": "chore",
+    "description": "Maintenance, deps, tooling",
+    "body": "chore(${1:scope}): ${2:description}"
+  },
+  "docs": {
+    "prefix": "docs",
+    "description": "Documentation only",
+    "body": "docs(${1:scope}): ${2:description}"
+  },
+  "style": {
+    "prefix": "style",
+    "description": "Formatting, no code change",
+    "body": "style(${1:scope}): ${2:description}"
+  },
+  "perf": {
+    "prefix": "perf",
+    "description": "Performance improvement",
+    "body": "perf(${1:scope}): ${2:description}"
+  },
+  "test": {
+    "prefix": "test",
+    "description": "Adding/fixing tests",
+    "body": "test(${1:scope}): ${2:description}"
+  },
+  "ci": {
+    "prefix": "ci",
+    "description": "CI/CD changes",
+    "body": "ci(${1:scope}): ${2:description}"
+  },
+  "build": {
+    "prefix": "build",
+    "description": "Build system changes",
+    "body": "build(${1:scope}): ${2:description}"
+  },
+  "feat!": {
+    "prefix": "feat!",
+    "description": "Breaking feature (MAJOR in semver)",
+    "body": "feat(${1:scope})!: ${2:description}"
+  },
+  "fix!": {
+    "prefix": "fix!",
+    "description": "Breaking fix (MAJOR in semver)",
+    "body": "fix(${1:scope})!: ${2:description}"
+  }
+}

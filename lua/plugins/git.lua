@@ -1,18 +1,31 @@
 return {
-  'tpope/vim-git',
-  'octref/rootignore',
+  { 'tpope/vim-git', event = 'VeryLazy' },
+  { 'octref/rootignore', event = 'VeryLazy' },
   {
     'rhysd/committia.vim',
+    ft = 'gitcommit',
     init = function()
-      local g = vim.g
-      local vimp = require('vimp')
+      vim.g.committia_hooks = {
+        edit_open = function()
+          vim.opt_local.spell = true
+          vim.opt_local.spelllang = 'en'
+          vim.opt_local.colorcolumn = '50,72'
+          vim.opt_local.textwidth = 72
 
-      g.committia_hooks = {}
+          -- Start in insert mode if commit message is empty
+          if vim.fn.getline(1) == '' then
+            vim.cmd('startinsert')
+          end
 
-      -- Scroll the diff window from insert mode
-      -- Map <A-n> and <A-p>
-      vimp.imap({ 'buffer' }, '<A-n>', '<Plug>(committia-scroll-diff-down-half')
-      vimp.imap({ 'buffer' }, '<A-p>', '<Plug>(committia-scroll-diff-up-half)')
+          -- Scroll diff from insert mode
+          local opts = { buffer = true }
+          vim.keymap.set('i', '<C-n>', '<Plug>(committia-scroll-diff-down-half)', opts)
+          vim.keymap.set('i', '<C-p>', '<Plug>(committia-scroll-diff-up-half)', opts)
+        end,
+        diff_open = function()
+          vim.opt_local.number = true
+        end,
+      }
     end,
   },
   {
@@ -70,6 +83,16 @@ return {
         end,
         desc = 'Git: reset change',
       },
+      {
+        '<leader>gbb',
+        '<cmd>Gitsigns blame<cr>',
+        desc = 'Git: blame (buffer)',
+      },
+      {
+        '<leader>gbl',
+        '<cmd>Gitsigns blame_line<cr>',
+        desc = 'Git: blame (line)',
+      },
     },
     config = function()
       require('gitsigns').setup({
@@ -88,6 +111,7 @@ return {
   },
   {
     'sindrets/diffview.nvim',
+    cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory' },
     config = function()
       require('diffview').setup()
     end,

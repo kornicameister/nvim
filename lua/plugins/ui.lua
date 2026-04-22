@@ -1,5 +1,4 @@
 return {
-  'psliwka/vim-smoothie',
 
   {
     'kevinhwang91/nvim-ufo',
@@ -40,15 +39,12 @@ return {
         style = 'darker',
       })
 
-      vim.opt.termguicolors = true
       vim.opt.background = 'dark'
       vim.cmd([[colorscheme onedark]])
     end,
   },
   {
-    'RRethy/vim-hexokinase',
-    build = 'make hexokinase',
-    cmd = 'HexokinaseToggle',
+    'catgoose/nvim-colorizer.lua',
     ft = {
       'lua',
       'python',
@@ -58,10 +54,15 @@ return {
       'elm',
       'typescript',
       'vue',
+      'html',
+      'json',
+      'yaml',
+      'markdown',
+      'javascript',
+      'toml',
+      'conf',
     },
-    config = function()
-      vim.g.Hexokinase_highlighters = { 'virtual' }
-    end,
+    opts = {},
   },
   {
     'akinsho/nvim-bufferline.lua',
@@ -73,8 +74,6 @@ return {
       { '<Tab>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     },
     config = function()
-      vim.opt.termguicolors = true
-
       require('bufferline').setup({
         options = {
           numbers = 'buffer_id',
@@ -227,19 +226,11 @@ return {
             },
             {
               function()
-                local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-                local clients = vim.lsp.get_clients()
-                if next(clients) == nil then
-                  return
-                end
-                for _, client in ipairs(clients) do
-                  local filetypes = client.config.filetypes
-                  if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                    return client.name
-                  end
-                end
+                local count = #vim.lsp.get_clients({ bufnr = 0 })
+                if count == 0 then return '' end
+                return tostring(count)
               end,
-              icon = '  ',
+              icon = ' ',
             },
             {
               function()
@@ -334,7 +325,6 @@ return {
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = true,
         },
       },
       routes = {

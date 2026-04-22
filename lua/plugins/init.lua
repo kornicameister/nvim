@@ -23,56 +23,21 @@ require('lazy').setup({
 
   { import = 'lang.csv' },
   { import = 'lang.oas' },
+  { import = 'lang.python' },
 
   -- completion
   {
-    'hrsh7th/nvim-cmp',
+    'saghen/blink.cmp',
+    version = '1.*',
     event = 'InsertEnter',
-    config = function()
-      require('plugins.completion')
-    end,
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lua',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      {
-        'hrsh7th/vim-vsnip',
-        dependencies = {
-          'hrsh7th/vim-vsnip-integ',
-          'rafamadriz/friendly-snippets',
-        },
-      },
-      'f3fora/cmp-spell',
-      'quangnguyen30192/cmp-nvim-tags',
-    },
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    opts = require('plugins.completion'),
   },
 
   -- editor enhanced
-  'ConradIrwin/vim-bracketed-paste',
-  'scrooloose/nerdcommenter',
-  'tpope/vim-surround',
-  'andymass/vim-matchup',
-  'google/vim-searchindex',
-  'triglav/vim-visual-increment',
-
-  -- python
-  { 'lambdalisue/vim-pyenv', lazdy = true, ft = { 'python' } },
-  {
-    'Vimjas/vim-python-pep8-indent',
-    lazy = true,
-    ft = { 'python', 'python3' },
-  },
-  {
-    'mfussenegger/nvim-dap-python',
-    lazy = true,
-    ft = { 'python' },
-    dependencies = { 'nvim-neotest/neotest', 'mfussenegger/nvim-dap' },
-    config = function()
-      require('plugins.dap')
-    end,
-  },
+  { 'tpope/vim-surround', event = 'VeryLazy' },
+  { 'andymass/vim-matchup', event = 'BufReadPost' },
+  { 'triglav/vim-visual-increment', event = 'VeryLazy' },
 
   -- other languages features
   { 'gennaro-tedesco/nvim-jqx', ft = { 'json', 'yaml' } },
@@ -84,6 +49,7 @@ require('lazy').setup({
   {
     'folke/which-key.nvim',
     branch = 'main',
+    event = 'VeryLazy',
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -92,7 +58,6 @@ require('lazy').setup({
   },
 
   -- other
-  'tpope/vim-repeat',
-  'svermeulen/vimpeccable',
-  'lambdalisue/suda.vim',
+  { 'tpope/vim-repeat', event = 'VeryLazy' },
+  { 'lambdalisue/suda.vim', cmd = { 'SudaRead', 'SudaWrite' } },
 }, lazy_config)
