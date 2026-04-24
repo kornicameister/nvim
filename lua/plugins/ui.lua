@@ -132,7 +132,6 @@ return {
       end
     end,
     config = function()
-      vim.o.showmode = false
       vim.o.laststatus = vim.g.lualine_laststatus
 
       local conditions = {

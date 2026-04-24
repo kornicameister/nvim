@@ -12,6 +12,7 @@ opt.hidden = true -- keep buffers around, hide them but close them
 -- splits
 opt.splitbelow = true
 opt.splitright = true
+opt.splitkeep = 'screen'
 
 -- indent
 opt.smartindent = true
@@ -39,18 +40,25 @@ opt.showbreak = '↳'
 opt.joinspaces = true
 opt.wrap = false
 opt.wrapscan = true
+opt.linebreak = true
 vim.cmd([[ set whichwrap+=<,>,[,] ]])
 
 -- line numbers
 opt.number = true
 opt.relativenumber = true
 opt.ruler = true
+opt.signcolumn = 'yes'
+opt.cursorline = true
 
 -- misc
 opt.belloff = 'all'
 opt.modelines = 0
 opt.modeline = false
 opt.title = true
+opt.showmode = false
+opt.confirm = true
+opt.updatetime = 250
+opt.virtualedit = 'block'
 
 -- editing
 opt.inccommand = 'split'
@@ -71,6 +79,10 @@ opt.autochdir = false
 -- search
 opt.hlsearch = true
 opt.incsearch = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.grepprg = 'rg --vimgrep'
+opt.grepformat = '%f:%l:%c:%m'
 
 -- clipboard
 opt.clipboard = 'unnamedplus'
@@ -109,3 +121,8 @@ opt.viewoptions:append({ 'slash', 'unix' })
 
 -- scrolling
 opt.smoothscroll = true
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+
+-- messages
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
