@@ -19,8 +19,18 @@ return {
 
           -- Scroll diff from insert mode
           local opts = { buffer = true }
-          vim.keymap.set('i', '<C-n>', '<Plug>(committia-scroll-diff-down-half)', opts)
-          vim.keymap.set('i', '<C-p>', '<Plug>(committia-scroll-diff-up-half)', opts)
+          vim.keymap.set(
+            'i',
+            '<C-n>',
+            '<Plug>(committia-scroll-diff-down-half)',
+            opts
+          )
+          vim.keymap.set(
+            'i',
+            '<C-p>',
+            '<Plug>(committia-scroll-diff-up-half)',
+            opts
+          )
         end,
         diff_open = function()
           vim.opt_local.number = true

@@ -89,7 +89,8 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 do
   local win, buf
   local function update_lsp_float()
-    local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+    local clients =
+      vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
     if #clients == 0 then
       if win and vim.api.nvim_win_is_valid(win) then
         vim.api.nvim_win_close(win, true)
@@ -103,7 +104,9 @@ do
     for _, c in ipairs(clients) do
       local line = '  ' .. c.name
       lines[#lines + 1] = line
-      if #line > max_width then max_width = #line end
+      if #line > max_width then
+        max_width = #line
+      end
     end
 
     if not buf or not vim.api.nvim_buf_is_valid(buf) then
@@ -129,7 +132,11 @@ do
     else
       win = vim.api.nvim_open_win(buf, false, opts)
       vim.api.nvim_set_option_value('winblend', 0, { win = win })
-      vim.api.nvim_set_option_value('winhighlight', 'Normal:Comment', { win = win })
+      vim.api.nvim_set_option_value(
+        'winhighlight',
+        'Normal:Comment',
+        { win = win }
+      )
     end
   end
 

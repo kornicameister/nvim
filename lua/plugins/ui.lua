@@ -227,7 +227,9 @@ return {
             {
               function()
                 local count = #vim.lsp.get_clients({ bufnr = 0 })
-                if count == 0 then return '' end
+                if count == 0 then
+                  return ''
+                end
                 return tostring(count)
               end,
               icon = ' ',

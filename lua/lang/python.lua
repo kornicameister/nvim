@@ -1,5 +1,9 @@
 return {
-  { 'Vimjas/vim-python-pep8-indent', lazy = true, ft = { 'python', 'python3' } },
+  {
+    'Vimjas/vim-python-pep8-indent',
+    lazy = true,
+    ft = { 'python', 'python3' },
+  },
   {
     'mfussenegger/nvim-dap-python',
     lazy = true,

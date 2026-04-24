@@ -58,7 +58,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     local bufnr = args.buf
-    if not client then return end
+    if not client then
+      return
+    end
 
     -- Skip non-code buffers
     if vim.bo[bufnr].buftype ~= '' then
@@ -84,11 +86,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
       map('?', vim.lsp.buf.hover, 'LSP: Hover')
     end
 
-    map('<S-f>', function() vim.lsp.buf.format({ async = true }) end, 'LSP: Format')
+    map('<S-f>', function()
+      vim.lsp.buf.format({ async = true })
+    end, 'LSP: Format')
 
     -- Diagnostics navigation
-    map('[d', function() vim.diagnostic.jump({ count = -1 }) end, 'Prev diagnostic')
-    map(']d', function() vim.diagnostic.jump({ count = 1 }) end, 'Next diagnostic')
+    map('[d', function()
+      vim.diagnostic.jump({ count = -1 })
+    end, 'Prev diagnostic')
+    map(']d', function()
+      vim.diagnostic.jump({ count = 1 })
+    end, 'Next diagnostic')
 
     -- Go to definition/implementation (via Telescope)
     local tb = require('telescope.builtin')
@@ -108,7 +116,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
     vim.keymap.set('n', '<leader>ih', function()
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+      vim.lsp.inlay_hint.enable(
+        not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
+        { bufnr = bufnr }
+      )
     end, { buffer = bufnr, desc = 'Toggle inlay hints' })
 
     if client:supports_method('textDocument/codeLens') then
@@ -120,8 +131,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- Illuminate
-    map('<C-n>', function() require('illuminate').goto_next_reference(true) end, 'Next reference')
-    map('<C-p>', function() require('illuminate').goto_prev_reference(true) end, 'Prev reference')
+    map('<C-n>', function()
+      require('illuminate').goto_next_reference(true)
+    end, 'Next reference')
+    map('<C-p>', function()
+      require('illuminate').goto_prev_reference(true)
+    end, 'Prev reference')
   end,
 })
 

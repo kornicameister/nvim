@@ -5,9 +5,24 @@ return {
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter').install({
-        'bash', 'dockerfile', 'elm', 'go', 'html', 'java',
-        'javascript', 'json', 'lua', 'python', 'regex', 'scss',
-        'toml', 'tsx', 'typescript', 'vim', 'vue', 'yaml',
+        'bash',
+        'dockerfile',
+        'elm',
+        'go',
+        'html',
+        'java',
+        'javascript',
+        'json',
+        'lua',
+        'python',
+        'regex',
+        'scss',
+        'toml',
+        'tsx',
+        'typescript',
+        'vim',
+        'vue',
+        'yaml',
       })
 
       vim.api.nvim_create_autocmd('FileType', {
@@ -31,7 +46,9 @@ return {
       end
       vim.keymap.set('n', '<C-space>', function()
         node_sel = vim.treesitter.get_node()
-        if node_sel then select_node(node_sel) end
+        if node_sel then
+          select_node(node_sel)
+        end
       end, { desc = 'Init treesitter selection' })
       vim.keymap.set('x', '<space>', function()
         if node_sel and node_sel:parent() then
@@ -46,7 +63,10 @@ return {
         end
       end, { desc = 'Shrink treesitter selection' })
     end,
-    dependencies = { 'hiphish/rainbow-delimiters.nvim', 'windwp/nvim-ts-autotag' },
+    dependencies = {
+      'hiphish/rainbow-delimiters.nvim',
+      'windwp/nvim-ts-autotag',
+    },
   },
 
   {

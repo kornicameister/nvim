@@ -82,10 +82,25 @@ opt.wildoptions = 'pum'
 opt.wildignore = {
   '/tmp/**',
   '*/.git/**',
-  '*.ppt', '*.pptx', '*.doc', '*.docx', '*.xlt', '*.xls', '*.xlsx', '*.odt', '*.wps', '*.dll', '*.exe',
+  '*.ppt',
+  '*.pptx',
+  '*.doc',
+  '*.docx',
+  '*.xlt',
+  '*.xls',
+  '*.xlsx',
+  '*.odt',
+  '*.wps',
+  '*.dll',
+  '*.exe',
   '*/.aws-sam/*',
-  '*.pyc', '*.pyo', '*.egg', '__pycache__', '*/.venv/*',
-  '*/node_modules/*', '*/elm-stuff/*',
+  '*.pyc',
+  '*.pyo',
+  '*.egg',
+  '__pycache__',
+  '*/.venv/*',
+  '*/node_modules/*',
+  '*/elm-stuff/*',
 }
 
 -- view

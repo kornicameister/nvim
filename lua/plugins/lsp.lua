@@ -1,6 +1,6 @@
 return {
   {
-    "mason-org/mason-lspconfig.nvim",
+    'mason-org/mason-lspconfig.nvim',
     event = 'VeryLazy',
     config = function()
       require('config.lsp')

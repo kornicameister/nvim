@@ -172,13 +172,21 @@ return {
           for _, client in ipairs(vim.lsp.get_clients()) do
             if client:supports_method('workspace/didRenameFiles') then
               client:notify('workspace/didRenameFiles', {
-                files = { { oldUri = vim.uri_from_fname(args.source), newUri = vim.uri_from_fname(args.destination) } },
+                files = {
+                  {
+                    oldUri = vim.uri_from_fname(args.source),
+                    newUri = vim.uri_from_fname(args.destination),
+                  },
+                },
               })
               notified = true
             end
           end
           if not notified then
-            vim.notify('No LSP supports workspace/didRenameFiles', vim.log.levels.WARN)
+            vim.notify(
+              'No LSP supports workspace/didRenameFiles',
+              vim.log.levels.WARN
+            )
           end
         end,
       })
@@ -199,10 +207,20 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     ft = { 'python', 'typescript', 'typescriptreact' },
     keys = {
-      { '<leader>;',  '<cmd>CoverageToggle<cr>',  desc = 'Toggle coverage' },
-      { '<leader>;;', '<cmd>CoverageSummary<cr>', desc = 'Shows coverage summary' },
+      { '<leader>;', '<cmd>CoverageToggle<cr>', desc = 'Toggle coverage' },
+      {
+        '<leader>;;',
+        '<cmd>CoverageSummary<cr>',
+        desc = 'Shows coverage summary',
+      },
     },
-    cmd = { 'Coverage', 'CoverageLoad', 'CoverageToggle', 'CoverageSummary', 'CoverageClear' },
+    cmd = {
+      'Coverage',
+      'CoverageLoad',
+      'CoverageToggle',
+      'CoverageSummary',
+      'CoverageClear',
+    },
     config = function()
       require('coverage').setup({
         auto_reload = true,
@@ -281,16 +299,16 @@ return {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     keys = {
-      { '<leader><leader>',         desc = 'Telescope: git files' },
+      { '<leader><leader>', desc = 'Telescope: git files' },
       { '<leader><leader><leader>', desc = 'Telescope: files' },
-      { '<leader>bs',               desc = 'Telescope: buffer symbols' },
-      { '<leader>ws',               desc = 'Telescope: workspace symbols' },
-      { '<leader>b',                desc = 'Telescope: buffers' },
-      { '<leader>w',                desc = 'Telescope: find word' },
-      { '<leader>F',                desc = 'Telescope: live grep' },
-      { '<leader>gs',               desc = 'Telescope: git status' },
-      { '<leader>gb',               desc = 'Telescope: git branches' },
-      { '<leader>cd',               desc = 'Telescope: zoxide' },
+      { '<leader>bs', desc = 'Telescope: buffer symbols' },
+      { '<leader>ws', desc = 'Telescope: workspace symbols' },
+      { '<leader>b', desc = 'Telescope: buffers' },
+      { '<leader>w', desc = 'Telescope: find word' },
+      { '<leader>F', desc = 'Telescope: live grep' },
+      { '<leader>gs', desc = 'Telescope: git status' },
+      { '<leader>gb', desc = 'Telescope: git branches' },
+      { '<leader>cd', desc = 'Telescope: zoxide' },
     },
     config = function()
       require('plugins.telescope')
@@ -329,7 +347,10 @@ return {
   {
     'MeanderingProgrammer/render-markdown.nvim',
     ft = 'markdown',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
     opts = {},
   },
 }

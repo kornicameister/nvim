@@ -3,8 +3,12 @@ vim.filetype.add({
     ['.*%.yaml'] = {
       priority = -math.huge,
       function(_, bufnr)
-        local content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, 100, false), '\n')
-        if content:match('AWSTemplateFormatVersion') or content:match('Transform:%s*AWS::') then
+        local content =
+          table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, 100, false), '\n')
+        if
+          content:match('AWSTemplateFormatVersion')
+          or content:match('Transform:%s*AWS::')
+        then
           return 'yaml.cloudformation'
         end
       end,
@@ -12,8 +16,12 @@ vim.filetype.add({
     ['.*%.yml'] = {
       priority = -math.huge,
       function(_, bufnr)
-        local content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, 100, false), '\n')
-        if content:match('AWSTemplateFormatVersion') or content:match('Transform:%s*AWS::') then
+        local content =
+          table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, 100, false), '\n')
+        if
+          content:match('AWSTemplateFormatVersion')
+          or content:match('Transform:%s*AWS::')
+        then
           return 'yaml.cloudformation'
         end
       end,
@@ -21,7 +29,8 @@ vim.filetype.add({
     ['.*%.json'] = {
       priority = -math.huge,
       function(_, bufnr)
-        local content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, 100, false), '\n')
+        local content =
+          table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, 100, false), '\n')
         if content:match('AWSTemplateFormatVersion') then
           return 'json.cloudformation'
         end
