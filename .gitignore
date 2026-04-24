@@ -1,4 +1,2 @@
-undodir/*
-!undodir/.gitkeep
 spell/*.spl
 tags
