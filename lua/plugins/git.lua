@@ -1,4 +1,19 @@
 return {
+  {
+    'nvim-telescope/telescope.nvim',
+    keys = {
+      {
+        '<leader>gs',
+        "<cmd>lua require('telescope.builtin').git_status()<cr>",
+        desc = 'Git: status',
+      },
+      {
+        '<leader>gb',
+        "<cmd>lua require('telescope.builtin').git_branches()<cr>",
+        desc = 'Git: branches',
+      },
+    },
+  },
   { 'tpope/vim-git', event = 'VeryLazy' },
   { 'octref/rootignore', event = 'VeryLazy' },
   {
@@ -94,12 +109,12 @@ return {
         desc = 'Git: reset change',
       },
       {
-        '<leader>gbb',
+        '<leader>gBb',
         '<cmd>Gitsigns blame<cr>',
         desc = 'Git: blame (buffer)',
       },
       {
-        '<leader>gbl',
+        '<leader>gBl',
         '<cmd>Gitsigns blame_line<cr>',
         desc = 'Git: blame (line)',
       },

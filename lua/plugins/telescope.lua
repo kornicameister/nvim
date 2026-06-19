@@ -83,16 +83,6 @@ require('which-key').add({
     desc = 'Telescope: look everywhere',
   },
   {
-    '<leader>gs',
-    "<cmd>lua require('telescope.builtin').git_status()<cr>",
-    desc = 'Telescope: git status',
-  },
-  {
-    '<leader>gb',
-    "<cmd>lua require('telescope.builtin').git_branches()<cr>",
-    desc = 'Telescope: git branches',
-  },
-  {
     '<leader>cd',
     "<cmd>lua require('telescope').extensions.zoxide.list()<cr>",
     desc = 'Telescope: zoxide',

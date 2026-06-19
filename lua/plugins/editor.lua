@@ -306,8 +306,6 @@ return {
       { '<leader>b', desc = 'Telescope: buffers' },
       { '<leader>w', desc = 'Telescope: find word' },
       { '<leader>F', desc = 'Telescope: live grep' },
-      { '<leader>gs', desc = 'Telescope: git status' },
-      { '<leader>gb', desc = 'Telescope: git branches' },
       { '<leader>cd', desc = 'Telescope: zoxide' },
     },
     config = function()
