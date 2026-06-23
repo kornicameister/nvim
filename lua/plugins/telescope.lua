@@ -46,45 +46,45 @@ telescope.load_extension('lazy')
 telescope.load_extension('ui-select')
 telescope.load_extension('package_info')
 
-require('which-key').register({
-  ['<leader>'] = {
+require('which-key').add({
+  {
+    '<leader><leader>',
     "<cmd>lua require('telescope.builtin').git_files()<cr>",
-    'Telescope: git',
+    desc = 'Telescope: git',
   },
-  ['<leader><leader>'] = {
+  {
+    '<leader><leader><leader>',
     "<cmd>lua require('telescope.builtin').find_files()<cr>",
-    'Telescope: files',
+    desc = 'Telescope: files',
   },
-  ['s'] = {
+  {
+    '<leader>bs',
     "<cmd>lua require('telescope.builtin').treesitter()<cr>",
-    'Telescope: symbols',
+    desc = 'Telescope: buffer symbols',
   },
-  ['b'] = {
+  {
+    '<leader>ws',
+    "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",
+    desc = 'Telescope: workspace symbols',
+  },
+  {
+    '<leader>b',
     "<cmd>lua require('telescope.builtin').buffers()<cr>",
-    'Telescope: buffers',
+    desc = 'Telescope: buffers',
   },
-  ['w'] = {
+  {
+    '<leader>w',
     "<cmd>lua require('telescope.builtin').grep_string()<cr>",
-    'Telescope: find word',
+    desc = 'Telescope: find word',
   },
-  ['F'] = {
+  {
+    '<leader>F',
     "<cmd>lua require('telescope.builtin').live_grep()<cr>",
-    'Telescope: look everywhere',
+    desc = 'Telescope: look everywhere',
   },
-  ['gs'] = {
-    "<cmd>lua require('telescope.builtin').git_status()<cr>",
-    'Telescope: git status',
-  },
-  ['gb'] = {
-    "<cmd>lua require('telescope.builtin').git_branches()<cr>",
-    'Telescope: git branches',
-  },
-  ['cd'] = {
+  {
+    '<leader>cd',
     "<cmd>lua require('telescope').extensions.zoxide.list()<cr>",
-    'Telescope: git branches',
+    desc = 'Telescope: zoxide',
   },
-}, {
-  prefix = '<leader>',
-  noremap = true,
-  silent = true,
 })

@@ -1,16 +1,16 @@
 return {
 
-  'mfussenegger/nvim-dap',
+  { 'mfussenegger/nvim-dap', lazy = true },
   {
     'nvim-neotest/neotest',
     lazy = true,
     dependencies = {
-      'nvim-dap',
+      'mfussenegger/nvim-dap',
       'nvim-lua/plenary.nvim',
       'nvim-neotest/neotest-python',
       'nvim-neotest/nvim-nio',
       'nvim-treesitter/nvim-treesitter',
-      'which-key.nvim',
+      'folke/which-key.nvim',
       'marilari88/neotest-vitest',
     },
     keys = {

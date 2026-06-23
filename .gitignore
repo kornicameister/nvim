@@ -1,12 +1,3 @@
-autoload/*
-plugged/*
-view/*
-undodir/*
 spell/*.spl
-
-!plugged/.gitkeep
-!autoload/.gitkeep
-
-!autoload/plug.vim
-
-!undodir/.gitkeep
+tags
+undodir/
