@@ -15,7 +15,6 @@ return {
     },
   },
   { 'tpope/vim-git', event = 'VeryLazy' },
-  { 'octref/rootignore', event = 'VeryLazy' },
   {
     'rhysd/committia.vim',
     ft = 'gitcommit',
